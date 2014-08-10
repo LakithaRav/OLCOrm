@@ -6,13 +6,21 @@
 //  Copyright (c) 2014 Lakitha Samarasinghe. All rights reserved.
 //
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 #import "OLCAppDelegate.h"
+#import "OLCMigrator.h"
+#import "TestObject.h"
 
 @implementation OLCAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    [self setupTheme];
+    [self initDb];
+    
     return YES;
 }
 							
@@ -41,6 +49,23 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma OLCOrm Custom Methods
+
+- (void) setupTheme
+{
+    [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x669966)];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+}
+
+- (void) initDb
+{
+    OLCMigrator *dbH = [OLCMigrator sharedInstance:@"olcdemo.sqlite" for:[NSNumber numberWithInt:1]];
+    [dbH initDb];
+    
+    [dbH makeTable:[TestObject class]];
 }
 
 @end

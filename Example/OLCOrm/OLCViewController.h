@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OLCViewController : UIViewController
+@interface OLCViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate>
+{
+    NSArray *records;
+    BOOL isEditingMode;
+}
 
+@property (weak, nonatomic) IBOutlet UITableView *tblRecords;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *btnEdit;
+
+- (IBAction)btnAddRecord:(id)sender;
+- (IBAction)btnEditTable:(id)sender;
 @end
