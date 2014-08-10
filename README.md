@@ -21,6 +21,10 @@ OLCOrm is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
     pod "OLCOrm"
+    
+## Special Thanks
+
+    Special thanks goes to 'ccgus' for the awesome FMDB database warpper library. And to 'kevinejohn' for his NSObject-KJSerializer (https://github.com/kevinejohn/NSObject-KJSerializer) utlity class. 
 
 ## Author
 
