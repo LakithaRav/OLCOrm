@@ -14,7 +14,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 ## Dependencies
 
 FMDB - https://github.com/ccgus/fmdb
-    pod "OLCOrm"
+
+    pod "FMDB"
 
 ## Installation
 
