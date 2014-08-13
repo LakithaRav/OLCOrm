@@ -9,10 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @interface OLCMigrator : NSObject
+{
 
-+(OLCMigrator *) sharedInstance:(NSString *) database for:(NSNumber *) version;
+}
+
++(OLCMigrator *) sharedInstance:(NSString *) database version:(NSNumber *) version enableDebug:(BOOL) debug;
 +(OLCMigrator *) getSharedInstance;
 
+@property (nonatomic, assign) BOOL debugable;
 @property (nonatomic,retain) NSNumber *dbVersion;
 @property (nonatomic, retain) NSString *databasePath;
 

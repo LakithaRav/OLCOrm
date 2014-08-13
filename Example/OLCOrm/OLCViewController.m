@@ -41,7 +41,7 @@
 {
     TestObject *object = [[TestObject alloc] init];
     
-    records = [object findAll];
+    records = [object whereColumn:@"status" byOperator:@"=" forValue:@"1"];
     
     [self.tblRecords reloadData];
     
@@ -58,7 +58,7 @@
     test.addAt = [NSDate date];
     test.link = [NSURL URLWithString:@"http://google.com"];
     test.status = [NSNumber numberWithInt:1];
-    
+
     return [test save];
 }
 

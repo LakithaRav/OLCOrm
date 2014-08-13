@@ -11,14 +11,16 @@
 
 @implementation OLCMigrator
 
+static BOOL debugger = NO;
 static OLCMigrator *_sharedInt = nil;
 
-+(OLCMigrator *) sharedInstance:(NSString *) database for:(NSNumber *) version
++(OLCMigrator *) sharedInstance:(NSString *) database version:(NSNumber *) version enableDebug:(BOOL) debug
 {
     static dispatch_once_t oncePredicate;
     dispatch_once(&oncePredicate, ^{
-        
+    
         _sharedInt = [[self alloc] init];
+        _sharedInt.debugable    = debug;
         _sharedInt.databasePath = database;
         _sharedInt.dbVersion    = version;
         

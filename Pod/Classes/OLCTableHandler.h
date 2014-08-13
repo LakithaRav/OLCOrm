@@ -10,6 +10,8 @@
 
 @interface OLCTableHandler : NSObject
 
+@property (nonatomic) BOOL logEnabled;
+
 - (NSString *) createTableQuery:(Class) model;
 - (NSString *) createInsertQuery:(NSObject *) data;
 - (NSString *) createUpdateQuery:(NSObject *) data;
