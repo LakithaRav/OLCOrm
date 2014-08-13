@@ -9,13 +9,13 @@
 
 Pod::Spec.new do |s|
   s.name             = "OLCOrm"
-  s.version          = "0.0.1"
-  s.summary          = "OLCOrm is an Object Relational Mapping libaray for ios, which uses FMDB Sqlite datbase library."
+  s.version          = “0.0.2”
+  s.summary          = "OLCOrm is an Object Relational Mapping library for iOS, which uses FMDB Sqlite database library."
   s.description      = <<-DESC
-                       We all know the working with Core Data is major pain in the neck. Yet it is in a way bit easy you work with, if you get an hold of how it actaully work, working with only model calsses to update the database structre on the fly.
-                       And for those who hate to use Core Data, FMDB is you best choice. But still it lack the capability of mapping objects to models. So you  have to manullay create the databas and queries, ah.
-                       So I develop this Libaray as an wrapper library to FMDB, that handle the database, table & all other CRUD function that we use daily. To make you life easire.
-                       This libaray is still at it early stages (not even Alpha) so you are always welcome to teak thigs here and there to make this better :)
+                       We all know the working with Core Data is major pain in the neck. Yet it is in a way bit easy you work with, if you get an hold of how it actually work, working with only model classes to update the database structure on the fly.
+                       And for those who hate to use Core Data, FMDB is you best choice. But still it lack the capability of mapping objects to models. So you  have to manually create the database and queries, ah.
+                       So I develop this Library as an wrapper library to FMDB, that handle the database, table & all other CRUD function that we use daily. To make you life easier.
+                       This library is still at it early stages (not even Alpha) so you are always welcome to teak things here and there to make this better :)
                        
                        Happy Coding.
 
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   s.homepage         = "https://github.com/LakithaRav/OLCOrm"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
-  s.author           = { "Lakitha Samarasinghe" => "lakitha@fidenz.com" }
+  s.author           = { "Lakitha Samarasinghe" => "lakitharav@gmail.com” }
   s.source           = { :git => "https://github.com/LakithaRav/OLCOrm.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 

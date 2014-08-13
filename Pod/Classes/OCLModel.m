@@ -108,7 +108,46 @@
     return isDeleted;
 }
 
-- (NSObject *) find:(NSNumber *) Id
++ (NSArray*) all
+{
+    NSMutableArray *objArry = [[NSMutableArray alloc] init];
+    
+    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    
+    FMDatabase * database = [dbH getDb];
+    
+    OLCTableHandler *qH = nil;
+    
+    [database open];
+    
+    @try
+    {
+        qH = [[OLCTableHandler alloc] init];
+        
+        NSString *query = [qH createFindAllQuery:[self class]];
+        FMResultSet *results = [database executeQuery:query];
+        
+        while([results next])
+        {
+            NSObject * object = [self makeObject:results forClass:[self class]];
+            [objArry addObject:object];
+        }
+    }
+    @catch (NSException *exception)
+    {
+        NSLog(@"[%@]: DBException : %@ %@", OLC_LOG, exception.name, exception.reason);
+        
+    }
+    @finally
+    {
+        qH = nil;
+        [database close];
+    }
+    
+    return objArry;
+}
+
++ (NSObject *) find:(NSNumber *) Id
 {
     NSObject * object = nil;
     
@@ -116,16 +155,20 @@
     
     FMDatabase * database = [dbH getDb];
     
+    OLCTableHandler *qH = nil;
+    
     [database open];
     
     @try
     {
-        NSString *query = [queryH createFindByIdQuery:[self class] forId:Id];
+        qH = [[OLCTableHandler alloc] init];
+        
+        NSString *query = [qH createFindByIdQuery:[self class] forId:Id];
         FMResultSet *results = [database executeQuery:query];
         
         while([results next])
         {
-            object = [self makeObject:results forClass:[self class]];
+            object = [OCLModel makeObject:results forClass:[self class]];
         }
     }
     @catch (NSException *exception)
@@ -135,13 +178,14 @@
     }
     @finally
     {
+        qH = nil;
         [database close];
     }
     
     return object;
 }
 
-- (NSArray *) findAll
++ (NSArray *) whereColumn:(NSString *) column byOperator:(NSString *) opt forValue:(NSString *) value
 {
     NSMutableArray *objArry = [[NSMutableArray alloc] init];
     
@@ -149,16 +193,20 @@
     
     FMDatabase * database = [dbH getDb];
     
+    OLCTableHandler *qH = nil;
+    
     [database open];
     
     @try
     {
-        NSString *query = [queryH createFindAllQuery:[self class]];
-        FMResultSet *results = [database executeQuery:query];
+        qH = [[OLCTableHandler alloc] init];
         
+        NSString *query = [qH createFindWhere:[self class] forVal:value byOperator:opt inColumn:column];
+        FMResultSet *results = [database executeQuery:query];
+                
         while([results next])
         {
-            NSObject * object = [self makeObject:results forClass:[self class]];
+            NSObject * object = [OCLModel makeObject:results forClass:[self class]];
             [objArry addObject:object];
         }
     }
@@ -169,47 +217,14 @@
     }
     @finally
     {
-        [database close];
-    }
-    
-    return objArry;
-}
-
-- (NSArray *) whereColumn:(NSString *) column byOperator:(NSString *) opt forValue:(NSString *) value
-{
-    NSMutableArray *objArry = [[NSMutableArray alloc] init];
-    
-    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
-    
-    FMDatabase * database = [dbH getDb];
-    
-    [database open];
-    
-    @try
-    {
-        NSString *query = [queryH createFindWhere:[self class] forVal:value byOperator:opt inColumn:column];
-        FMResultSet *results = [database executeQuery:query];
-        
-        while([results next])
-        {
-            NSObject * object = [self makeObject:results forClass:[self class]];
-            [objArry addObject:object];
-        }
-    }
-    @catch (NSException *exception)
-    {
-        NSLog(@"[%@]: DBException : %@ %@", OLC_LOG, exception.name, exception.reason);
-        
-    }
-    @finally
-    {
+        qH = nil;
         [database close];
     }
     
     return  objArry;
 }
 
-- (NSArray *) where:(NSString *) clause sortBy:(NSString *) sorter;
++ (NSArray *) where:(NSString *) clause sortBy:(NSString *) sorter;
 {
     NSMutableArray *objArry = [[NSMutableArray alloc] init];
     
@@ -217,16 +232,20 @@
     
     FMDatabase * database = [dbH getDb];
     
+    OLCTableHandler *qH = nil;
+    
     [database open];
     
     @try
     {
-        NSString *query = [queryH createWhereQuery:[self class] withFilter:clause andSort:sorter];
+        qH = [[OLCTableHandler alloc] init];
+        
+        NSString *query = [qH createWhereQuery:[self class] withFilter:clause andSort:sorter];
         FMResultSet *results = [database executeQuery:query];
         
         while([results next])
         {
-            NSObject * object = [self makeObject:results forClass:[self class]];
+            NSObject * object = [OCLModel makeObject:results forClass:[self class]];
             [objArry addObject:object];
         }
     }
@@ -237,13 +256,14 @@
     }
     @finally
     {
+        qH = nil;
         [database close];
     }
     
     return  objArry;
 }
 
-- (NSArray *) query:(NSString *) query
++ (NSArray *) query:(NSString *) query
 {
     NSMutableArray *objArry = [[NSMutableArray alloc] init];
     
@@ -259,7 +279,7 @@
         
         while([results next])
         {
-            NSObject * object = [self makeObject:results forClass:[self class]];
+            NSObject * object = [OCLModel makeObject:results forClass:[self class]];
             [objArry addObject:object];
         }
     }
@@ -278,14 +298,14 @@
 
 #pragma private stuff
 
-- (NSObject *) makeObject:(FMResultSet *) result forClass:(Class) model
++ (NSObject *) makeObject:(FMResultSet *) result forClass:(Class) model
 {
     NSObject * object = nil;
     
     OCLObjectParser *parse = [[OCLObjectParser alloc] init];
-    NSArray *columns = [parse scanModel:[self class]];
+    NSArray *columns = [parse scanModel:model];
     
-    object = [[self class] new];
+    object = [model new];
     NSDictionary * dictionary = [object getDictionary];
     
     for(int i=0; i < [columns count]; i++)

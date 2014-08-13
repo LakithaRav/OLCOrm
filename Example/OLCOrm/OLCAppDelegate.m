@@ -55,7 +55,7 @@
 
 - (void) setupTheme
 {
-    [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x669966)];
+    [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x5AC8FB)];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }

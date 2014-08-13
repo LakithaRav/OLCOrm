@@ -39,9 +39,11 @@
 
 - (void) getAllRecords
 {
-    TestObject *object = [[TestObject alloc] init];
+    records = [TestObject all];
     
-    records = [object whereColumn:@"status" byOperator:@"=" forValue:@"1"];
+//    TestObject *record = (TestObject*) [TestObject find:[NSNumber numberWithInt:1]];
+//    records = [TestObject where:@"status = 1 AND flag != 1" sortBy:@"updateAt ASC"];
+//    records = [TestObject whereColumn:@"status" byOperator:@"=" forValue:@"1"];
     
     [self.tblRecords reloadData];
     
@@ -134,7 +136,9 @@
         
         NSString *inputText = [[alertView textFieldAtIndex:0] text];
         
-        selection.title = inputText;
+        selection.title     = inputText;
+        selection.flag      = [NSNumber numberWithInt:2];
+        selection.updateAt  = [NSDate date];
         [selection update];
         
         [self getAllRecords];

@@ -20,10 +20,10 @@
 - (BOOL) update;
 - (BOOL) delete;
 
-// COMMON STUFF
-- (NSObject *) find:(NSNumber *) Id;
-- (NSArray *) findAll;
-- (NSArray *) whereColumn:(NSString *) column byOperator:(NSString *) opt forValue:(NSString *) value;
-- (NSArray *) where:(NSString *) clause sortBy:(NSString *) sorter;
-- (NSArray *) query:(NSString *) query;
+// STATIC STUFF
++ (NSObject *) find:(NSNumber *) Id;
++ (NSArray*) all;
++ (NSArray *) whereColumn:(NSString *) column byOperator:(NSString *) opt forValue:(NSString *) value;
++ (NSArray *) where:(NSString *) clause sortBy:(NSString *) sorter;
++ (NSArray *) query:(NSString *) query;
 @end
