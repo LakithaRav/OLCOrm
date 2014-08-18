@@ -7,7 +7,13 @@
 //
 
 #import "TestObject.h"
+#import "UserObject.h"
 
 @implementation TestObject
+
+- (UserObject *) hasUser
+{
+    return (UserObject*) [self hasOne:[UserObject class] foreignKeyCol:@"userId" primaryKeyCol:@"Id"];
+}
 
 @end

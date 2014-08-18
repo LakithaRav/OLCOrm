@@ -20,6 +20,11 @@
 - (BOOL) update;
 - (BOOL) delete;
 
+// RELATIONSHIPS
+- (NSObject *) hasOne:(Class) model foreignKeyCol:(NSString *) fkey primaryKeyCol:(NSString *) pkey;
+- (NSArray *) hasMany:(Class) model foreignKeyCol:(NSString *) fkey primaryKeyCol:(NSString *) pkey;
+//- (NSArray *) belongToMany:(Class) model inMapping:(Class) mapmodel foreignKeyCol:(NSString *) fkey primaryKeyCOl:(NSString *) pkey;
+
 // STATIC STUFF
 + (NSObject *) find:(NSNumber *) Id;
 + (NSArray*) all;

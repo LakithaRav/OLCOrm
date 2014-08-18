@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0BD1792AC82A40BAA67DD57A /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 393F4EE1AB4845F2B900C603 /* libPods-Tests.a */; };
+		1858568219A1BBA300DD3B88 /* UserObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1858568119A1BBA300DD3B88 /* UserObject.m */; };
 		18839617199B856400D17B73 /* TestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 18839616199B856400D17B73 /* TestObject.m */; };
 		23FA6DB50D85484D8D65C77E /* libPods-OLCOrm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EA25A5175774A818AC5137C /* libPods-OLCOrm.a */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1858568019A1BBA300DD3B88 /* UserObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserObject.h; path = models/UserObject.h; sourceTree = "<group>"; };
+		1858568119A1BBA300DD3B88 /* UserObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserObject.m; path = models/UserObject.m; sourceTree = "<group>"; };
 		18839616199B856400D17B73 /* TestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestObject.m; path = models/TestObject.m; sourceTree = "<group>"; };
 		18ABDFD61997397600AE5D13 /* TestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestObject.h; path = models/TestObject.h; sourceTree = "<group>"; };
 		393F4EE1AB4845F2B900C603 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,8 +102,10 @@
 		18ABDFD51997395500AE5D13 /* models */ = {
 			isa = PBXGroup;
 			children = (
-				18839616199B856400D17B73 /* TestObject.m */,
 				18ABDFD61997397600AE5D13 /* TestObject.h */,
+				18839616199B856400D17B73 /* TestObject.m */,
+				1858568019A1BBA300DD3B88 /* UserObject.h */,
+				1858568119A1BBA300DD3B88 /* UserObject.m */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -365,6 +370,7 @@
 				6003F59E195388D20070C39A /* OLCAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* OLCViewController.m in Sources */,
 				18839617199B856400D17B73 /* TestObject.m in Sources */,
+				1858568219A1BBA300DD3B88 /* UserObject.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

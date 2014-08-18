@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "OCLModel.h"
 
+@class UserObject;
+
 @interface TestObject : OCLModel
 
 @property (nonatomic, retain) NSNumber* Id;
@@ -20,6 +22,9 @@
 @property (nonatomic, retain) NSDate *updateAt;
 @property (nonatomic, retain) NSData *data;
 @property (nonatomic, retain) NSURL *link;
-@property (nonatomic, assign) NSNumber* status;
+@property (nonatomic, retain) NSNumber* userId;
+@property (nonatomic, retain) NSNumber* status;
+
+- (UserObject *) hasUser;
 
 @end

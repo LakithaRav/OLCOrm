@@ -271,4 +271,97 @@
     return selectQuery;
 }
 
+- (NSString *) createOneToOneRelationQuery:(NSObject *) data foreignClass:(Class) fmodel foreignKey:(NSString *) fkey primaryKey:(NSString *) pkey
+{
+    NSMutableString *selectQuery = [[NSMutableString alloc] init];
+    
+    OCLObjectParser *parse = [[OCLObjectParser alloc] init];
+    NSArray *columns = [parse parseObject:data];
+    
+    NSNumber * Id = nil;
+    for(int i=0; i < [columns count]; i++)
+    {
+        NSDictionary *keyval = (NSDictionary *) columns[i];
+        
+        NSString *colName = [keyval valueForKey:@"column"];
+        if([colName isEqualToString:@"id"] || [colName isEqualToString:@"Id"] || [colName isEqualToString:@"ID"] )
+        {
+            Id = [keyval valueForKey:@"value"];
+            break;
+        }
+    }
+    
+    [selectQuery appendString:@"SELECT b.* FROM "];
+    [selectQuery appendString:[NSString stringWithFormat:@"%@ a ", [data class]]];
+    [selectQuery appendString:[NSString stringWithFormat:@"INNER JOIN %@ b ", fmodel]];
+    [selectQuery appendString:[NSString stringWithFormat:@"ON a.%@ = b.%@ ", fkey, pkey]];
+    [selectQuery appendString:[NSString stringWithFormat:@"WHERE a.%@ = %@ ", pkey, Id]];
+    [selectQuery appendString:[NSString stringWithFormat:@"ORDER BY a.%@ ", pkey]];
+    
+    [selectQuery appendString:@";"];
+    
+    NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], selectQuery);
+    
+    return selectQuery;
+}
+
+- (NSString *) createOneToManyRelationQuery:(NSObject *) data foreignClass:(Class) fmodel foreignKey:(NSString *) fkey primaryKey:(NSString *) pkey
+{
+    NSMutableString *selectQuery = [[NSMutableString alloc] init];
+    
+    OCLObjectParser *parse = [[OCLObjectParser alloc] init];
+    NSArray *columns = [parse parseObject:data];
+    
+    NSNumber * Id = nil;
+    for(int i=0; i < [columns count]; i++)
+    {
+        NSDictionary *keyval = (NSDictionary *) columns[i];
+        
+        NSString *colName = [keyval valueForKey:@"column"];
+        if([colName isEqualToString:@"id"] || [colName isEqualToString:@"Id"] || [colName isEqualToString:@"ID"] )
+        {
+            Id = [keyval valueForKey:@"value"];
+            break;
+        }
+    }
+    
+    [selectQuery appendString:@"SELECT b.* FROM "];
+    [selectQuery appendString:[NSString stringWithFormat:@"%@ a ", [data class]]];
+    [selectQuery appendString:[NSString stringWithFormat:@"LEFT JOIN %@ b ", fmodel]];
+    [selectQuery appendString:[NSString stringWithFormat:@"ON a.%@ = b.%@ ", pkey, fkey]];
+    [selectQuery appendString:[NSString stringWithFormat:@"WHERE a.%@ = %@ ", pkey, Id]];
+    [selectQuery appendString:[NSString stringWithFormat:@"ORDER BY a.%@ ", pkey]];
+    
+    [selectQuery appendString:@";"];
+    
+    NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], selectQuery);
+    
+    return selectQuery;
+}
+
+//- (NSString *) createManyToManyRelationQuery:(Class) model foreignClass:(Class) fmodel foreignKey:(NSString *) fkey primaryKey:(NSString *) pkey
+//{
+////    SELECT
+////    m.name
+////    , w.*
+////    FROM
+////    man m
+////    INNER JOIN manWork mw ON m.id = mw.man_id
+////    INNER JOIN work w ON mw.work_id = w.work_id
+//    
+//    NSMutableString *selectQuery = [[NSMutableString alloc] init];
+//    
+//    [selectQuery appendString:@"SELECT b.* FROM "];
+//    [selectQuery appendString:[NSString stringWithFormat:@"%@ a ", model]];
+//    [selectQuery appendString:[NSString stringWithFormat:@"INNER JOIN %@ b ", fmodel]];
+//    [selectQuery appendString:[NSString stringWithFormat:@"ON a.%@ = b.%@ ", pkey, fkey]];
+//    [selectQuery appendString:[NSString stringWithFormat:@"ORDER BY %@ ", pkey]];
+//    
+//    [selectQuery appendString:@";"];
+//    
+//    NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, selectQuery);
+//    
+//    return selectQuery;
+//}
+
 @end

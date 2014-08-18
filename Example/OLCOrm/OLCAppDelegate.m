@@ -11,6 +11,7 @@
 #import "OLCAppDelegate.h"
 #import "OLCMigrator.h"
 #import "TestObject.h"
+#import "UserObject.h"
 
 @implementation OLCAppDelegate
 
@@ -62,10 +63,11 @@
 
 - (void) initDb
 {
-    OLCMigrator *dbH = [OLCMigrator sharedInstance:@"olcdemo.sqlite" version:[NSNumber numberWithInt:1] enableDebug:NO];
+    OLCMigrator *dbH = [OLCMigrator sharedInstance:@"olcdemo.sqlite" version:[NSNumber numberWithInt:3] enableDebug:NO];
     [dbH initDb];
     
     [dbH makeTable:[TestObject class]];
+    [dbH makeTable:[UserObject class]];
 }
 
 @end

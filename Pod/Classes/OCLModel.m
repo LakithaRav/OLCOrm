@@ -296,6 +296,92 @@
     return  objArry;
 }
 
+#pragma Managing Relationships
+
+- (NSObject *) hasOne:(Class) model foreignKeyCol:(NSString *) fkey primaryKeyCol:(NSString *) pkey
+{
+    NSObject * object = nil;
+    
+    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    
+    FMDatabase * database = [dbH getDb];
+    
+    OLCTableHandler *qH = nil;
+    
+    [database open];
+    
+    @try
+    {
+        qH = [[OLCTableHandler alloc] init];
+        
+        NSString *query = [qH createOneToOneRelationQuery:self foreignClass:model foreignKey:fkey primaryKey:pkey];
+        FMResultSet *results = [database executeQuery:query];
+        
+        while([results next])
+        {
+            object = [OCLModel makeObject:results forClass:model];
+        }
+    }
+    @catch (NSException *exception)
+    {
+        NSLog(@"[%@]: DBException : %@ %@", OLC_LOG, exception.name, exception.reason);
+        
+    }
+    @finally
+    {
+        qH = nil;
+        [database close];
+    }
+    
+    return object;
+}
+
+- (NSArray *) hasMany:(Class) model foreignKeyCol:(NSString *) fkey primaryKeyCol:(NSString *) pkey
+{
+    NSMutableArray *objArry = [[NSMutableArray alloc] init];
+    
+    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    
+    FMDatabase * database = [dbH getDb];
+    
+    OLCTableHandler *qH = nil;
+    
+    [database open];
+    
+    @try
+    {
+        qH = [[OLCTableHandler alloc] init];
+        
+        NSString *query = [qH createOneToManyRelationQuery:self foreignClass:model foreignKey:fkey primaryKey:pkey];
+        FMResultSet *results = [database executeQuery:query];
+        
+        while([results next])
+        {
+            NSObject * object = [OCLModel makeObject:results forClass:model];
+            [objArry addObject:object];
+        }
+    }
+    @catch (NSException *exception)
+    {
+        NSLog(@"[%@]: DBException : %@ %@", OLC_LOG, exception.name, exception.reason);
+        
+    }
+    @finally
+    {
+        qH = nil;
+        [database close];
+    }
+    
+    return  objArry;
+}
+
+//- (NSArray *) belongToMany:(Class) model inMapping:(Class) mapmodel foreignKeyCol:(NSString *) fkey primaryKeyCol:(NSString *) pkey
+//{
+//    NSArray * records = [[NSArray alloc] init];
+//    
+//    return records;
+//}
+
 #pragma private stuff
 
 + (NSObject *) makeObject:(FMResultSet *) result forClass:(Class) model

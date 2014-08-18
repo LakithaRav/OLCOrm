@@ -79,15 +79,15 @@ First option is the strait foward way of creating a table and let the database i
     
 ** Querying the Database **
 
-    NSArray *allRecords = [test findAll];
+    NSArray *allRecords = [TestObject all];
     
-    TestObject *findObj = [test find:[NSNumber numberWithInt:1]];
+    TestObject *findObj = [TestObject find:[NSNumber numberWithInt:1]];
     
-    NSArray *searchObjs = [test whereColumn:@"search_column" byOperator:@">=" forValue:@"4"];
+    NSArray *searchObjs = [TestObject whereColumn:@"search_column" byOperator:@">=" forValue:@"4"];
     
-    NSArray *searchObjs = [test where:@"column_1 = 2 AND column_2 > 12" sortBy:@"column_1 ASC"];
+    NSArray *searchObjs = [TestObject where:@"column_1 = 2 AND column_2 > 12" sortBy:@"column_1 ASC"];
     
-    NSArray *searchObjs = [test query:@"SELECT * FROM myTable WHERE STATUS = 1"];
+    NSArray *searchObjs = [TestObject query:@"SELECT * FROM myTable WHERE STATUS = 1"];
 
 ## Special Thanks
 

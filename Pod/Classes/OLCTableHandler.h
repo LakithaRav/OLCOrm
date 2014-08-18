@@ -22,4 +22,7 @@
 - (NSString *) createWhereQuery:(Class) model withFilter:(NSString *) filter andSort:(NSString *) sorter;
 - (NSString *) createFindWhere:(Class) model forVal:(NSString *) value byOperator:(NSString *) opt inColumn:(NSString *) column;
 
+- (NSString *) createOneToOneRelationQuery:(NSObject *) data foreignClass:(Class) fmodel foreignKey:(NSString *) fkey primaryKey:(NSString *) pkey;
+- (NSString *) createOneToManyRelationQuery:(NSObject *) data foreignClass:(Class) fmodel foreignKey:(NSString *) fkey primaryKey:(NSString *) pkey;
+
 @end

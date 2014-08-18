@@ -8,6 +8,7 @@
 
 #import "OLCViewController.h"
 #import "TestObject.h"
+#import "UserObject.h"
 
 @interface OLCViewController ()
 
@@ -32,10 +33,26 @@
     
     records = [[NSArray alloc] init];
     
+    [self makeSampleUser];
+    
     [self getAllRecords];
 }
 
 #pragma OLCOrm Functions
+
+- (void) makeSampleUser
+{
+    if([UserObject find:[NSNumber numberWithInt:1]] == nil)
+    {
+        UserObject *user = [[UserObject alloc] init];
+        
+        user.name = @"Jhon Doe";
+        user.desc = @"This is a sample user";
+        user.status = [NSNumber numberWithInt:1];
+        
+        [user save];
+    }
+}
 
 - (void) getAllRecords
 {
@@ -51,6 +68,8 @@
 
 - (BOOL) addNewRecord
 {
+    UserObject *user = (UserObject *) [UserObject find:[NSNumber numberWithInt:1]];
+    
     TestObject *test = [[TestObject alloc] init];
     
     test.title = [NSString stringWithFormat:@"Sample Record %d", [records count]];
@@ -59,6 +78,7 @@
     test.flag = [NSNumber numberWithInt:1];
     test.addAt = [NSDate date];
     test.link = [NSURL URLWithString:@"http://google.com"];
+    test.userId = user.Id;
     test.status = [NSNumber numberWithInt:1];
 
     return [test save];
@@ -140,6 +160,11 @@
         selection.flag      = [NSNumber numberWithInt:2];
         selection.updateAt  = [NSDate date];
         [selection update];
+        
+        UserObject *user = [selection hasUser];
+        NSLog(@"User : %@", user.name);
+        
+        NSArray *objs = [user hasTests];
         
         [self getAllRecords];
     }
