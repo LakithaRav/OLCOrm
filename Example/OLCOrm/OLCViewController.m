@@ -165,6 +165,7 @@
         NSLog(@"User : %@", user.name);
         
         NSArray *objs = [user hasTests];
+        NSLog(@"Record Count : %lu", (unsigned long)[objs count]);
         
         [self getAllRecords];
     }

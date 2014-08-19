@@ -18,10 +18,10 @@
 @property (nonatomic, retain) NSNumber* coordinates;
 @property (nonatomic, retain) NSNumber* currency;
 @property (nonatomic, retain) NSNumber* flag;
-@property (nonatomic, retain) NSDate *addAt;
-@property (nonatomic, retain) NSDate *updateAt;
-@property (nonatomic, retain) NSData *data;
-@property (nonatomic, retain) NSURL *link;
+@property (nonatomic, retain) NSDate* addAt;
+@property (nonatomic, retain) NSDate* updateAt;
+@property (nonatomic, retain) NSData* data;
+@property (nonatomic, retain) NSURL* link;
 @property (nonatomic, retain) NSNumber* userId;
 @property (nonatomic, retain) NSNumber* status;
 

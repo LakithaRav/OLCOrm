@@ -1,4 +1,4 @@
-# OLCOrm v0.0.2
+# OLCOrm v0.0.3
 
 [![CI Status](http://img.shields.io/travis/Lakitha Samarasinghe/OLCOrm.svg?style=flat)](https://travis-ci.org/Lakitha Samarasinghe/OLCOrm)
 [![Version](https://img.shields.io/cocoapods/v/OLCOrm.svg?style=flat)](http://cocoadocs.org/docsets/OLCOrm)
@@ -23,6 +23,12 @@ OLCOrm is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
     pod "OLCOrm"
+    
+## What's new ?
+
+2014-08-19
+
+> Basic relationship mapping added to the lib. One-to-One and One-to-Many relations.
 
 ## Usage
 
@@ -37,7 +43,7 @@ import the "OLCMigrator.h" class first.
 
 Creating a database is pretty straightforward, all you need to do is add this line to your AppDelegate.m file, at 'didFinishLaunchingWithOptions' method.
 
-    OLCMigrator *dbH = [OLCMigrator sharedInstance:@"olcdemo.sqlite" version:[NSNumber numberWithInt:1]];
+    OLCMigrator *dbH = [OLCMigrator sharedInstance:@"olcdemo.sqlite" version:[NSNumber numberWithInt:1] enableDebug:NO];
     [dbH initDb];
     
 here 'version' is the database version that you must manage. Normaly you will need to update this as you update your model classes. *WARNING: When you update your model and run the app again, it will drop all tables from the database and add them back with updates.
@@ -88,6 +94,34 @@ First option is the strait foward way of creating a table and let the database i
     NSArray *searchObjs = [TestObject where:@"column_1 = 2 AND column_2 > 12" sortBy:@"column_1 ASC"];
     
     NSArray *searchObjs = [TestObject query:@"SELECT * FROM myTable WHERE STATUS = 1"];
+    
+** Working with Relationships **
+
+One-to-One
+
+    [self hasOne:<Model class> foreignKeyCol:<Foreign Key> primaryKeyCol:<Primary Key>]
+    
+Exsample:
+
+Add this method to your model class
+    
+    - (UserObject *) hasUser
+    {
+        return (UserObject*) [self hasOne:[UserObject class] foreignKeyCol:@"userId" primaryKeyCol:@"Id"];
+    }
+    
+One-to-Many
+
+    [self hasMany:<Model class> foreignKeyCol:<Foreign Key> primaryKeyCol:<Primary Key>];
+    
+Exsample:
+
+Add this method to your model class
+    
+    - (NSArray *) hasTests
+    {
+        return [self hasMany:[TestObject class] foreignKeyCol:@"userId" primaryKeyCol:@"Id"];
+    }
 
 ## Special Thanks
 
@@ -107,7 +141,7 @@ Happy Coding.
 
 ## Author
 
-Lakitha Samarasinghe, lakitha@fidenz.com
+Lakitha Samarasinghe, lakitharav@gmail.com
 
 ## License
 
