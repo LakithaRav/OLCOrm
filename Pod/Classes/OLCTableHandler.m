@@ -383,4 +383,29 @@
     return selectQuery;
 }
 
+- (NSString *) createTruncateTableQuery:(Class) model
+{
+    NSMutableString *truncateQuery = [[NSMutableString alloc] init];
+    
+    [truncateQuery appendString:@"DELETE FROM "];
+    [truncateQuery appendString:[NSString stringWithFormat:@"%@; ", model]];
+    [truncateQuery appendString:[NSString stringWithFormat:@"DELETE FROM sqlite_sequence WHERE name='%@';", model] ];
+    [truncateQuery appendString:@"VACUUM; "];
+    
+    NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, truncateQuery);
+    
+    return truncateQuery;
+}
+
+- (NSString *) createLastInsertRecordIdQuery:(Class) model
+{
+    NSMutableString *truncateQuery = [[NSMutableString alloc] init];
+    
+    [truncateQuery appendString:@"SELECT last_insert_rowid() as last_insert_rowid; "];
+    
+    NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, truncateQuery);
+    
+    return truncateQuery;
+}
+
 @end

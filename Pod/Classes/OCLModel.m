@@ -52,6 +52,50 @@
     return isAdded;
 }
 
+- (NSNumber*) saveAndGetId
+{
+    NSNumber *recordId = NO;
+    
+    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    
+    FMDatabase * database = [dbH getDb];
+    
+    [database open];
+    
+    @try
+    {
+        NSString *query = [queryH createInsertQuery:self];
+        BOOL isAdded = [database executeStatements:query];
+        
+        if(isAdded)
+        {
+            query = [queryH createLastInsertRecordIdQuery:[self class]];
+            FMResultSet *results = [database executeQuery:query];
+            
+            while([results next])
+            {
+                int i = [results intForColumn:@"last_insert_rowid"];
+                recordId = [NSNumber numberWithInt:i];
+            }
+        }
+        else
+        {
+            recordId = [NSNumber numberWithInt:-1];
+        }
+    }
+    @catch (NSException *exception)
+    {
+        NSLog(@"[%@]: DBException : %@ %@", OLC_LOG, exception.name, exception.reason);
+        
+    }
+    @finally
+    {
+        [database close];
+    }
+    
+    return recordId;
+}
+
 - (BOOL) update
 {
     BOOL isUpdated = NO;
@@ -373,6 +417,38 @@
     }
     
     return  objArry;
+}
+
++ (BOOL) truncateTable
+{
+    BOOL isDeleted = NO;
+    
+    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    
+    FMDatabase * database = [dbH getDb];
+    
+    OLCTableHandler *qH = nil;
+    
+    [database open];
+    
+    @try
+    {
+        qH = [[OLCTableHandler alloc] init];
+        
+        NSString *query = [qH createTruncateTableQuery:[self class]];
+        isDeleted = [database executeStatements:query];
+    }
+    @catch (NSException *exception)
+    {
+        NSLog(@"[%@]: DBException : %@ %@", OLC_LOG, exception.name, exception.reason);
+        
+    }
+    @finally
+    {
+        [database close];
+    }
+    
+    return isDeleted;
 }
 
 //- (NSArray *) belongToMany:(Class) model inMapping:(Class) mapmodel foreignKeyCol:(NSString *) fkey primaryKeyCol:(NSString *) pkey

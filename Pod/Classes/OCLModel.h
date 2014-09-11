@@ -17,6 +17,7 @@
 
 // CRUD OPTS.
 - (BOOL) save;
+- (NSNumber*) saveAndGetId;
 - (BOOL) update;
 - (BOOL) delete;
 
@@ -31,4 +32,5 @@
 + (NSArray *) whereColumn:(NSString *) column byOperator:(NSString *) opt forValue:(NSString *) value;
 + (NSArray *) where:(NSString *) clause sortBy:(NSString *) sorter;
 + (NSArray *) query:(NSString *) query;
++ (BOOL) truncateTable;
 @end

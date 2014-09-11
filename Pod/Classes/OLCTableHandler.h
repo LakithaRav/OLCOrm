@@ -25,4 +25,7 @@
 - (NSString *) createOneToOneRelationQuery:(NSObject *) data foreignClass:(Class) fmodel foreignKey:(NSString *) fkey primaryKey:(NSString *) pkey;
 - (NSString *) createOneToManyRelationQuery:(NSObject *) data foreignClass:(Class) fmodel foreignKey:(NSString *) fkey primaryKey:(NSString *) pkey;
 
+- (NSString *) createTruncateTableQuery:(Class) model;
+- (NSString *) createLastInsertRecordIdQuery:(Class) model;
+
 @end

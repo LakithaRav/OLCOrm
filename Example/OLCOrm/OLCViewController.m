@@ -50,7 +50,7 @@
         user.desc = @"This is a sample user";
         user.status = [NSNumber numberWithInt:1];
         
-        [user save];
+        NSNumber *index = [user saveAndGetId];
     }
 }
 
@@ -175,7 +175,8 @@
 
 - (void) promptChangeTitleAlert:(int) rowIndex
 {
-    TestObject *selection = [records objectAtIndex:rowIndex];
+//    TestObject *selection = [records objectAtIndex:rowIndex];
+    TestObject *selection = [records objectAtIndex:10000];
     
     UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Change record title"
                                                       message:selection.title
