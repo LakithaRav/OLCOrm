@@ -68,8 +68,10 @@
 
 #pragma table CRUD -R operators
 
-- (NSString *) createInsertQuery:(NSObject *) data
+- (NSDictionary *) createInsertQuery:(NSObject *) data
 {
+    NSMutableDictionary *queryData = [[NSMutableDictionary alloc] init];
+    
     OCLObjectParser *parse = [[OCLObjectParser alloc] init];
     NSArray *columns = [parse parseObject:data];
     
@@ -80,6 +82,7 @@
     
     NSMutableString *cols = [[NSMutableString alloc] init];
     NSMutableString *vals = [[NSMutableString alloc] init];
+    NSMutableDictionary *paraDic = [[NSMutableDictionary alloc] init];
     
     for(int i=0; i < [columns count]; i++)
     {
@@ -97,35 +100,56 @@
         }
         
         if(isLastColumn)
-            [cols appendString:[NSString stringWithFormat:@"%@ ", [keyval valueForKey:@"column"]]];
+            [cols appendString:[NSString stringWithFormat:@"%@", [keyval valueForKey:@"column"]]];
         else
-            [cols appendString:[NSString stringWithFormat:@"%@, ", [keyval valueForKey:@"column"]]];
+            [cols appendString:[NSString stringWithFormat:@"%@,", [keyval valueForKey:@"column"]]];
         
         if(isLastColumn)
-            [vals appendString:[NSString stringWithFormat:@"'%@' ", [keyval valueForKey:@"value"]]];
+        {
+//            [vals appendString:[NSString stringWithFormat:@"'%@' ", [keyval valueForKey:@"value"]]];
+            [vals appendString:[NSString stringWithFormat:@":%@", [keyval valueForKey:@"column"]]];
+        }
         else
-            [vals appendString:[NSString stringWithFormat:@"'%@', ", [keyval valueForKey:@"value"]]];
+        {
+//            [vals appendString:[NSString stringWithFormat:@"'%@', ", [keyval valueForKey:@"value"]]];
+            [vals appendString:[NSString stringWithFormat:@":%@,", [keyval valueForKey:@"column"]]];
+        }
+        
+        NSString *value = [keyval valueForKey:@"value"];
+        
+        if(value == nil) value = @"";
+        
+        [paraDic setValue:value forKey:[keyval valueForKey:@"column"]];
+        
     }
     
-    [insertQuery appendString:@"( "];
+    [insertQuery appendString:@"("];
     [insertQuery appendString:cols];
     [insertQuery appendString:@") "];
     [insertQuery appendString:@"VALUES "];
-    [insertQuery appendString:@"( "];
+    [insertQuery appendString:@"("];
     [insertQuery appendString:vals];
     [insertQuery appendString:@"); "];
     
+    [queryData setValue:insertQuery forKey:OLC_D_QUERY];
+    [queryData setObject:paraDic forKey:OLC_D_DATA];
+    
     NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], insertQuery);
     
-    return insertQuery;
+    return queryData;
 }
 
-- (NSString *) createUpdateQuery:(NSObject *) data
+- (NSDictionary *) createUpdateQuery:(NSObject *) data
 {
+    NSMutableDictionary *queryData = [[NSMutableDictionary alloc] init];
+    
     OCLObjectParser *parse = [[OCLObjectParser alloc] init];
     NSArray *columns = [parse parseObject:data];
     
     NSMutableString *updateQuery = [[NSMutableString alloc] init];
+    
+    NSMutableString *vals = [[NSMutableString alloc] init];
+    NSMutableDictionary *paraDic = [[NSMutableDictionary alloc] init];
     
     [updateQuery appendString:@"UPDATE "];
     [updateQuery appendString:[NSString stringWithFormat:@"%@ ", [data class]]];
@@ -143,22 +167,42 @@
         
         if([colName isEqualToString:@"id"] || [colName isEqualToString:@"Id"] || [colName isEqualToString:@"ID"] )
         {
-            where = [NSString stringWithFormat:@"WHERE %@='%@'", [keyval valueForKey:@"column"], [keyval valueForKey:@"value"]];
-            continue;
+            [vals appendString:[NSString stringWithFormat:@":%@", colName]];
+//            where = [NSString stringWithFormat:@"WHERE %@='%@'", [keyval valueForKey:@"column"], [keyval valueForKey:@"value"]];
+            where = [NSString stringWithFormat:@"WHERE %@=:%@", colName, colName];
+        }
+        else
+        {
+            if(isLastColumn)
+            {
+                [vals appendString:[NSString stringWithFormat:@":%@", colName]];
+    //            [updateQuery appendString:[NSString stringWithFormat:@"%@='%@' ",    [keyval valueForKey:@"column"], [keyval valueForKey:@"value"]]];
+                [updateQuery appendString:[NSString stringWithFormat:@"%@=:%@ ", colName, colName]];
+            }
+            else
+            {
+                [vals appendString:[NSString stringWithFormat:@":%@,", colName]];
+    //            [updateQuery appendString:[NSString stringWithFormat:@"%@='%@', ",   [keyval valueForKey:@"column"], [keyval valueForKey:@"value"]]];
+                [updateQuery appendString:[NSString stringWithFormat:@"%@=:%@, ", colName, colName]];
+            }
         }
         
-        if(isLastColumn)
-            [updateQuery appendString:[NSString stringWithFormat:@"%@='%@' ",    [keyval valueForKey:@"column"], [keyval valueForKey:@"value"]]];
-        else
-            [updateQuery appendString:[NSString stringWithFormat:@"%@='%@', ",   [keyval valueForKey:@"column"], [keyval valueForKey:@"value"]]];
+        NSString *value = [keyval valueForKey:@"value"];
+        
+        if(value == nil) value = @"";
+        
+        [paraDic setValue:value forKey:colName];
     }
     
     [updateQuery appendString:where];
     [updateQuery appendString:@";"];
     
+    [queryData setValue:updateQuery forKey:OLC_D_QUERY];
+    [queryData setObject:paraDic forKey:OLC_D_DATA];
+    
     NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], updateQuery);
     
-    return updateQuery;
+    return queryData;
 }
 
 - (NSString *) createDeleteQuery:(NSObject *) data
@@ -239,20 +283,28 @@
     return selectQuery;
 }
 
-- (NSString *) createFindWhere:(Class) model forVal:(NSString *) value byOperator:(NSString *) opt inColumn:(NSString *) column
+- (NSDictionary *) createFindWhere:(Class) model forVal:(NSString *) value byOperator:(NSString *) opt inColumn:(NSString *) column
 {
+    NSMutableDictionary *queryData = [[NSMutableDictionary alloc] init];
+    
     NSMutableString *selectQuery = [[NSMutableString alloc] init];
     
     [selectQuery appendString:@"SELECT * FROM "];
     [selectQuery appendString:[NSString stringWithFormat:@"%@ ", model]];
     
-    [selectQuery appendString:[NSString stringWithFormat:@"WHERE %@ %@ '%@'", column, opt, value]];
+    [selectQuery appendString:[NSString stringWithFormat:@"WHERE %@ %@ :%@", column, opt, column]];
     
     [selectQuery appendString:@";"];
     
+    NSMutableDictionary *valueDic = [[NSMutableDictionary alloc] init];
+    [valueDic setValue:value forKey:column];
+    
+    [queryData setValue:selectQuery forKey:OLC_D_QUERY];
+    [queryData setObject:valueDic forKey:OLC_D_DATA];
+    
     NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, selectQuery);
     
-    return selectQuery;
+    return queryData;
 }
 
 - (NSString *) createWhereQuery:(Class) model withFilter:(NSString *) filter andSort:(NSString *) sorter
@@ -297,7 +349,6 @@
     [selectQuery appendString:[NSString stringWithFormat:@"ON a.%@ = b.%@ ", fkey, pkey]];
     [selectQuery appendString:[NSString stringWithFormat:@"WHERE a.%@ = %@ ", pkey, Id]];
     [selectQuery appendString:[NSString stringWithFormat:@"ORDER BY a.%@ ", pkey]];
-    
     [selectQuery appendString:@";"];
     
     NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], selectQuery);
@@ -407,5 +458,13 @@
     
     return truncateQuery;
 }
+
+//- (NSString *) filterEscapChar:(NSString *) value
+//{
+//    for (NSString* item in TEST)
+//    {
+//        
+//    }
+//}
 
 @end

@@ -15,6 +15,8 @@
     OLCTableHandler *queryH;
 }
 
+@property (nonatomic, retain) NSNumber* Id;
+
 // CRUD OPTS.
 - (BOOL) save;
 - (NSNumber*) saveAndGetId;

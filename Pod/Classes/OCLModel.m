@@ -36,8 +36,8 @@
     
     @try
     {
-        NSString *query = [queryH createInsertQuery:self];
-        isAdded = [database executeStatements:query];
+        NSDictionary *queryData = [queryH createInsertQuery:self];
+        isAdded = [database executeUpdate:[queryData valueForKey:OLC_D_QUERY] withParameterDictionary:[queryData valueForKey:OLC_D_DATA]];
     }
     @catch (NSException *exception)
     {
@@ -64,12 +64,12 @@
     
     @try
     {
-        NSString *query = [queryH createInsertQuery:self];
-        BOOL isAdded = [database executeStatements:query];
+        NSDictionary *queryData  = [queryH createInsertQuery:self];
+        BOOL isAdded = [database executeUpdate:[queryData valueForKey:OLC_D_QUERY] withParameterDictionary:[queryData valueForKey:OLC_D_DATA]];
         
         if(isAdded)
         {
-            query = [queryH createLastInsertRecordIdQuery:[self class]];
+            NSString *query = [queryH createLastInsertRecordIdQuery:[self class]];
             FMResultSet *results = [database executeQuery:query];
             
             while([results next])
@@ -108,8 +108,8 @@
     
     @try
     {
-        NSString *query = [queryH createUpdateQuery:self];
-        isUpdated = [database executeUpdate:query];
+        NSDictionary *queryData = [queryH createUpdateQuery:self];
+        isUpdated = [database executeUpdate:[queryData valueForKey:OLC_D_QUERY] withParameterDictionary:[queryData valueForKey:OLC_D_DATA]];
     }
     @catch (NSException *exception)
     {
@@ -245,8 +245,8 @@
     {
         qH = [[OLCTableHandler alloc] init];
         
-        NSString *query = [qH createFindWhere:[self class] forVal:value byOperator:opt inColumn:column];
-        FMResultSet *results = [database executeQuery:query];
+        NSDictionary *queryData = [qH createFindWhere:[self class] forVal:value byOperator:opt inColumn:column];
+        FMResultSet *results = [database executeQuery:[queryData valueForKey:OLC_D_QUERY] withParameterDictionary:[queryData valueForKey:OLC_D_DATA]];
                 
         while([results next])
         {

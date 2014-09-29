@@ -27,11 +27,13 @@
     
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(handleLongPress:)];
-    lpgr.minimumPressDuration = 2.0; //seconds
+    lpgr.minimumPressDuration = 0.5; //seconds
     lpgr.delegate = self;
     [self.tblRecords addGestureRecognizer:lpgr];
     
     records = [[NSArray alloc] init];
+    
+    records = [TestObject whereColumn:@"link" byOperator:@"=" forValue:@"http://google.com"];
     
     [self makeSampleUser];
     
@@ -71,8 +73,8 @@
     UserObject *user = (UserObject *) [UserObject find:[NSNumber numberWithInt:1]];
     
     TestObject *test = [[TestObject alloc] init];
-    
-    test.title = [NSString stringWithFormat:@"Sample Record %d", [records count]];
+
+    test.title = [NSString stringWithFormat:@"Sample's Record %lu", (unsigned long)[records count]];
     test.coordinates = [NSNumber numberWithDouble:234.345345];
     test.currency = [NSNumber numberWithFloat:150.00];
     test.flag = [NSNumber numberWithInt:1];
@@ -129,7 +131,7 @@
     {
         if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
         {
-            NSLog(@"long press on table view at row %d", indexPath.row);
+            NSLog(@"long press on table view at row %ld", (long)indexPath.row);
             
             [self promptChangeTitleAlert:indexPath.row];
         }
@@ -176,7 +178,7 @@
 - (void) promptChangeTitleAlert:(int) rowIndex
 {
 //    TestObject *selection = [records objectAtIndex:rowIndex];
-    TestObject *selection = [records objectAtIndex:10000];
+    TestObject *selection = [records objectAtIndex:rowIndex];
     
     UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Change record title"
                                                       message:selection.title
