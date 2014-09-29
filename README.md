@@ -1,4 +1,4 @@
-# OLCOrm v0.0.4
+# OLCOrm v0.0.5
 
 [![CI Status](http://img.shields.io/travis/Lakitha Samarasinghe/OLCOrm.svg?style=flat)](https://travis-ci.org/Lakitha Samarasinghe/OLCOrm)
 [![Version](https://img.shields.io/cocoapods/v/OLCOrm.svg?style=flat)](http://cocoadocs.org/docsets/OLCOrm)
@@ -33,6 +33,10 @@ it, simply add the following line to your Podfile:
 2014-09-15
 
 > Now truncating tables are possible. This will reset the auto incremental id value as well.
+
+2014-09-29
+
+> Lib updated to prevent sql injection.
 
 ## Usage
 
