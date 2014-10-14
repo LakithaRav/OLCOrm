@@ -1,4 +1,4 @@
-# OLCOrm v0.0.5
+# OLCOrm v0.0.6
 
 [![CI Status](http://img.shields.io/travis/Lakitha Samarasinghe/OLCOrm.svg?style=flat)](https://travis-ci.org/Lakitha Samarasinghe/OLCOrm)
 [![Version](https://img.shields.io/cocoapods/v/OLCOrm.svg?style=flat)](http://cocoadocs.org/docsets/OLCOrm)
@@ -37,6 +37,10 @@ it, simply add the following line to your Podfile:
 2014-09-29
 
 > Lib updated to prevent sql injection.
+
+2014-10-14
+
+> NSDate failing to retrieve from database issue fixed.
 
 ## Usage
 

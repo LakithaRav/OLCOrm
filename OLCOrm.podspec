@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "OLCOrm"
-  s.version          = "0.0.5"
+  s.version          = "0.0.6"
   s.summary          = "OLCOrm is an Object Relational Mapping library for iOS, which uses FMDB Sqlite database library."
   s.description      = <<-DESC
                        We all know the working with Core Data is major pain in the neck. Yet it is in a way bit easy you work with, if you get an hold of how it actually work, working with only model classes to update the database structure on the fly.
@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/LakithaRav/OLCOrm.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.platform     = :ios, '7.0'
+  s.platform     = :ios, '8.0'
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes'

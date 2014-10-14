@@ -7,3 +7,7 @@ $ pod lib lint
 $ git add -A && git commit -m "Release 0.0.1."
 $ git tag '0.0.1'
 $ git push --tags
+
+pod trunk push NAME.podspec
+
+Once your tags are pushed you can use the command pod trunk push NAME.podspec to send your library to the Specs repo. For more information on getting this setup see Getting Setup With Trunk.

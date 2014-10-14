@@ -544,7 +544,8 @@
                 }
                 else if([colType isEqualToString:@"@\"NSDate\""])
                 {
-                    [dictionary setValue:[result dateForColumn:colName] forKey:colName];
+                    NSDate *date = [result dateForColumn:colName];
+                    [dictionary setValue:date forKey:colName];
                 }
                 else if([colType isEqualToString:@"@\"NSData\""])
                 {
@@ -552,7 +553,13 @@
                 }
                 else if([colType isEqualToString:@"@\"NSSet\""])
                 {
-                    [dictionary setValue:[result dataForColumn:colName] forKey:colName];
+                    NSSet *array = [NSKeyedUnarchiver unarchiveObjectWithData:[result objectForColumnName:colName]];
+                    [dictionary setValue:array forKey:colName];
+                }
+                else if([colType isEqualToString:@"@\"NSArray\""])
+                {
+                    NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:[result objectForColumnName:colName]];
+                    [dictionary setValue:array forKey:colName];
                 }
                 else if([colType isEqualToString:@"@\"NSURL\""])
                 {
@@ -570,43 +577,49 @@
                 break;
         }
         
-        if([colType isEqualToString:@"@\"NSNumber\""])
-        {
-            [dictionary setValue:[result objectForColumnName:colName] forKey:colName];
-        }
-        else if([colType isEqualToString:@"@\"NSString\""])
-        {
-            [dictionary setValue:[result stringForColumn:colName] forKey:colName];
-        }
-        else if([colType isEqualToString:@"@\"NSDate\""])
-        {
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss ZZZ"];
-            NSString *dateS =[result stringForColumn:colName];
-            NSDate *date = [dateFormatter dateFromString:dateS];
-            
-            [dictionary setValue:date forKey:colName];
-        }
-        else if([colType isEqualToString:@"@\"NSData\""])
-        {
-            [dictionary setValue:[result dataForColumn:colName] forKey:colName];
-        }
-        else if([colType isEqualToString:@"@\"NSSet\""])
-        {
-            [dictionary setValue:(NSSet *)[result objectForColumnName:colName] forKey:colName];
-        }
-        else if([colType isEqualToString:@"@\"NSURL\""])
-        {
-            [dictionary setValue:[NSURL URLWithString:[result stringForColumn:colName]] forKey:colName];
-        }
-        else if([colType isEqualToString:@"@\"NSInteger\""])
-        {
-            [dictionary setValue:[NSNumber numberWithInt:[result intForColumn:colName]] forKey:colName];
-        }
-        else
-        {
-            [dictionary setValue:[result dataForColumn:colName] forKey:colName];
-        }
+//        if([colType isEqualToString:@"@\"NSNumber\""])
+//        {
+//            [dictionary setValue:[result objectForColumnName:colName] forKey:colName];
+//        }
+//        else if([colType isEqualToString:@"@\"NSString\""])
+//        {
+//            [dictionary setValue:[result stringForColumn:colName] forKey:colName];
+//        }
+//        else if([colType isEqualToString:@"@\"NSDate\""])
+//        {
+//            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss ZZZ"];
+//            NSString *dateS =[result stringForColumn:colName];
+//            NSDate *date = [dateFormatter dateFromString:dateS];
+//            
+//            [dictionary setValue:date forKey:colName];
+//        }
+//        else if([colType isEqualToString:@"@\"NSData\""])
+//        {
+//            [dictionary setValue:[result dataForColumn:colName] forKey:colName];
+//        }
+//        else if([colType isEqualToString:@"@\"NSSet\""])
+//        {
+//            NSSet *array = [NSKeyedUnarchiver unarchiveObjectWithData:[result objectForColumnName:colName]];
+//            [dictionary setValue:array forKey:colName];
+//        }
+//        else if([colType isEqualToString:@"@\"NSArray\""])
+//        {
+//            NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:[result objectForColumnName:colName]];
+//            [dictionary setValue:array forKey:colName];
+//        }
+//        else if([colType isEqualToString:@"@\"NSURL\""])
+//        {
+//            [dictionary setValue:[NSURL URLWithString:[result stringForColumn:colName]] forKey:colName];
+//        }
+//        else if([colType isEqualToString:@"@\"NSInteger\""])
+//        {
+//            [dictionary setValue:[NSNumber numberWithInt:[result intForColumn:colName]] forKey:colName];
+//        }
+//        else
+//        {
+//            [dictionary setValue:[result dataForColumn:colName] forKey:colName];
+//        }
         
     }
     

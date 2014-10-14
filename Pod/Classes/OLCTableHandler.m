@@ -115,9 +115,9 @@
             [vals appendString:[NSString stringWithFormat:@":%@,", [keyval valueForKey:@"column"]]];
         }
         
-        NSString *value = [keyval valueForKey:@"value"];
+        NSObject *value = [keyval valueForKey:@"value"];
         
-        if(value == nil) value = @"";
+        if(value == nil) value = (NSString*) @"";
         
         [paraDic setValue:value forKey:[keyval valueForKey:@"column"]];
         
@@ -187,11 +187,11 @@
             }
         }
         
-        NSString *value = [keyval valueForKey:@"value"];
+        NSObject *value = [keyval valueForKey:@"value"];
         
-        if(value == nil) value = @"";
+        if(value == nil) value = (NSString*) @"";
         
-        [paraDic setValue:value forKey:colName];
+        [paraDic setObject:(NSString*)value forKey:colName];
     }
     
     [updateQuery appendString:where];
