@@ -1,4 +1,4 @@
-# OLCOrm v0.0.6
+# OLCOrm v0.0.7
 
 [![CI Status](http://img.shields.io/travis/Lakitha Samarasinghe/OLCOrm.svg?style=flat)](https://travis-ci.org/Lakitha Samarasinghe/OLCOrm)
 [![Version](https://img.shields.io/cocoapods/v/OLCOrm.svg?style=flat)](http://cocoadocs.org/docsets/OLCOrm)
@@ -41,6 +41,11 @@ it, simply add the following line to your Podfile:
 2014-10-14
 
 > NSDate failing to retrieve from database issue fixed.
+
+2014-10-15
+
+> Required minimum version downgraded to ios 7.0
+
 
 ## Usage
 

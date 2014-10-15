@@ -576,6 +576,7 @@
                 
                 break;
         }
+        //http://stackoverflow.com/questions/22234237/how-to-save-retrieve-nsdata-into-sqlite-through-fmdb
         
 //        if([colType isEqualToString:@"@\"NSNumber\""])
 //        {

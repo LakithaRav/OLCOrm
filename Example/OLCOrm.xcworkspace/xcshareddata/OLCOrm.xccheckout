@@ -10,29 +10,29 @@
 	<string>OLCOrm</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>62AB4587-1AF6-4BB5-B059-0F5FEB43F89F</key>
+		<key>E18F729822C0E27D69A4BB7D9AFA625D11722ED5</key>
 		<string>https://github.com/LakithaRav/OLCOrm.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Example/OLCOrm.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>62AB4587-1AF6-4BB5-B059-0F5FEB43F89F</key>
+		<key>E18F729822C0E27D69A4BB7D9AFA625D11722ED5</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/LakithaRav/OLCOrm.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>62AB4587-1AF6-4BB5-B059-0F5FEB43F89F</string>
+	<string>E18F729822C0E27D69A4BB7D9AFA625D11722ED5</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>62AB4587-1AF6-4BB5-B059-0F5FEB43F89F</string>
+			<string>E18F729822C0E27D69A4BB7D9AFA625D11722ED5</string>
 			<key>IDESourceControlWCCName</key>
 			<string>OLCOrm</string>
 		</dict>
