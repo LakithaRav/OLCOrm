@@ -536,7 +536,7 @@
                 
                 if([colType isEqualToString:@"@\"NSNumber\""])
                 {
-                    [dictionary setValue:[NSNumber numberWithInt:[result intForColumn:colName]] forKey:colName];
+                    [dictionary setValue:[result objectForColumnName:colName] forKey:colName];
                 }
                 else if([colType isEqualToString:@"@\"NSString\""])
                 {
