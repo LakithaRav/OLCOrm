@@ -24,6 +24,8 @@
 @property (nonatomic, retain) NSURL* link;
 @property (nonatomic, retain) NSNumber* userId;
 @property (nonatomic, retain) NSNumber* status;
+@property (nonatomic, retain) NSSet *stuff;
+@property (nonatomic, retain) NSArray *stuffArry;
 
 - (UserObject *) hasUser;
 

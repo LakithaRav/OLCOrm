@@ -107,14 +107,26 @@
     {
         objc_property_t property = properties[i];
         
-//        char *type = property_copyAttributeValue(property, "T");
+        char *type = property_copyAttributeValue(property, "T");
         
         NSString *propertyName  = [NSString stringWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
-        NSString *value         = [object valueForKey:propertyName];
+        
         
         NSMutableDictionary *column = [[NSMutableDictionary alloc] init];
         [column setValue:propertyName forKey:@"column"];
-        [column setValue:value forKey:@"value"];
+        
+        
+        NSString *stringFromMORString =[[NSString alloc] initWithCString:type encoding:NSMacOSRomanStringEncoding];
+        if([stringFromMORString isEqualToString:@"@\"NSSet\""] || [stringFromMORString isEqualToString:@"@\"NSArray\""] || [stringFromMORString isEqualToString:@"@\"NSData\""])
+        {
+            NSData *data            = [NSKeyedArchiver archivedDataWithRootObject:[object valueForKey:propertyName]];
+            [column setObject:data forKey:@"value"];
+        }
+        else
+        {
+            NSObject *value         = [object valueForKey:propertyName];
+            [column setValue:value forKey:@"value"];
+        }
         
         [dataArry addObject:column];
     }

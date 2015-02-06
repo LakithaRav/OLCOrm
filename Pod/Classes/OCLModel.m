@@ -553,12 +553,15 @@
                 }
                 else if([colType isEqualToString:@"@\"NSSet\""])
                 {
-                    NSSet *array = [NSKeyedUnarchiver unarchiveObjectWithData:[result objectForColumnName:colName]];
+                    NSData *data = [result dataForColumn:colName];
+                    NSSet *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
                     [dictionary setValue:array forKey:colName];
                 }
                 else if([colType isEqualToString:@"@\"NSArray\""])
                 {
-                    NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:[result objectForColumnName:colName]];
+                    NSData *data = [result dataForColumn:colName];
+                    NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                    
                     [dictionary setValue:array forKey:colName];
                 }
                 else if([colType isEqualToString:@"@\"NSURL\""])

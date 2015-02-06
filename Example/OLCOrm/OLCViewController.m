@@ -11,6 +11,10 @@
 #import "UserObject.h"
 
 @interface OLCViewController ()
+{
+    NSArray *records;
+    BOOL isEditingMode;
+}
 
 @end
 
@@ -82,6 +86,14 @@
     test.link = [NSURL URLWithString:@"http://google.com"];
     test.userId = user.Id;
     test.status = [NSNumber numberWithInt:1];
+    
+    NSMutableSet *stuff = [[NSMutableSet alloc] init];
+    [stuff addObject:[NSString stringWithFormat:@"%@", @"SampleStuff1"]];
+    
+    test.stuff = stuff;
+    
+    NSMutableArray *sarry = [[NSMutableArray alloc] initWithObjects:@"1", @"2", @"3", nil];
+    test.stuffArry = sarry;
 
     return [test save];
 }
