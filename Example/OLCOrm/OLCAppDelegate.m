@@ -67,7 +67,7 @@
 
 - (void) initDb
 {
-    OLCMigrator *dbH = [OLCMigrator sharedInstance:@"olcdemo.sqlite" version:[NSNumber numberWithInt:9] enableDebug:NO];
+    OLCMigrator *dbH = [OLCMigrator sharedInstance:@"olcdemo.sqlite" version:[NSNumber numberWithInt:14] enableDebug:NO];
     [dbH initDb];
     
     [dbH makeTable:[TestObject class]];

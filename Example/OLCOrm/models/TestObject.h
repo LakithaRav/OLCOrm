@@ -26,6 +26,7 @@
 @property (nonatomic, retain) NSNumber* status;
 @property (nonatomic, retain) NSSet *stuff;
 @property (nonatomic, retain) NSArray *stuffArry;
+@property (nonatomic, retain) UIImage *image;
 
 - (UserObject *) hasUser;
 

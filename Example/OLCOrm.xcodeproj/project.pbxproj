@@ -11,6 +11,7 @@
 		1858568219A1BBA300DD3B88 /* UserObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1858568119A1BBA300DD3B88 /* UserObject.m */; };
 		18839617199B856400D17B73 /* TestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 18839616199B856400D17B73 /* TestObject.m */; };
 		188D0ECD19C69FA4007E051C /* PodPublishHelp in Resources */ = {isa = PBXBuildFile; fileRef = 188D0ECC19C69FA4007E051C /* PodPublishHelp */; };
+		18BDAEAC1A84AA170080C858 /* dracula.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BDAEAB1A84AA170080C858 /* dracula.png */; };
 		18E1EB0C19A48FE6009A650A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1820E98A19A47E5F000D7757 /* Crashlytics.framework */; };
 		23FA6DB50D85484D8D65C77E /* libPods-OLCOrm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EA25A5175774A818AC5137C /* libPods-OLCOrm.a */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -47,6 +48,7 @@
 		18839616199B856400D17B73 /* TestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestObject.m; path = models/TestObject.m; sourceTree = "<group>"; };
 		188D0ECC19C69FA4007E051C /* PodPublishHelp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PodPublishHelp; sourceTree = "<group>"; };
 		18ABDFD61997397600AE5D13 /* TestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestObject.h; path = models/TestObject.h; sourceTree = "<group>"; };
+		18BDAEAB1A84AA170080C858 /* dracula.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dracula.png; sourceTree = "<group>"; };
 		393F4EE1AB4845F2B900C603 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58A195388D20070C39A /* OLCOrm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OLCOrm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -154,6 +156,7 @@
 		6003F593195388D20070C39A /* OLCOrm */ = {
 			isa = PBXGroup;
 			children = (
+				18BDAEAB1A84AA170080C858 /* dracula.png */,
 				18ABDFD51997395500AE5D13 /* models */,
 				6003F59C195388D20070C39A /* OLCAppDelegate.h */,
 				6003F59D195388D20070C39A /* OLCAppDelegate.m */,
@@ -290,6 +293,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18BDAEAC1A84AA170080C858 /* dracula.png in Resources */,
 				188D0ECD19C69FA4007E051C /* PodPublishHelp in Resources */,
 				6003F5A4195388D20070C39A /* Main_iPad.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,

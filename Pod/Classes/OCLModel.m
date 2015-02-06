@@ -572,6 +572,12 @@
                 {
                     [dictionary setValue:[NSNumber numberWithInt:[result intForColumn:colName]] forKey:colName];
                 }
+                else if([colType isEqualToString:@"@\"UIImage\""])
+                {
+                    NSData *data = [result dataForColumn:colName];
+                    UIImage *img = [UIImage imageWithData:data];
+                    [dictionary setValue:[UIImage imageWithData:data] forKey:colName];
+                }
                 else
                 {
                     [dictionary setValue:[result dataForColumn:colName] forKey:colName];

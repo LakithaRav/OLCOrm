@@ -26,25 +26,29 @@ it, simply add the following line to your Podfile:
     
 ## What's new ?
 
-2014-08-19
+2015-04-06
 
-> Basic relationship mapping added to the lib. One-to-One and One-to-Many relations.
+> Now you can save NSArray, NSSet, NSData and UIImage object in the database!
 
-2014-09-15
+2014-10-15
 
-> Now truncating tables are possible. This will reset the auto incremental id value as well.
-
-2014-09-29
-
-> Lib updated to prevent sql injection.
+> Required minimum version downgraded to ios 7.0
 
 2014-10-14
 
 > NSDate failing to retrieve from database issue fixed.
 
-2014-10-15
+2014-09-29
 
-> Required minimum version downgraded to ios 7.0
+> Lib updated to prevent sql injection.
+
+2014-09-15
+
+> Now truncating tables are possible. This will reset the auto incremental id value as well.
+
+2014-08-19
+
+> Basic relationship mapping added to the lib. One-to-One and One-to-Many relations.
 
 
 ## Usage

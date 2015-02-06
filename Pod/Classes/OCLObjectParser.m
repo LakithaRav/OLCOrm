@@ -117,9 +117,14 @@
         
         
         NSString *stringFromMORString =[[NSString alloc] initWithCString:type encoding:NSMacOSRomanStringEncoding];
-        if([stringFromMORString isEqualToString:@"@\"NSSet\""] || [stringFromMORString isEqualToString:@"@\"NSArray\""] || [stringFromMORString isEqualToString:@"@\"NSData\""])
+        if([stringFromMORString isEqualToString:@"@\"NSSet\""] || [stringFromMORString isEqualToString:@"@\"NSArray\""])
         {
             NSData *data            = [NSKeyedArchiver archivedDataWithRootObject:[object valueForKey:propertyName]];
+            [column setObject:data forKey:@"value"];
+        }
+        else if([stringFromMORString isEqualToString:@"@\"UIImage\""])
+        {
+            NSData *data            = UIImagePNGRepresentation([object valueForKey:propertyName]);
             [column setObject:data forKey:@"value"];
         }
         else

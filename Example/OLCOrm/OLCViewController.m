@@ -29,6 +29,8 @@
     [self.tblRecords setDelegate:self];
     [self.tblRecords setDataSource:self];
     
+    UIImage *image = [UIImage imageNamed:@"dracula.png"];
+    
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(handleLongPress:)];
     lpgr.minimumPressDuration = 0.5; //seconds
@@ -94,6 +96,9 @@
     
     NSMutableArray *sarry = [[NSMutableArray alloc] initWithObjects:@"1", @"2", @"3", nil];
     test.stuffArry = sarry;
+    
+    test.image = [UIImage imageNamed:@"dracula.png"];
+    test.data  = UIImagePNGRepresentation(test.image);
 
     return [test save];
 }
@@ -230,6 +235,7 @@
     TestObject *record = [records objectAtIndex:indexPath.row];
     
     cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@", record.Id, record.title];
+    cell.imageView.image = [UIImage imageWithData:record.data];
     
     return cell;
 }
