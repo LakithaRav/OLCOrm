@@ -46,6 +46,9 @@
     }
     @finally
     {
+        if(isAdded)
+            [self notifyChange];
+        
         [database close];
     }
     
@@ -338,6 +341,11 @@
     }
     
     return  objArry;
+}
+
++ (void) notifyOnChanges:(id) context withMethod:(SEL) method
+{
+    [[NSNotificationCenter defaultCenter] addObserver:context selector:method name:OLCORM_NOTIFICATION object:nil];
 }
 
 #pragma Managing Relationships
@@ -636,6 +644,14 @@
     [object setDictionary:dictionary];
     
     return object;
+}
+
+- (void) notifyChange
+{
+    
+    OLCOrmNotification *notif = [[OLCOrmNotification alloc] initWithObject:self];
+    notif.selection = 1;
+    [[NSNotificationCenter defaultCenter] postNotificationName:OLCORM_NOTIFICATION object:notif];
 }
 
 @end

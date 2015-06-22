@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "NSObject+KJSerializer.h"
 #import "OLCTableHandler.h"
+#import "OLCOrm.h"
+#import "OLCOrmNotification.h"
 
 @interface OCLModel : NSObject
 {
@@ -35,4 +37,6 @@
 + (NSArray *) where:(NSString *) clause sortBy:(NSString *) sorter;
 + (NSArray *) query:(NSString *) query;
 + (BOOL) truncateTable;
+
++ (void) notifyOnChanges:(id) context withMethod:(SEL) method;
 @end

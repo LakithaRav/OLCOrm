@@ -21,7 +21,7 @@
 @property (nonatomic, retain) NSString *databasePath;
 
 - (void) initDb;
-- (BOOL) makeMigrationTable;
+//- (BOOL) makeMigrationTable;
 - (BOOL) makeTable:(Class) model;
 - (BOOL) makeTable:(Class) model withTableVersion:(NSNumber *) dbVersion;
 //- (BOOL) migrateTable:(Class) model for:(NSNumber *) dbVersion;

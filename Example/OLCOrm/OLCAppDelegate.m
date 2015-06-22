@@ -10,7 +10,7 @@
 
 #import <Crashlytics/Crashlytics.h>
 #import "OLCAppDelegate.h"
-#import "OLCMigrator.h"
+#import "OLCOrm.h"
 #import "TestObject.h"
 #import "UserObject.h"
 
@@ -67,9 +67,8 @@
 
 - (void) initDb
 {
-    OLCMigrator *dbH = [OLCMigrator sharedInstance:@"olcdemo.sqlite" version:[NSNumber numberWithInt:14] enableDebug:NO];
-    [dbH initDb];
-    
+    OLCOrm *dbH = [OLCOrm databaseName:@"olcdemo.sqlite" version:[NSNumber numberWithInt:15] enableDebug:NO];
+
     [dbH makeTable:[TestObject class]];
     [dbH makeTable:[UserObject class]];
 }

@@ -8,6 +8,7 @@
 
 #import "OLCTableHandler.h"
 #import "OCLObjectParser.h"
+#import "OLCOrm.h"
 
 #define OLC_LOG @"OLCLOG"
 
@@ -61,7 +62,8 @@
     
     [createQuery appendString:@");"];
     
-    NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, createQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled])
+        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, createQuery);
     
     return createQuery;
 }
@@ -134,7 +136,8 @@
     [queryData setValue:insertQuery forKey:OLC_D_QUERY];
     [queryData setObject:paraDic forKey:OLC_D_DATA];
     
-    NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], insertQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled])
+        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], insertQuery);
     
     return queryData;
 }
@@ -200,7 +203,8 @@
     [queryData setValue:updateQuery forKey:OLC_D_QUERY];
     [queryData setObject:paraDic forKey:OLC_D_DATA];
     
-    NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], updateQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled])
+        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], updateQuery);
     
     return queryData;
 }
@@ -232,7 +236,8 @@
     [deleteQuery appendString:where];
     [deleteQuery appendString:@";"];
     
-    NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], deleteQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled])
+        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], deleteQuery);
     
     return deleteQuery;
 }
@@ -245,7 +250,8 @@
     [selectQuery appendString:[NSString stringWithFormat:@"%@ ", model]];
     [selectQuery appendString:@";"];
     
-    NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, selectQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled])
+        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, selectQuery);
     
     return selectQuery;
 }
@@ -278,7 +284,8 @@
     [selectQuery appendString:where];
     [selectQuery appendString:@";"];
     
-    NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, selectQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled])
+        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, selectQuery);
     
     return selectQuery;
 }
@@ -302,7 +309,8 @@
     [queryData setValue:selectQuery forKey:OLC_D_QUERY];
     [queryData setObject:valueDic forKey:OLC_D_DATA];
     
-    NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, selectQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled])
+        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, selectQuery);
     
     return queryData;
 }
@@ -318,7 +326,8 @@
     
     [selectQuery appendString:@";"];
     
-    NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, selectQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled])
+        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, selectQuery);
     
     return selectQuery;
 }
@@ -351,7 +360,8 @@
     [selectQuery appendString:[NSString stringWithFormat:@"ORDER BY a.%@ ", pkey]];
     [selectQuery appendString:@";"];
     
-    NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], selectQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled])
+        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], selectQuery);
     
     return selectQuery;
 }
@@ -385,7 +395,8 @@
     
     [selectQuery appendString:@";"];
     
-    NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], selectQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled])
+        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], selectQuery);
     
     return selectQuery;
 }
@@ -429,7 +440,8 @@
     
     [selectQuery appendString:@";"];
     
-    NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], selectQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled])
+        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], selectQuery);
     
     return selectQuery;
 }
@@ -443,7 +455,8 @@
     [truncateQuery appendString:[NSString stringWithFormat:@"DELETE FROM sqlite_sequence WHERE name='%@';", model] ];
     [truncateQuery appendString:@"VACUUM; "];
     
-    NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, truncateQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled])
+        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, truncateQuery);
     
     return truncateQuery;
 }
@@ -454,7 +467,8 @@
     
     [truncateQuery appendString:@"SELECT last_insert_rowid() as last_insert_rowid; "];
     
-    NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, truncateQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled])
+        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, truncateQuery);
     
     return truncateQuery;
 }

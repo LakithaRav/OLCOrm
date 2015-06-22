@@ -43,7 +43,10 @@
     
     [self makeSampleUser];
     
-    [self getAllRecords];
+    //[self getAllRecords];
+    
+    [TestObject notifyOnChanges:self withMethod:@selector(updateOnInsert:)];
+    [UserObject notifyOnChanges:self withMethod:@selector(updateOnInsert:)];
 }
 
 #pragma OLCOrm Functions
@@ -59,16 +62,22 @@
         user.status = [NSNumber numberWithInt:1];
         
         NSNumber *index = [user saveAndGetId];
+        
+        user = nil;
     }
+}
+
+- (void) updateOnInsert:(NSNotification *) action
+{
+    records = [TestObject all];
+    
+    [self.tblRecords reloadData];
 }
 
 - (void) getAllRecords
 {
-    records = [TestObject all];
     
-//    TestObject *record = (TestObject*) [TestObject find:[NSNumber numberWithInt:1]];
-//    records = [TestObject where:@"status = 1 AND flag != 1" sortBy:@"updateAt ASC"];
-//    records = [TestObject whereColumn:@"status" byOperator:@"=" forValue:@"1"];
+    records = [TestObject all];
     
     [self.tblRecords reloadData];
     
@@ -100,7 +109,11 @@
     test.image = [UIImage imageNamed:@"dracula.png"];
     test.data  = UIImagePNGRepresentation(test.image);
 
-    return [test save];
+    BOOL isAdded = [test save];
+    
+    test = nil;
+    
+    return isAdded;
 }
 
 #pragma Controller Events
@@ -115,8 +128,8 @@
     
     BOOL isAdded = [self addNewRecord];
     
-    if(isAdded)
-        [self getAllRecords];
+    //if(isAdded)
+        //[self getAllRecords];
 }
 
 - (IBAction)btnEditTable:(id)sender {
@@ -187,6 +200,10 @@
         NSLog(@"Record Count : %lu", (unsigned long)[objs count]);
         
         [self getAllRecords];
+        
+        selection = nil;
+        user = nil;
+        objs = nil;
     }
 }
 
@@ -207,6 +224,8 @@
     [message setAlertViewStyle:UIAlertViewStylePlainTextInput];
     
     [message show];
+    
+    selection = nil;
 }
 
 #pragma mark - Table view data source

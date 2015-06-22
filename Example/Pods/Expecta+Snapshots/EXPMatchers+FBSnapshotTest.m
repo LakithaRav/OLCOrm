@@ -112,13 +112,17 @@ void setGlobalReferenceImageDir(char *reference) {
 NSString *sanitizedTestPath();
 
 NSString *sanitizedTestPath(){
-    SPTXCTestCase *test = [[NSThread currentThread] threadDictionary][SPTCurrentTestCaseKey];
-
-    SPTExample *compiledExample = [test spt_getCurrentExample];
-    NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"];
-    NSString *currentTestName = [[compiledExample.name componentsSeparatedByCharactersInSet:[charSet invertedSet]] componentsJoinedByString:@"_"];
-
-    return [NSString stringWithFormat:@"%@", currentTestName];
+    id compiledExample = [[NSThread currentThread] threadDictionary][@"SPTCurrentSpec"]; // SPTSpec
+    NSString *name;
+    if ([compiledExample respondsToSelector:@selector(name)]) {
+        // Specta 0.3 syntax
+        name = [compiledExample performSelector:@selector(name)];
+    } else if ([compiledExample respondsToSelector:@selector(fileName)]) {
+        // Specta 0.2 syntax
+        name = [compiledExample performSelector:@selector(fileName)];
+    }
+    name = [[[[name componentsSeparatedByString:@" test_"] lastObject] stringByReplacingOccurrencesOfString:@"__" withString:@"_"] stringByReplacingOccurrencesOfString:@"]" withString:@""];
+    return name;
 }
 
 EXPMatcherImplementationBegin(haveValidSnapshot, (void)){
@@ -214,8 +218,7 @@ EXPMatcherImplementationEnd
 
 
 EXPMatcherImplementationBegin(recordSnapshot, (void)) {
-    __block NSError *error = nil;
-
+    
     prerequisite(^BOOL{
         return NO;
     });
