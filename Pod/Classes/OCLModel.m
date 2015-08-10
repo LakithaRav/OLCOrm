@@ -57,7 +57,7 @@
 
 - (NSNumber*) saveAndGetId
 {
-    NSNumber *recordId = NO;
+    NSNumber *recordId = @-1;
     
     OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
     
@@ -583,7 +583,7 @@
                 else if([colType isEqualToString:@"@\"UIImage\""])
                 {
                     NSData *data = [result dataForColumn:colName];
-                    UIImage *img = [UIImage imageWithData:data];
+//                    UIImage *img = [UIImage imageWithData:data];
                     [dictionary setValue:[UIImage imageWithData:data] forKey:colName];
                 }
                 else

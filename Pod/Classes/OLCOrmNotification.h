@@ -12,6 +12,6 @@
 
 - (id)initWithObject:(id) context;
 
-@property (nonatomic) NSInteger * selection;
+@property (nonatomic) NSInteger selection;
 
 @end
