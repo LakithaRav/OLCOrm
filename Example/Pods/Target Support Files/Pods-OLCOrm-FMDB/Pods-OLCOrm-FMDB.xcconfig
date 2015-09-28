@@ -1,1 +1,0 @@
-PODS_OLCORM_FMDB_OTHER_LDFLAGS = -l"sqlite3"
