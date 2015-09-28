@@ -26,15 +26,20 @@
 - (BOOL) delete;
 
 // RELATIONSHIPS
-- (NSObject *) hasOne:(Class) model foreignKeyCol:(NSString *) fkey primaryKeyCol:(NSString *) pkey;
-- (NSArray *) hasMany:(Class) model foreignKeyCol:(NSString *) fkey primaryKeyCol:(NSString *) pkey;
+- (NSObject *) hasOne:(Class) model foreignKeyCol:(NSString *) fkey /*primaryKeyCol:(NSString *) pkey*/;
+- (NSArray *) hasMany:(Class) model foreignKeyCol:(NSString *) fkey /*primaryKeyCol:(NSString *) pkey*/;
+- (NSObject *) belongTo:(Class) model foreignKeyCol:(NSString *) pkey;
 //- (NSArray *) belongToMany:(Class) model inMapping:(Class) mapmodel foreignKeyCol:(NSString *) fkey primaryKeyCOl:(NSString *) pkey;
 
 // STATIC STUFF
++ (NSString*) primaryKey;
++ (BOOL) primaryKeyAutoIncrement;
++ (NSArray *)ignoredProperties;
++ (BOOL) debug;
 + (NSObject *) find:(NSNumber *) Id;
 + (NSArray*) all;
-+ (NSArray *) whereColumn:(NSString *) column byOperator:(NSString *) opt forValue:(NSString *) value;
-+ (NSArray *) where:(NSString *) clause sortBy:(NSString *) sorter;
++ (NSArray *) whereColumn:(NSString *) column byOperator:(NSString *) opt forValue:(NSString *) value accending:(BOOL) sort;
++ (NSArray *) where:(NSString *) clause sortBy:(NSString *) column accending:(BOOL) sort;
 + (NSArray *) query:(NSString *) query;
 + (BOOL) truncateTable;
 

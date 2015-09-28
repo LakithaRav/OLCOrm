@@ -13,7 +13,7 @@
 
 - (NSArray *) hasTests
 {
-    return [self hasMany:[TestObject class] foreignKeyCol:@"userId" primaryKeyCol:@"Id"];
+    return [self hasMany:[TestObject class] foreignKeyCol:@"userId"];
 }
 
 @end

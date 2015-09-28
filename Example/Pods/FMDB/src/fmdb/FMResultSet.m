@@ -206,7 +206,8 @@
     return sqlite3_errcode([_parentDB sqliteHandle]) == SQLITE_ROW;
 }
 
-- (int)columnIndexForName:(NSString*)columnName {
+- (int)columnIndexForName:(NSString*) columnName
+{
     columnName = [columnName lowercaseString];
     
     NSNumber *n = [[self columnNameToIndexMap] objectForKey:columnName];

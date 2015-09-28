@@ -4,47 +4,17 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-OLCOrm-FMDB.xcscheme</key>
+		<key>FMDB.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-OLCOrm-OLCOrm.xcscheme</key>
+		<key>OLCOrm.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Pods-OLCOrm.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-Tests-Expecta+Snapshots.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-Tests-Expecta.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-Tests-FBSnapshotTestCase.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-Tests-FMDB.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-Tests-OLCOrm.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-Tests-Specta.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -57,52 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>16B7E2332E81AA14B1CA0707</key>
+		<key>64D9A7FE020B828D09B90DE1B2C4994E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>18A53F3CE5A7A38E45DF85A1</key>
+		<key>679113B9986C2C4DF59FAD3C62473674</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1FDAC27AA2F2672F429EC526</key>
+		<key>C53CD1B518C319D76167CAC6051F0C88</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>29317C0E8E919254932B75CA</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>51B563A394B344969F82291A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6A489C6136CFD8CC79A8AC77</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A6DCCE0D9540E05A74E27CCC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C28801822928AF7526C98456</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D473AB2ABA27BDBBFAE0B01D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FCEC91DB5625DAE0323C92EA</key>
+		<key>CDA996094A494D2752D620400C907394</key>
 		<dict>
 			<key>primary</key>
 			<true/>

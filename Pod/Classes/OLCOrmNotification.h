@@ -10,8 +10,15 @@
 
 @interface OLCOrmNotification : NSNotification
 
+typedef enum{
+    Insert,
+    Update,
+    Delete
+} Operations;
+
 - (id)initWithObject:(id) context;
 
 @property (nonatomic) NSInteger selection;
+@property (nonatomic) Operations type;
 
 @end

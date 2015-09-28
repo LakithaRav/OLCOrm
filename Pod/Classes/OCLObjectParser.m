@@ -57,7 +57,7 @@
 
         char *type = property_copyAttributeValue(property, "T");
         
-        NSLog(@"%@", propertyName);
+//        NSLog(@"%@", propertyName);
         
         NSString *columnName = propertyName;
         NSString *dataType = [self getDBPropertyType:type];
@@ -144,7 +144,7 @@
     NSString *dataType = @"TEXT";
     
     NSString *stringFromMORString =[[NSString alloc] initWithCString:type encoding:NSMacOSRomanStringEncoding];
-    NSLog(@"%@", stringFromMORString);
+//    NSLog(@"%@", stringFromMORString);
     
     switch (type[0])
     {

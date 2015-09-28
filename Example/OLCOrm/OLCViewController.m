@@ -25,6 +25,12 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+//    [TestObject truncateTable];
+//    [UþserObject truncateTable];
+    
+    [TestObject notifyOnChanges:self withMethod:@selector(testUpdated:)];
+    [UserObject notifyOnChanges:self withMethod:@selector(userUpdated:)];
+    
     isEditingMode = NO;
     [self.tblRecords setDelegate:self];
     [self.tblRecords setDataSource:self];
@@ -38,15 +44,11 @@
     [self.tblRecords addGestureRecognizer:lpgr];
     
     records = [[NSArray alloc] init];
-    
-    records = [TestObject whereColumn:@"link" byOperator:@"=" forValue:@"http://google.com"];
-    
+
     [self makeSampleUser];
     
-    //[self getAllRecords];
-    
-    [TestObject notifyOnChanges:self withMethod:@selector(updateOnInsert:)];
-    [UserObject notifyOnChanges:self withMethod:@selector(updateOnInsert:)];
+    [self getAllRecords];
+ 
 }
 
 #pragma OLCOrm Functions
@@ -67,15 +69,47 @@
     }
 }
 
-- (void) updateOnInsert:(NSNotification *) action
+- (void) userUpdated:(OLCOrmNotification *) action
 {
     records = [TestObject all];
     
     [self.tblRecords reloadData];
 }
 
+- (void) testUpdated:(OLCOrmNotification *) action
+{
+    records = [TestObject all];
+   
+    
+    
+    switch (((OLCOrmNotification*) action.object).type)
+    {
+        case Insert:
+            NSLog(@"Insert got called");
+            break;
+            
+        case Update:
+            NSLog(@"Update got called");
+            break;
+            
+        case Delete:
+            NSLog(@"Delete got called");
+            break;
+            
+        default:
+            break;
+    }
+}
+
 - (void) getAllRecords
 {
+    UserObject *user = (UserObject*)[UserObject find:@1];
+    
+    records = [user hasTests];
+    
+    records = [TestObject whereColumn:@"link" byOperator:@"=" forValue:@"http://google.com" accending:YES];
+    
+    records = [TestObject where:@"flag = 1" sortBy:@"Id" accending:NO];
     
     records = [TestObject all];
     
@@ -214,8 +248,10 @@
 //    TestObject *selection = [records objectAtIndex:rowIndex];
     TestObject *selection = [records objectAtIndex:rowIndex];
     
+    UserObject *user = [selection hasUser];
+    
     UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Change record title"
-                                                      message:selection.title
+                                                      message:user.name
                                                      delegate:self
                                             cancelButtonTitle:@"Cancel"
                                             otherButtonTitles:@"Update", nil];

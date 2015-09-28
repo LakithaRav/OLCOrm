@@ -13,7 +13,22 @@
 
 - (UserObject *) hasUser
 {
-    return (UserObject*) [self hasOne:[UserObject class] foreignKeyCol:@"userId" primaryKeyCol:@"Id"];
+    return (UserObject*) [self belongTo:[UserObject class] foreignKeyCol:@"userId"];
+}
+
++ (NSString *) primaryKey
+{
+    return @"Id";
+}
+
++ (NSArray *) ignoredProperties
+{
+    return @[@"status"];
+}
+
++ (BOOL) debug
+{
+    return NO;
 }
 
 @end

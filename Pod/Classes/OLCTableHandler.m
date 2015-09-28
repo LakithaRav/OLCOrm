@@ -9,6 +9,7 @@
 #import "OLCTableHandler.h"
 #import "OCLObjectParser.h"
 #import "OLCOrm.h"
+#import "OCLModel.h"
 
 #define OLC_LOG @"OLCLOG"
 
@@ -22,6 +23,10 @@
     NSArray *columns = [parse parseModel:model];
     
     NSString *className = NSStringFromClass (model);
+    
+    NSString *primaryKey    = [model performSelector:@selector(primaryKey)];
+    BOOL autoIncrement      = [model performSelector:@selector(primaryKeyAutoIncrement)];
+    NSArray  *ignoredList   = [model performSelector:@selector(ignoredProperties)];
     
     NSMutableString *createQuery = [[NSMutableString alloc] init];
     
@@ -43,12 +48,27 @@
         
         isLastColumn = (i == [columns count]-1) ? YES : NO;
         
-        if([colName isEqualToString:@"id"] || [colName isEqualToString:@"Id"] || [colName isEqualToString:@"ID"] )
+//        if([colName isEqualToString:@"id"] || [colName isEqualToString:@"Id"] || [colName isEqualToString:@"ID"] )
+        
+        if([ignoredList containsObject:colName]) continue;
+        
+        if([colName isEqualToString:primaryKey])
         {
             if(isLastColumn)
-                [createQuery appendString:[NSString stringWithFormat:@"%@ %@ NOT NULL PRIMARY KEY AUTOINCREMENT", colName, typeName]];
+            {
+                if(autoIncrement)
+                    [createQuery appendString:[NSString stringWithFormat:@"%@ %@ NOT NULL PRIMARY KEY AUTOINCREMENT ", colName, typeName]];
+                else
+                    [createQuery appendString:[NSString stringWithFormat:@"%@ %@ NOT NULL PRIMARY KEY ", colName, typeName]];
+            }
             else
-                [createQuery appendString:[NSString stringWithFormat:@"%@ %@ NOT NULL PRIMARY KEY AUTOINCREMENT, ", colName, typeName]];
+            {
+                if(autoIncrement)
+                    [createQuery appendString:[NSString stringWithFormat:@"%@ %@ NOT NULL PRIMARY KEY AUTOINCREMENT, ", colName, typeName]];
+                else
+                    [createQuery appendString:[NSString stringWithFormat:@"%@ %@ NOT NULL PRIMARY KEY, ", colName, typeName]];
+            }
+                
         }
         else
         {
@@ -62,7 +82,7 @@
     
     [createQuery appendString:@");"];
     
-    if([[OLCOrm getSharedInstance] isDebugEnabled])
+    if([[OLCOrm getSharedInstance] isDebugEnabled] || [model performSelector:@selector(debug)])
         NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, createQuery);
     
     return createQuery;
@@ -79,6 +99,10 @@
     
     NSMutableString *insertQuery = [[NSMutableString alloc] init];
     
+    NSString *primaryKey    = [[data class] performSelector:@selector(primaryKey)];
+    BOOL autoIncrement      = [[data class] performSelector:@selector(primaryKeyAutoIncrement)];
+    NSArray  *ignoredList   = [[data class] performSelector:@selector(ignoredProperties)];
+    
     [insertQuery appendString:@"INSERT INTO "];
     [insertQuery appendString:[NSString stringWithFormat:@"%@ ", [data class]]];
     
@@ -88,7 +112,6 @@
     
     for(int i=0; i < [columns count]; i++)
     {
-//        BOOL isLastColumn = NO;
         
         BOOL isLastColumn = (i == [columns count]-1) ? YES : NO;
         
@@ -96,10 +119,14 @@
         
         NSString *colName = [keyval valueForKey:@"column"];
         
-        if([colName isEqualToString:@"id"] || [colName isEqualToString:@"Id"] || [colName isEqualToString:@"ID"] )
+        if([colName isEqualToString:primaryKey])
         {
-            continue;
+            if(autoIncrement)
+                continue;
         }
+        
+        if([ignoredList containsObject:colName])
+            continue;
         
         if(isLastColumn)
             [cols appendString:[NSString stringWithFormat:@"%@", [keyval valueForKey:@"column"]]];
@@ -107,15 +134,9 @@
             [cols appendString:[NSString stringWithFormat:@"%@,", [keyval valueForKey:@"column"]]];
         
         if(isLastColumn)
-        {
-//            [vals appendString:[NSString stringWithFormat:@"'%@' ", [keyval valueForKey:@"value"]]];
             [vals appendString:[NSString stringWithFormat:@":%@", [keyval valueForKey:@"column"]]];
-        }
         else
-        {
-//            [vals appendString:[NSString stringWithFormat:@"'%@', ", [keyval valueForKey:@"value"]]];
             [vals appendString:[NSString stringWithFormat:@":%@,", [keyval valueForKey:@"column"]]];
-        }
         
         NSObject *value = [keyval valueForKey:@"value"];
         
@@ -136,8 +157,8 @@
     [queryData setValue:insertQuery forKey:OLC_D_QUERY];
     [queryData setObject:paraDic forKey:OLC_D_DATA];
     
-    if([[OLCOrm getSharedInstance] isDebugEnabled])
-        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], insertQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled] || [[data class] performSelector:@selector(debug)])
+        NSLog(@"[%@]: Query : [%@] %@ \n\n", OLC_LOG, [data class], insertQuery);
     
     return queryData;
 }
@@ -154,6 +175,9 @@
     NSMutableString *vals = [[NSMutableString alloc] init];
     NSMutableDictionary *paraDic = [[NSMutableDictionary alloc] init];
     
+    NSString *primaryKey    = [[data class] performSelector:@selector(primaryKey)];
+    NSArray  *ignoredList   = [[data class] performSelector:@selector(ignoredProperties)];
+    
     [updateQuery appendString:@"UPDATE "];
     [updateQuery appendString:[NSString stringWithFormat:@"%@ ", [data class]]];
     [updateQuery appendString:@"SET "];
@@ -168,10 +192,11 @@
         
         NSString *colName = [keyval valueForKey:@"column"];
         
-        if([colName isEqualToString:@"id"] || [colName isEqualToString:@"Id"] || [colName isEqualToString:@"ID"] )
+        if([ignoredList containsObject:colName]) continue; //ignore the ignored property list
+        
+        if([colName isEqualToString:primaryKey]) //update record by primary key reference
         {
             [vals appendString:[NSString stringWithFormat:@":%@", colName]];
-//            where = [NSString stringWithFormat:@"WHERE %@='%@'", [keyval valueForKey:@"column"], [keyval valueForKey:@"value"]];
             where = [NSString stringWithFormat:@"WHERE %@=:%@", colName, colName];
         }
         else
@@ -179,13 +204,11 @@
             if(isLastColumn)
             {
                 [vals appendString:[NSString stringWithFormat:@":%@", colName]];
-    //            [updateQuery appendString:[NSString stringWithFormat:@"%@='%@' ",    [keyval valueForKey:@"column"], [keyval valueForKey:@"value"]]];
                 [updateQuery appendString:[NSString stringWithFormat:@"%@=:%@ ", colName, colName]];
             }
             else
             {
                 [vals appendString:[NSString stringWithFormat:@":%@,", colName]];
-    //            [updateQuery appendString:[NSString stringWithFormat:@"%@='%@', ",   [keyval valueForKey:@"column"], [keyval valueForKey:@"value"]]];
                 [updateQuery appendString:[NSString stringWithFormat:@"%@=:%@, ", colName, colName]];
             }
         }
@@ -203,8 +226,8 @@
     [queryData setValue:updateQuery forKey:OLC_D_QUERY];
     [queryData setObject:paraDic forKey:OLC_D_DATA];
     
-    if([[OLCOrm getSharedInstance] isDebugEnabled])
-        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], updateQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled] || [[data class] performSelector:@selector(debug)])
+        NSLog(@"[%@]: Query : [%@] %@ \n\n", OLC_LOG, [data class], updateQuery);
     
     return queryData;
 }
@@ -215,6 +238,8 @@
     NSArray *columns = [parse parseObject:data];
     
     NSMutableString *deleteQuery = [[NSMutableString alloc] init];
+    
+    NSString *primaryKey    = [[data class] performSelector:@selector(primaryKey)];
     
     [deleteQuery appendString:@"DELETE FROM "];
     [deleteQuery appendString:[NSString stringWithFormat:@"%@ ", [data class]]];
@@ -227,7 +252,7 @@
         
         NSString *colName = [keyval valueForKey:@"column"];
         
-        if([colName isEqualToString:@"id"] || [colName isEqualToString:@"Id"] || [colName isEqualToString:@"ID"] )
+        if([colName isEqualToString:primaryKey]) //delete record by primary key reference
         {
             where = [NSString stringWithFormat:@"WHERE %@='%@'", [keyval valueForKey:@"column"], [keyval valueForKey:@"value"]];
         }
@@ -236,8 +261,8 @@
     [deleteQuery appendString:where];
     [deleteQuery appendString:@";"];
     
-    if([[OLCOrm getSharedInstance] isDebugEnabled])
-        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], deleteQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled] || [[data class] performSelector:@selector(debug)])
+        NSLog(@"[%@]: Query : [%@] %@ \n\n", OLC_LOG, [data class], deleteQuery);
     
     return deleteQuery;
 }
@@ -250,8 +275,8 @@
     [selectQuery appendString:[NSString stringWithFormat:@"%@ ", model]];
     [selectQuery appendString:@";"];
     
-    if([[OLCOrm getSharedInstance] isDebugEnabled])
-        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, selectQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled] || [model performSelector:@selector(debug)])
+        NSLog(@"[%@]: Query : [%@] %@ \n\n", OLC_LOG, model, selectQuery);
     
     return selectQuery;
 }
@@ -262,6 +287,8 @@
     NSArray *columns = [parse parseModel:model];
     
     NSMutableString *selectQuery = [[NSMutableString alloc] init];
+    
+    NSString *primaryKey    = [model performSelector:@selector(primaryKey)];
     
     [selectQuery appendString:@"SELECT * FROM "];
     [selectQuery appendString:[NSString stringWithFormat:@"%@ ", model]];
@@ -274,7 +301,7 @@
         
         NSString *colName = [keyval valueForKey:@"column"];
         
-        if([colName isEqualToString:@"id"] || [colName isEqualToString:@"Id"] || [colName isEqualToString:@"ID"] )
+        if([colName isEqualToString:primaryKey])
         {
             where = [NSString stringWithFormat:@"WHERE %@='%@'", [keyval valueForKey:@"column"], Id];
             break;
@@ -284,13 +311,13 @@
     [selectQuery appendString:where];
     [selectQuery appendString:@";"];
     
-    if([[OLCOrm getSharedInstance] isDebugEnabled])
-        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, selectQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled] || [model performSelector:@selector(debug)])
+        NSLog(@"[%@]: Query : [%@] %@ \n\n", OLC_LOG, model, selectQuery);
     
     return selectQuery;
 }
 
-- (NSDictionary *) createFindWhere:(Class) model forVal:(NSString *) value byOperator:(NSString *) opt inColumn:(NSString *) column
+- (NSDictionary *) createFindWhere:(Class) model forVal:(NSString *) value byOperator:(NSString *) opt inColumn:(NSString *) column accending:(BOOL) sort
 {
     NSMutableDictionary *queryData = [[NSMutableDictionary alloc] init];
     
@@ -298,8 +325,13 @@
     
     [selectQuery appendString:@"SELECT * FROM "];
     [selectQuery appendString:[NSString stringWithFormat:@"%@ ", model]];
+    [selectQuery appendString:[NSString stringWithFormat:@"WHERE %@ %@ :%@ ", column, opt, column]];
+    [selectQuery appendString:[NSString stringWithFormat:@"ORDER BY %@ ", column]];
     
-    [selectQuery appendString:[NSString stringWithFormat:@"WHERE %@ %@ :%@", column, opt, column]];
+    if(sort)
+        [selectQuery appendString:[NSString stringWithFormat:@"ASC"]];
+    else
+        [selectQuery appendString:[NSString stringWithFormat:@"DESC"]];
     
     [selectQuery appendString:@";"];
     
@@ -309,25 +341,30 @@
     [queryData setValue:selectQuery forKey:OLC_D_QUERY];
     [queryData setObject:valueDic forKey:OLC_D_DATA];
     
-    if([[OLCOrm getSharedInstance] isDebugEnabled])
-        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, selectQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled] || [model performSelector:@selector(debug)])
+        NSLog(@"[%@]: Query : [%@] %@ \n\n", OLC_LOG, model, selectQuery);
     
     return queryData;
 }
 
-- (NSString *) createWhereQuery:(Class) model withFilter:(NSString *) filter andSort:(NSString *) sorter
+- (NSString *) createWhereQuery:(Class) model withFilter:(NSString *) filter andSort:(NSString *) column accending:(BOOL) sort
 {
     NSMutableString *selectQuery = [[NSMutableString alloc] init];
     
     [selectQuery appendString:@"SELECT * FROM "];
     [selectQuery appendString:[NSString stringWithFormat:@"%@ ", model]];
     [selectQuery appendString:[NSString stringWithFormat:@"WHERE %@ ", filter]];
-    [selectQuery appendString:[NSString stringWithFormat:@"ORDER BY %@ ", sorter]];
+    [selectQuery appendString:[NSString stringWithFormat:@"ORDER BY %@ ", column]];
+    
+    if(sort)
+        [selectQuery appendString:[NSString stringWithFormat:@"ASC"]];
+    else
+        [selectQuery appendString:[NSString stringWithFormat:@"DESC"]];
     
     [selectQuery appendString:@";"];
     
-    if([[OLCOrm getSharedInstance] isDebugEnabled])
-        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, selectQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled] || [model performSelector:@selector(debug)])
+        NSLog(@"[%@]: Query : [%@] %@ \n\n", OLC_LOG, model, selectQuery);
     
     return selectQuery;
 }
@@ -339,13 +376,16 @@
     OCLObjectParser *parse = [[OCLObjectParser alloc] init];
     NSArray *columns = [parse parseObject:data];
     
+    NSString *primaryKey    = [[data class] performSelector:@selector(primaryKey)];
+    
     NSNumber * Id = nil;
     for(int i=0; i < [columns count]; i++)
     {
         NSDictionary *keyval = (NSDictionary *) columns[i];
         
         NSString *colName = [keyval valueForKey:@"column"];
-        if([colName isEqualToString:@"id"] || [colName isEqualToString:@"Id"] || [colName isEqualToString:@"ID"] )
+        
+        if([colName isEqualToString:primaryKey])
         {
             Id = [keyval valueForKey:@"value"];
             break;
@@ -360,8 +400,8 @@
     [selectQuery appendString:[NSString stringWithFormat:@"ORDER BY a.%@ ", pkey]];
     [selectQuery appendString:@";"];
     
-    if([[OLCOrm getSharedInstance] isDebugEnabled])
-        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], selectQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled] || [[data class] performSelector:@selector(debug)])
+        NSLog(@"[%@]: Query : [%@] %@ \n\n", OLC_LOG, [data class], selectQuery);
     
     return selectQuery;
 }
@@ -373,13 +413,16 @@
     OCLObjectParser *parse = [[OCLObjectParser alloc] init];
     NSArray *columns = [parse parseObject:data];
     
+    NSString *primaryKey    = [[data class] performSelector:@selector(primaryKey)];
+    
     NSNumber * Id = nil;
     for(int i=0; i < [columns count]; i++)
     {
         NSDictionary *keyval = (NSDictionary *) columns[i];
         
         NSString *colName = [keyval valueForKey:@"column"];
-        if([colName isEqualToString:@"id"] || [colName isEqualToString:@"Id"] || [colName isEqualToString:@"ID"] )
+        
+        if([colName isEqualToString:primaryKey])
         {
             Id = [keyval valueForKey:@"value"];
             break;
@@ -388,15 +431,15 @@
     
     [selectQuery appendString:@"SELECT b.* FROM "];
     [selectQuery appendString:[NSString stringWithFormat:@"%@ a ", [data class]]];
-    [selectQuery appendString:[NSString stringWithFormat:@"LEFT JOIN %@ b ", fmodel]];
+    [selectQuery appendString:[NSString stringWithFormat:@"CROSS JOIN %@ b ", fmodel]];
     [selectQuery appendString:[NSString stringWithFormat:@"ON a.%@ = b.%@ ", pkey, fkey]];
     [selectQuery appendString:[NSString stringWithFormat:@"WHERE a.%@ = %@ ", pkey, Id]];
     [selectQuery appendString:[NSString stringWithFormat:@"ORDER BY a.%@ ", pkey]];
     
     [selectQuery appendString:@";"];
     
-    if([[OLCOrm getSharedInstance] isDebugEnabled])
-        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], selectQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled] || [[data class] performSelector:@selector(debug)])
+        NSLog(@"[%@]: Query : [%@] %@ \n\n", OLC_LOG, [data class], selectQuery);
     
     return selectQuery;
 }
@@ -416,13 +459,15 @@
     OCLObjectParser *parse = [[OCLObjectParser alloc] init];
     NSArray *columns = [parse parseObject:data];
     
+    NSString *primaryKey    = [[data class] performSelector:@selector(primaryKey)];
+    
     NSNumber * Id = nil;
     for(int i=0; i < [columns count]; i++)
     {
         NSDictionary *keyval = (NSDictionary *) columns[i];
         
         NSString *colName = [keyval valueForKey:@"column"];
-        if([colName isEqualToString:@"id"] || [colName isEqualToString:@"Id"] || [colName isEqualToString:@"ID"] )
+        if([colName isEqualToString:primaryKey])
         {
             Id = [keyval valueForKey:@"value"];
             break;
@@ -440,8 +485,8 @@
     
     [selectQuery appendString:@";"];
     
-    if([[OLCOrm getSharedInstance] isDebugEnabled])
-        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, [data class], selectQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled] || [[data class] performSelector:@selector(debug)])
+        NSLog(@"[%@]: Query : [%@] %@ \n\n", OLC_LOG, [data class], selectQuery);
     
     return selectQuery;
 }
@@ -455,8 +500,8 @@
     [truncateQuery appendString:[NSString stringWithFormat:@"DELETE FROM sqlite_sequence WHERE name='%@';", model] ];
     [truncateQuery appendString:@"VACUUM; "];
     
-    if([[OLCOrm getSharedInstance] isDebugEnabled])
-        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, truncateQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled] || [[model class] performSelector:@selector(debug)])
+        NSLog(@"[%@]: Query : [%@] %@ \n\n", OLC_LOG, model, truncateQuery);
     
     return truncateQuery;
 }
@@ -467,8 +512,8 @@
     
     [truncateQuery appendString:@"SELECT last_insert_rowid() as last_insert_rowid; "];
     
-    if([[OLCOrm getSharedInstance] isDebugEnabled])
-        NSLog(@"[%@]: Query : [%@] %@", OLC_LOG, model, truncateQuery);
+    if([[OLCOrm getSharedInstance] isDebugEnabled] || [[model class] performSelector:@selector(debug)])
+        NSLog(@"[%@]: Query : [%@] %@ \n\n", OLC_LOG, model, truncateQuery);
     
     return truncateQuery;
 }

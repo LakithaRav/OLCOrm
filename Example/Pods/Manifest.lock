@@ -1,36 +1,22 @@
 PODS:
-  - Expecta (0.4.2)
-  - Expecta+Snapshots (1.3.2):
-    - Expecta (~> 0.3)
-    - FBSnapshotTestCase (= 1.6)
-  - FBSnapshotTestCase (1.6)
   - FMDB (2.5):
     - FMDB/standard (= 2.5)
   - FMDB/common (2.5)
   - FMDB/standard (2.5):
     - FMDB/common
-  - OLCOrm (0.0.8):
+  - OLCOrm (0.0.9):
     - FMDB
-  - Specta (0.2.1)
 
 DEPENDENCIES:
-  - Expecta
-  - Expecta+Snapshots
-  - FBSnapshotTestCase
   - FMDB
   - OLCOrm (from `../`)
-  - Specta (~> 0.2.1)
 
 EXTERNAL SOURCES:
   OLCOrm:
-    :path: "../"
+    :path: ../
 
 SPEC CHECKSUMS:
-  Expecta: 78b4e8b0c8291fa4524d7f74016b6065c2e391ec
-  Expecta+Snapshots: 40c5ec43b43da3bae957f14fed5dc9177d08ec8b
-  FBSnapshotTestCase: 9d5fe43b29ae3a0ed8fc829477971b281038f748
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
-  OLCOrm: ac9d1e1e92c3e6200335b57c48872271bfa98a3a
-  Specta: 15a276a6343867b426d5ed135d5aa4d04123a573
+  OLCOrm: ad465e31c745301b870807547f8597dae1e1e0a9
 
-COCOAPODS: 0.36.4
+COCOAPODS: 0.38.2

@@ -47,7 +47,7 @@
     @finally
     {
         if(isAdded)
-            [self notifyChange];
+            [self notifyChange:Insert];
         
         [database close];
     }
@@ -93,6 +93,9 @@
     }
     @finally
     {
+        if([recordId intValue] > -1)
+            [self notifyChange:Insert];
+        
         [database close];
     }
     
@@ -153,6 +156,120 @@
     }
     
     return isDeleted;
+}
+
+#pragma mark - relationships
+
+- (NSObject *) hasOne:(Class) model foreignKeyCol:(NSString *) fkey /*primaryKeyCol:(NSString *) pkey*/
+{
+    NSObject * object = nil;
+    
+    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    
+    FMDatabase * database = [dbH getDb];
+    
+    OLCTableHandler *qH = nil;
+    
+    [database open];
+    
+    @try
+    {
+        qH = [[OLCTableHandler alloc] init];
+        
+        NSString * primaryKey = [model performSelector:@selector(primaryKey)];
+        
+        NSString *query = [qH createOneToOneRelationQuery:self foreignClass:model foreignKey:fkey primaryKey:primaryKey];
+        FMResultSet *results = [database executeQuery:query];
+        
+        {
+            while([results next])
+            {
+                object = [OCLModel makeObject:results forClass:model];
+            }
+        }
+    }
+    @catch (NSException *exception)
+    {
+        NSLog(@"[%@]: DBException : %@ %@", OLC_LOG, exception.name, exception.reason);
+        
+    }
+    @finally
+    {
+        qH = nil;
+        [database close];
+    }
+    
+    return object;
+}
+
+- (NSArray *) hasMany:(Class) model foreignKeyCol:(NSString *) fkey /*primaryKeyCol:(NSString *) pkey*/
+{
+    NSMutableArray *objArry = [[NSMutableArray alloc] init];
+    
+    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    
+    FMDatabase * database = [dbH getDb];
+    
+    OLCTableHandler *qH = nil;
+    
+    [database open];
+    
+    @try
+    {
+        qH = [[OLCTableHandler alloc] init];
+        
+        NSString * primaryKey = [model performSelector:@selector(primaryKey)];
+        
+        NSString *query = [qH createOneToManyRelationQuery:self foreignClass:model foreignKey:fkey primaryKey:primaryKey];
+        FMResultSet *results = [database executeQuery:query];
+        
+        {
+            while([results next])
+            {
+                NSObject * object = [OCLModel makeObject:results forClass:model];
+                [objArry addObject:object];
+            }
+        }
+    }
+    @catch (NSException *exception)
+    {
+        NSLog(@"[%@]: DBException : %@ %@", OLC_LOG, exception.name, exception.reason);
+        
+    }
+    @finally
+    {
+        qH = nil;
+        [database close];
+    }
+    
+    return  objArry;
+}
+
+- (NSObject *) belongTo:(Class) model foreignKeyCol:(NSString *) pkey
+{
+    return [self hasOne:model foreignKeyCol:pkey];
+}
+
+#pragma mark - static
+
++ (NSString*) primaryKey
+{
+    return @"Id";
+}
+
++ (BOOL) primaryKeyAutoIncrement
+{
+    return YES;
+}
+
++ (NSArray *)ignoredProperties
+{
+    return @[];
+}
+
++ (BOOL) debug
+{
+    return NO;
 }
 
 + (NSArray*) all
@@ -232,7 +349,7 @@
     return object;
 }
 
-+ (NSArray *) whereColumn:(NSString *) column byOperator:(NSString *) opt forValue:(NSString *) value
++ (NSArray *) whereColumn:(NSString *) column byOperator:(NSString *) opt forValue:(NSString *) value accending:(BOOL) sort
 {
     NSMutableArray *objArry = [[NSMutableArray alloc] init];
     
@@ -248,7 +365,7 @@
     {
         qH = [[OLCTableHandler alloc] init];
         
-        NSDictionary *queryData = [qH createFindWhere:[self class] forVal:value byOperator:opt inColumn:column];
+        NSDictionary *queryData = [qH createFindWhere:[self class] forVal:value byOperator:opt inColumn:column accending:sort];
         FMResultSet *results = [database executeQuery:[queryData valueForKey:OLC_D_QUERY] withParameterDictionary:[queryData valueForKey:OLC_D_DATA]];
                 
         while([results next])
@@ -271,7 +388,7 @@
     return  objArry;
 }
 
-+ (NSArray *) where:(NSString *) clause sortBy:(NSString *) sorter;
++ (NSArray *) where:(NSString *) clause sortBy:(NSString *) column accending:(BOOL) sort
 {
     NSMutableArray *objArry = [[NSMutableArray alloc] init];
     
@@ -287,7 +404,7 @@
     {
         qH = [[OLCTableHandler alloc] init];
         
-        NSString *query = [qH createWhereQuery:[self class] withFilter:clause andSort:sorter];
+        NSString *query = [qH createWhereQuery:[self class] withFilter:clause andSort:column accending:sort];
         FMResultSet *results = [database executeQuery:query];
         
         while([results next])
@@ -343,90 +460,6 @@
     return  objArry;
 }
 
-+ (void) notifyOnChanges:(id) context withMethod:(SEL) method
-{
-    [[NSNotificationCenter defaultCenter] addObserver:context selector:method name:OLCORM_NOTIFICATION object:nil];
-}
-
-#pragma Managing Relationships
-
-- (NSObject *) hasOne:(Class) model foreignKeyCol:(NSString *) fkey primaryKeyCol:(NSString *) pkey
-{
-    NSObject * object = nil;
-    
-    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
-    
-    FMDatabase * database = [dbH getDb];
-    
-    OLCTableHandler *qH = nil;
-    
-    [database open];
-    
-    @try
-    {
-        qH = [[OLCTableHandler alloc] init];
-        
-        NSString *query = [qH createOneToOneRelationQuery:self foreignClass:model foreignKey:fkey primaryKey:pkey];
-        FMResultSet *results = [database executeQuery:query];
-        
-        while([results next])
-        {
-            object = [OCLModel makeObject:results forClass:model];
-        }
-    }
-    @catch (NSException *exception)
-    {
-        NSLog(@"[%@]: DBException : %@ %@", OLC_LOG, exception.name, exception.reason);
-        
-    }
-    @finally
-    {
-        qH = nil;
-        [database close];
-    }
-    
-    return object;
-}
-
-- (NSArray *) hasMany:(Class) model foreignKeyCol:(NSString *) fkey primaryKeyCol:(NSString *) pkey
-{
-    NSMutableArray *objArry = [[NSMutableArray alloc] init];
-    
-    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
-    
-    FMDatabase * database = [dbH getDb];
-    
-    OLCTableHandler *qH = nil;
-    
-    [database open];
-    
-    @try
-    {
-        qH = [[OLCTableHandler alloc] init];
-        
-        NSString *query = [qH createOneToManyRelationQuery:self foreignClass:model foreignKey:fkey primaryKey:pkey];
-        FMResultSet *results = [database executeQuery:query];
-        
-        while([results next])
-        {
-            NSObject * object = [OCLModel makeObject:results forClass:model];
-            [objArry addObject:object];
-        }
-    }
-    @catch (NSException *exception)
-    {
-        NSLog(@"[%@]: DBException : %@ %@", OLC_LOG, exception.name, exception.reason);
-        
-    }
-    @finally
-    {
-        qH = nil;
-        [database close];
-    }
-    
-    return  objArry;
-}
-
 + (BOOL) truncateTable
 {
     BOOL isDeleted = NO;
@@ -466,7 +499,23 @@
 //    return records;
 //}
 
-#pragma private stuff
+#pragma mark - notifications
+
++ (void) notifyOnChanges:(id) context withMethod:(SEL) method
+{
+    [[NSNotificationCenter defaultCenter] addObserver:context selector:method name:NSStringFromClass([self class]) object:nil];
+}
+
+- (void) notifyChange:(Operations) type
+{
+    
+    OLCOrmNotification *notif = [[OLCOrmNotification alloc] initWithObject:self];
+    notif.selection = 1;
+    notif.type = type;
+    [[NSNotificationCenter defaultCenter] postNotificationName:NSStringFromClass([self class]) object:notif];
+}
+
+#pragma mark - private
 
 + (NSObject *) makeObject:(FMResultSet *) result forClass:(Class) model
 {
@@ -478,11 +527,15 @@
     object = [model new];
     NSDictionary * dictionary = [object getDictionary];
     
+    NSArray  *ignoredList   = [model performSelector:@selector(ignoredProperties)];
+    
     for(int i=0; i < [columns count]; i++)
     {
         NSDictionary *keyval    = (NSDictionary *) columns[i];
         NSString *colName       = [keyval valueForKey:@"column"];
         NSString *colType       = [keyval valueForKey:@"type"];
+        
+        if([ignoredList containsObject:colName]) continue;
         
         const char *type = [colType UTF8String];
         
@@ -583,7 +636,6 @@
                 else if([colType isEqualToString:@"@\"UIImage\""])
                 {
                     NSData *data = [result dataForColumn:colName];
-//                    UIImage *img = [UIImage imageWithData:data];
                     [dictionary setValue:[UIImage imageWithData:data] forKey:colName];
                 }
                 else
@@ -593,65 +645,12 @@
                 
                 break;
         }
-        //http://stackoverflow.com/questions/22234237/how-to-save-retrieve-nsdata-into-sqlite-through-fmdb
-        
-//        if([colType isEqualToString:@"@\"NSNumber\""])
-//        {
-//            [dictionary setValue:[result objectForColumnName:colName] forKey:colName];
-//        }
-//        else if([colType isEqualToString:@"@\"NSString\""])
-//        {
-//            [dictionary setValue:[result stringForColumn:colName] forKey:colName];
-//        }
-//        else if([colType isEqualToString:@"@\"NSDate\""])
-//        {
-//            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss ZZZ"];
-//            NSString *dateS =[result stringForColumn:colName];
-//            NSDate *date = [dateFormatter dateFromString:dateS];
-//            
-//            [dictionary setValue:date forKey:colName];
-//        }
-//        else if([colType isEqualToString:@"@\"NSData\""])
-//        {
-//            [dictionary setValue:[result dataForColumn:colName] forKey:colName];
-//        }
-//        else if([colType isEqualToString:@"@\"NSSet\""])
-//        {
-//            NSSet *array = [NSKeyedUnarchiver unarchiveObjectWithData:[result objectForColumnName:colName]];
-//            [dictionary setValue:array forKey:colName];
-//        }
-//        else if([colType isEqualToString:@"@\"NSArray\""])
-//        {
-//            NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:[result objectForColumnName:colName]];
-//            [dictionary setValue:array forKey:colName];
-//        }
-//        else if([colType isEqualToString:@"@\"NSURL\""])
-//        {
-//            [dictionary setValue:[NSURL URLWithString:[result stringForColumn:colName]] forKey:colName];
-//        }
-//        else if([colType isEqualToString:@"@\"NSInteger\""])
-//        {
-//            [dictionary setValue:[NSNumber numberWithInt:[result intForColumn:colName]] forKey:colName];
-//        }
-//        else
-//        {
-//            [dictionary setValue:[result dataForColumn:colName] forKey:colName];
-//        }
         
     }
     
     [object setDictionary:dictionary];
     
     return object;
-}
-
-- (void) notifyChange
-{
-    
-    OLCOrmNotification *notif = [[OLCOrmNotification alloc] initWithObject:self];
-    notif.selection = 1;
-    [[NSNotificationCenter defaultCenter] postNotificationName:OLCORM_NOTIFICATION object:notif];
 }
 
 @end
