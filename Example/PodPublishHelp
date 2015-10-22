@@ -4,7 +4,7 @@ $ edit NAME.podspec
 # set the new tag to 0.0.1
 $ pod lib lint
 
-$ git add -A && git commit -m "Release 0.0.1."
+$ git add -A && git commit -m "Release 1.0"
 $ git tag '0.0.1'
 $ git push --tags
 
