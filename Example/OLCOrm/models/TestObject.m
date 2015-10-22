@@ -11,6 +11,8 @@
 
 @implementation TestObject
 
+@dynamic Id;
+
 - (UserObject *) hasUser
 {
     return (UserObject*) [self belongTo:[UserObject class] foreignKeyCol:@"userId"];

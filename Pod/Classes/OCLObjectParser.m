@@ -10,6 +10,7 @@
 #import <Foundation/NSObjCRuntime.h>
 #import <objc/runtime.h>
 #import "NSObject+KJSerializer.h"
+#import "OCLModel.h"
 
 @implementation OCLObjectParser
 
@@ -46,7 +47,11 @@
     unsigned int outCount, i;
     objc_property_t *properties = class_copyPropertyList(class, &outCount);
     
-    BOOL idColFound = NO;
+    NSString *primaryKey    = [model performSelector:@selector(primaryKey)];
+//    BOOL autoIncrement      = [model performSelector:@selector(primaryKeyAutoIncrement)];
+    NSArray  *ignoredList   = [model performSelector:@selector(ignoredProperties)];
+    
+//    BOOL idColFound = NO;
     
     NSMutableArray *propertyArry = [[NSMutableArray alloc] init];
     
@@ -57,16 +62,23 @@
 
         char *type = property_copyAttributeValue(property, "T");
         
-//        NSLog(@"%@", propertyName);
-        
+       
         NSString *columnName = propertyName;
+        
+        //check and skip ignore fields
+        if([ignoredList containsObject:columnName]) continue;
+        
         NSString *dataType = [self getDBPropertyType:type];
+
         
         NSMutableDictionary *column = [[NSMutableDictionary alloc] init];
         
-        if([columnName isEqualToString:@"id"] || [columnName isEqualToString:@"Id"] || [columnName isEqualToString:@"ID"] )
+//        [column setValue:columnName forKey:@"column"];
+//        [column setValue:dataType forKey:@"type"];
+        
+        if([columnName isEqualToString:primaryKey])
         {
-            idColFound = YES;
+//            idColFound = YES;
             
             [column setValue:columnName forKey:@"column"];
             [column setValue:@"INTEGER" forKey:@"type"];
@@ -81,14 +93,14 @@
         [propertyArry addObject:column];
     }
     
-    if(!idColFound)
-    {
-        NSMutableDictionary *column = [[NSMutableDictionary alloc] init];
-        [column setValue:@"id" forKey:@"column"];
-        [column setValue:@"INTEGER" forKey:@"type"];
-        
-        [propertyArry addObject:column];
-    }
+//    if(!idColFound)
+//    {
+//        NSMutableDictionary *column = [[NSMutableDictionary alloc] init];
+//        [column setValue:@"id" forKey:@"column"];
+//        [column setValue:@"INTEGER" forKey:@"type"];
+//        
+//        [propertyArry addObject:column];
+//    }
     
     return propertyArry;
 }

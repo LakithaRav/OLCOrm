@@ -15,6 +15,8 @@
 
 @implementation OCLModel
 
+@synthesize Id;
+
 - (id) init
 {
     if(self = [super init])
@@ -124,6 +126,9 @@
     }
     @finally
     {
+        if(isUpdated)
+            [self notifyChange:Update];
+        
         [database close];
     }
     
@@ -152,6 +157,9 @@
     }
     @finally
     {
+        if(isDeleted)
+            [self notifyChange:Delete];
+        
         [database close];
     }
     
@@ -513,6 +521,11 @@
     notif.selection = 1;
     notif.type = type;
     [[NSNotificationCenter defaultCenter] postNotificationName:NSStringFromClass([self class]) object:notif];
+}
+
++ (void) removeNotifyer:(id) context
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:context name:NSStringFromClass([self class]) object:nil];
 }
 
 #pragma mark - private

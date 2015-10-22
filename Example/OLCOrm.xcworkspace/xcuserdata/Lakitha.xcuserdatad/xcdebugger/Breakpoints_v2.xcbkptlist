@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OLCOrm/OLCViewController.m"
-            timestampString = "465137897.151561"
+            filePath = "../Pod/Classes/OLCTableHandler.m"
+            timestampString = "467198962.430313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "306"
-            endingLineNumber = "306"
-            landmarkName = "-tableView:commitEditingStyle:forRowAtIndexPath:"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
+            landmarkName = "-createDeleteQuery:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -35,13 +35,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OLCOrm/OLCViewController.m"
-            timestampString = "465137897.151561"
+            filePath = "../Pod/Classes/OLCTableHandler.m"
+            timestampString = "467198962.430313"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
-            landmarkName = "-getAllRecords"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "-createTableQuery:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -51,45 +51,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OLCOrm/OLCViewController.m"
-            timestampString = "465137897.151561"
+            filePath = "../Pod/Classes/OCLModel.m"
+            timestampString = "467200888.456131"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
-            landmarkName = "-alertView:clickedButtonAtIndex:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OLCOrm/OLCViewController.m"
-            timestampString = "465137721.316206"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "-userUpdated:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "OLCOrm/OLCViewController.m"
-            timestampString = "465137897.151561"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "277"
-            endingLineNumber = "277"
-            landmarkName = "-tableView:numberOfRowsInSection:"
+            startingLineNumber = "528"
+            endingLineNumber = "528"
+            landmarkName = "+removeNotifyer:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

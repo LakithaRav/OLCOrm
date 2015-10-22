@@ -28,14 +28,12 @@
 //    [TestObject truncateTable];
 //    [UþserObject truncateTable];
     
-    [TestObject notifyOnChanges:self withMethod:@selector(testUpdated:)];
-    [UserObject notifyOnChanges:self withMethod:@selector(userUpdated:)];
+    [TestObject notifyOnChanges:self withMethod:@selector(testNotificationListner:)];
+    [UserObject notifyOnChanges:self withMethod:@selector(userNotificationListner:)];
     
     isEditingMode = NO;
     [self.tblRecords setDelegate:self];
     [self.tblRecords setDataSource:self];
-    
-    UIImage *image = [UIImage imageNamed:@"dracula.png"];
     
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(handleLongPress:)];
@@ -63,25 +61,24 @@
         user.desc = @"This is a sample user";
         user.status = [NSNumber numberWithInt:1];
         
-        NSNumber *index = [user saveAndGetId];
+        //if you want to get the Id of inserted record
+        //NSNumber *index = [user saveAndGetId];
+        
+        [user save];
         
         user = nil;
     }
 }
 
-- (void) userUpdated:(OLCOrmNotification *) action
+- (void) userNotificationListner:(OLCOrmNotification *) action
 {
     records = [TestObject all];
     
     [self.tblRecords reloadData];
 }
 
-- (void) testUpdated:(OLCOrmNotification *) action
+- (void) testNotificationListner:(OLCOrmNotification *) action
 {
-    records = [TestObject all];
-   
-    
-    
     switch (((OLCOrmNotification*) action.object).type)
     {
         case Insert:
@@ -99,6 +96,11 @@
         default:
             break;
     }
+    
+    records = [TestObject all];
+    
+    [self.tblRecords reloadData];
+    
 }
 
 - (void) getAllRecords
@@ -109,7 +111,7 @@
     
     records = [TestObject whereColumn:@"link" byOperator:@"=" forValue:@"http://google.com" accending:YES];
     
-    records = [TestObject where:@"flag = 1" sortBy:@"Id" accending:NO];
+    records = [TestObject where:@"flag = 1" sortBy:@"title" accending:NO];
     
     records = [TestObject all];
     
@@ -160,7 +162,7 @@
 
 - (IBAction)btnAddRecord:(id)sender {
     
-    BOOL isAdded = [self addNewRecord];
+    [self addNewRecord];
     
     //if(isAdded)
         //[self getAllRecords];
@@ -189,15 +191,13 @@
     NSIndexPath *indexPath = [self.tblRecords indexPathForRowAtPoint:p];
     if (indexPath == nil)
     {
-        NSLog(@"long press on table view but not on a row");
+
     }
     else
     {
         if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
         {
-            NSLog(@"long press on table view at row %ld", (long)indexPath.row);
-            
-            [self promptChangeTitleAlert:indexPath.row];
+            [self promptChangeTitleAlert:(int)indexPath.row];
         }
         else
         {
@@ -228,12 +228,10 @@
         [selection update];
         
         UserObject *user = [selection hasUser];
-        NSLog(@"User : %@", user.name);
         
         NSArray *objs = [user hasTests];
-        NSLog(@"Record Count : %lu", (unsigned long)[objs count]);
         
-        [self getAllRecords];
+//        [self getAllRecords];
         
         selection = nil;
         user = nil;
@@ -303,6 +301,6 @@
     
     record = nil;
     
-    [self getAllRecords];
+//    [self getAllRecords];
 }
 @end

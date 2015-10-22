@@ -1,4 +1,4 @@
-# OLCOrm v0.0.9
+# OLCOrm v1.0
 
 [![CI Status](http://img.shields.io/travis/Lakitha Samarasinghe/OLCOrm.svg?style=flat)](https://travis-ci.org/Lakitha Samarasinghe/OLCOrm)
 [![Version](https://img.shields.io/cocoapods/v/OLCOrm.svg?style=flat)](http://cocoadocs.org/docsets/OLCOrm)
@@ -25,6 +25,14 @@ it, simply add the following line to your Podfile:
     pod "OLCOrm"
     
 ## What's new ?
+
+2015-10-22
+
+> CRUD Operation listeners added. Not you can subscribe to these listen to monitor any changes happening to the specified table.
+> Primary Ket can be specified.
+> Ignoring object properties are possible.
+> Debugger is now enabled to table level for more convenience.
+> Relationship mapping logic updated. (Please note; current methods are changed accordingly)
 
 2015-08-07
 
@@ -147,6 +155,45 @@ Add this method to your model class
     {
         return [self hasMany:[TestObject class] foreignKeyCol:@"userId" primaryKeyCol:@"Id"];
     }
+
+### Primary Key
+
+Now you can specify the primary key property of and object by overiding the method '+ (NSString *) primaryKey' and returning the key you want, by default this is set to 'Id';
+
+    + (NSString *) primaryKey
+    {
+        return @"CustomKey";
+    }
+
+### Ignoring properties
+
+You can have temparary values that need to be stored in an object at runtime that you don't need to save to the database. To ignore thoes properties you can overide the method '+ (NSArray *) ignoredProperties' and return an array of property names
+
+    + (NSArray *) ignoredProperties
+    {
+        return @[@"status"];
+    }
+
+### Enabling debug mode for the object
+
+To enable debug mode for a specific object you can overid the method '+ (BOOL) debug' and return YES to enable it, by default this is set to NO;
+
+    + (BOOL) debug
+    {
+        return YES;
+    }
+
+### Notifications
+
+OLCOrm instances send out notifications to other instances on other threads every time a crud transaction is committed. These notifications can be observed by registering a to notifications:
+    
+Registering;
+
+    [TestObject notifyOnChanges:self withMethod:@selector(testNotificationListner:)];
+
+Unregistering;
+
+        [TestObject removeNotifyer:self];
 
 ## Special Thanks
 

@@ -11,6 +11,8 @@
 
 @implementation UserObject
 
+@dynamic Id;
+
 - (NSArray *) hasTests
 {
     return [self hasMany:[TestObject class] foreignKeyCol:@"userId"];

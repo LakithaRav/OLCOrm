@@ -25,7 +25,7 @@
     NSString *className = NSStringFromClass (model);
     
     NSString *primaryKey    = [model performSelector:@selector(primaryKey)];
-    BOOL autoIncrement      = [model performSelector:@selector(primaryKeyAutoIncrement)];
+    BOOL autoIncrement      = (BOOL)[model performSelector:@selector(primaryKeyAutoIncrement)];
     NSArray  *ignoredList   = [model performSelector:@selector(ignoredProperties)];
     
     NSMutableString *createQuery = [[NSMutableString alloc] init];
@@ -43,12 +43,8 @@
         
         NSString *colName   = [column valueForKey:@"column"];
         NSString *typeName  = [column valueForKey:@"type"];
-        
-        BOOL isLastColumn = NO;
-        
-        isLastColumn = (i == [columns count]-1) ? YES : NO;
-        
-//        if([colName isEqualToString:@"id"] || [colName isEqualToString:@"Id"] || [colName isEqualToString:@"ID"] )
+                
+        BOOL isLastColumn = (i == [columns count]-1) ? YES : NO;
         
         if([ignoredList containsObject:colName]) continue;
         
@@ -100,7 +96,7 @@
     NSMutableString *insertQuery = [[NSMutableString alloc] init];
     
     NSString *primaryKey    = [[data class] performSelector:@selector(primaryKey)];
-    BOOL autoIncrement      = [[data class] performSelector:@selector(primaryKeyAutoIncrement)];
+    BOOL autoIncrement      = (BOOL)[[data class] performSelector:@selector(primaryKeyAutoIncrement)];
     NSArray  *ignoredList   = [[data class] performSelector:@selector(ignoredProperties)];
     
     [insertQuery appendString:@"INSERT INTO "];

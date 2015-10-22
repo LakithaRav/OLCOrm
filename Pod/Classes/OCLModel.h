@@ -44,4 +44,5 @@
 + (BOOL) truncateTable;
 
 + (void) notifyOnChanges:(id) context withMethod:(SEL) method;
++ (void) removeNotifyer:(id) context;
 @end
