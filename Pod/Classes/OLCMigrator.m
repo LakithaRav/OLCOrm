@@ -11,8 +11,11 @@
 
 @implementation OLCMigrator
 
-//static BOOL debugger = NO;
+/*!
+ * @brief Singleton object of OLCMigrator class
+ */
 static OLCMigrator *_sharedInt = nil;
+
 
 +(OLCMigrator *) sharedInstance:(NSString *) database version:(NSNumber *) version enableDebug:(BOOL) debug
 {
@@ -29,10 +32,12 @@ static OLCMigrator *_sharedInt = nil;
     return _sharedInt;
 }
 
+
 +(OLCMigrator *) getSharedInstance;
 {
     return _sharedInt;
 }
+
 
 - (void) initDb
 {
@@ -41,6 +46,10 @@ static OLCMigrator *_sharedInt = nil;
     [self makeMigrationTable];
 }
 
+/*!
+ @brief         Create the migration table
+ @discussion    Calling this will create migration table
+ */
 - (BOOL) makeMigrationTable
 {
     BOOL isCreated = NO;
@@ -51,6 +60,13 @@ static OLCMigrator *_sharedInt = nil;
     return isCreated;
 }
 
+/*!
+ @brief         Update table version in migration table
+ @discussion    Calling this will update the table version of a specific model class talbe
+ @param         model Class of a specific model
+ @param         dbVersion version number of the new or update model class
+ @return        <b>BOOL</b> YES if created, NO if failed
+ */
 - (BOOL) migrateTable:(Class) model for:(NSNumber *) dbVersion
 {
     BOOL isAddOrUpdate = NO;
@@ -71,6 +87,7 @@ static OLCMigrator *_sharedInt = nil;
     
 }
 
+
 - (BOOL) makeTable:(Class) model
 {
     BOOL isCreated = NO;
@@ -80,18 +97,27 @@ static OLCMigrator *_sharedInt = nil;
     return isCreated;
 }
 
-- (BOOL) makeTable:(Class) model withTableVersion:(NSNumber *) dbVersion
+
+- (BOOL) makeTable:(Class) model withTableVersion:(NSNumber *) version
 {
     BOOL isCreated = NO;
     
-    isCreated = [self insertOrUpdateMigration:model for:dbVersion];
+    isCreated = [self insertOrUpdateMigration:model for:version];
     
     return isCreated;
 }
 
 #pragma private methods
 
-- (BOOL) insertOrUpdateMigration:(Class) model for:(NSNumber *) dbVersion
+/*!
+ @brief         Insert or Update migration record
+ @discussion    Method to insert or update migration record based on database or table version
+ @remark        Private method
+ @param         model Class of a specific model
+ @param         version table verion number
+ @return        <b>BOOL</b> YES if created, NO if failed
+ */
+- (BOOL) insertOrUpdateMigration:(Class) model for:(NSNumber *) version
 {
     BOOL isCreated = NO;
     
@@ -101,7 +127,7 @@ static OLCMigrator *_sharedInt = nil;
     {
 //        NSNumber *ver = [record valueForKey:@"db_version"];
         
-        if([[record valueForKey:@"db_version"] intValue] < [dbVersion intValue])
+        if([[record valueForKey:@"db_version"] intValue] < [version intValue])
         {
             OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
             isCreated = [dbH makeTable:model];
@@ -133,6 +159,12 @@ static OLCMigrator *_sharedInt = nil;
     return isCreated;
 }
 
+/*!
+ @brief         Crates the migration table query
+ @discussion    This method will create and reruns the migration table's create statement to the caller
+ @remark        Private method
+ @return        <b>NSString</b> migration table create SQL
+ */
 - (NSString *) createTableQuery
 {
     NSMutableString *mgQuery = [[NSMutableString alloc] init];
@@ -149,7 +181,15 @@ static OLCMigrator *_sharedInt = nil;
     return mgQuery;
 }
 
-- (BOOL) makeMigrationRecord:(Class) model for:(NSNumber *) dbVersion
+/*!
+ @brief         Create the migration table on database
+ @discussion    This method create the table migration table in the database
+ @remark        Private method
+ @param         model Class of a specific model
+ @param         version table verion number
+ @return        <b>BOOL</b> YES if created, NO if failed
+ */
+- (BOOL) makeMigrationRecord:(Class) model for:(NSNumber *) version
 {
     BOOL isAdded = NO;
     
@@ -161,7 +201,7 @@ static OLCMigrator *_sharedInt = nil;
     
     @try
     {
-        NSString *query = [self createInsertQuery:model for:dbVersion];
+        NSString *query = [self createInsertQuery:model for:version];
         isAdded = [database executeStatements:query];
     }
     @catch (NSException *exception)
@@ -177,6 +217,13 @@ static OLCMigrator *_sharedInt = nil;
     return isAdded;
 }
 
+/*!
+ @brief         Update the migration table on database
+ @discussion    This method update the table migration table records
+ @remark        Private method
+ @param         record Sql query string to update a specific record
+ @return        <b>BOOL</b> YES if created, NO if failed
+ */
 - (BOOL) updateMigrationRecord:(NSDictionary *) record
 {
     BOOL isUpdated = NO;
@@ -205,7 +252,15 @@ static OLCMigrator *_sharedInt = nil;
     return isUpdated;
 }
 
-- (NSString *) createInsertQuery:(Class) model for:(NSNumber *) dbVersion
+/*!
+ @brief         Create the Insert SQL query
+ @discussion    Method used to create Insert SQL Insert statment on a model
+ @remark        Private method
+ @param         model Class of a specific model
+ @param         version table verion number
+ @return        <b>NSString</b> Insert SQL query
+ */
+- (NSString *) createInsertQuery:(Class) model for:(NSNumber *) version
 {
     NSMutableString *mgQuery = [[NSMutableString alloc] init];
     
@@ -216,12 +271,20 @@ static OLCMigrator *_sharedInt = nil;
     [mgQuery appendString:@") "];
     [mgQuery appendString:@"VALUES "];
     [mgQuery appendString:@"( "];
-    [mgQuery appendString:[NSString stringWithFormat:@"'%@', '%@', '%@' ", model, dbVersion, [NSDate date]]];
+    [mgQuery appendString:[NSString stringWithFormat:@"'%@', '%@', '%@' ", model, version, [NSDate date]]];
     [mgQuery appendString:@"); "];
     
     return mgQuery;
 }
 
+/*!
+ @brief         Create the Update SQL query
+ @discussion    Method used to create Update SQL Insert statment on a model
+ @remark        Private method
+ @param         model Class of a specific model
+ @param         version table verion number
+ @return        <b>NSString</b> Update SQL query
+ */
 - (NSString *) createUpdateQuery:(NSDictionary *) record
 {
     NSMutableString *mgQuery = [[NSMutableString alloc] init];
@@ -239,6 +302,13 @@ static OLCMigrator *_sharedInt = nil;
     return mgQuery;
 }
 
+/*!
+ @brief         Retrieve migration record
+ @discussion    Method used to retrieve a specific migration record by class name of an model
+ @remark        Private method
+ @param         model Class of a specific model
+ @return        <b>NSDictionary</b> record values
+ */
 - (NSDictionary *) getMigrationRecordBy:(Class) class
 {
     NSMutableDictionary *record = [[NSMutableDictionary alloc] init];

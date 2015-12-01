@@ -26,6 +26,7 @@
     return self;
 }
 
+
 - (BOOL) save
 {
     BOOL isAdded = NO;
@@ -56,6 +57,7 @@
     
     return isAdded;
 }
+
 
 - (NSNumber*) saveAndGetId
 {
@@ -104,6 +106,7 @@
     return recordId;
 }
 
+
 - (BOOL) update
 {
     BOOL isUpdated = NO;
@@ -134,6 +137,7 @@
     
     return isUpdated;
 }
+
 
 - (BOOL) delete
 {
@@ -167,6 +171,7 @@
 }
 
 #pragma mark - relationships
+
 
 - (NSObject *) hasOne:(Class) model foreignKeyCol:(NSString *) fkey /*primaryKeyCol:(NSString *) pkey*/
 {
@@ -209,6 +214,7 @@
     
     return object;
 }
+
 
 - (NSArray *) hasMany:(Class) model foreignKeyCol:(NSString *) fkey /*primaryKeyCol:(NSString *) pkey*/
 {
@@ -253,6 +259,7 @@
     return  objArry;
 }
 
+
 - (NSObject *) belongTo:(Class) model foreignKeyCol:(NSString *) pkey
 {
     return [self hasOne:model foreignKeyCol:pkey];
@@ -260,25 +267,30 @@
 
 #pragma mark - static
 
+
 + (NSString*) primaryKey
 {
     return @"Id";
 }
+
 
 + (BOOL) primaryKeyAutoIncrement
 {
     return YES;
 }
 
+
 + (NSArray *)ignoredProperties
 {
     return @[];
 }
 
+
 + (BOOL) debug
 {
     return NO;
 }
+
 
 + (NSArray*) all
 {
@@ -319,6 +331,7 @@
     return objArry;
 }
 
+
 + (NSObject *) find:(NSNumber *) Id
 {
     NSObject * object = nil;
@@ -356,6 +369,7 @@
     
     return object;
 }
+
 
 + (NSArray *) whereColumn:(NSString *) column byOperator:(NSString *) opt forValue:(NSString *) value accending:(BOOL) sort
 {
@@ -396,6 +410,7 @@
     return  objArry;
 }
 
+
 + (NSArray *) where:(NSString *) clause sortBy:(NSString *) column accending:(BOOL) sort
 {
     NSMutableArray *objArry = [[NSMutableArray alloc] init];
@@ -435,6 +450,7 @@
     return  objArry;
 }
 
+
 + (NSArray *) query:(NSString *) query
 {
     NSMutableArray *objArry = [[NSMutableArray alloc] init];
@@ -467,6 +483,7 @@
     
     return  objArry;
 }
+
 
 + (BOOL) truncateTable
 {
@@ -514,6 +531,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:context selector:method name:NSStringFromClass([self class]) object:nil];
 }
 
+/*!
+ @brief         Trigger local notification
+ @discussion    Private method use to fire local notification based on the CRUD operations happen on the database table
+ @param         type <b>Operations</b> enum
+ */
 - (void) notifyChange:(Operations) type
 {
     
@@ -522,6 +544,7 @@
     notif.type = type;
     [[NSNotificationCenter defaultCenter] postNotificationName:NSStringFromClass([self class]) object:notif];
 }
+
 
 + (void) removeNotifyer:(id) context
 {

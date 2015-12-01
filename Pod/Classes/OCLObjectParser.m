@@ -41,6 +41,7 @@
     return propertyArry;
 }
 
+
 - (NSArray *) parseModel:(Class) model
 {
     id class = model;
@@ -151,6 +152,12 @@
     return dataArry;
 }
 
+/*!
+ @brief          Map Objective-c datatypes to SQLite datatypes
+ @discussion     This method map Objective-c datatypes to SQLite compatible datatypes to create the CREATE statment
+ @param          type char value of the attribute type
+ @return         <b>NSArray</b> array of NSDictionary values
+ */
 - (NSString *) getDBPropertyType:(char *) type
 {
     NSString *dataType = @"TEXT";

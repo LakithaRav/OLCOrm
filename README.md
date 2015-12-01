@@ -26,6 +26,10 @@ it, simply add the following line to your Podfile:
     
 ## What's new ?
 
+2015-12-01
+
+> Ignore list related bug fixed.
+
 2015-10-22
 
 > CRUD Operation listeners added. Not you can subscribe to these listen to monitor any changes happening to the specified table.

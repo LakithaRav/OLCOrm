@@ -62,7 +62,7 @@
         user.status = [NSNumber numberWithInt:1];
         
         //if you want to get the Id of inserted record
-        //NSNumber *index = [user saveAndGetId];
+        NSNumber *index = [user saveAndGetId];
         
         [user save];
         
@@ -225,6 +225,7 @@
         selection.title     = inputText;
         selection.flag      = [NSNumber numberWithInt:2];
         selection.updateAt  = [NSDate date];
+        
         [selection update];
         
         UserObject *user = [selection hasUser];
@@ -298,6 +299,7 @@
     TestObject *record = [records objectAtIndex:indexPath.row];
     
     [record delete];
+
     
     record = nil;
     
