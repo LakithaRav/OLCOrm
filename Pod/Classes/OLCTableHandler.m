@@ -44,7 +44,7 @@
         NSString *colName   = [column valueForKey:@"column"];
         NSString *typeName  = [column valueForKey:@"type"];
                 
-        BOOL isLastColumn = (i == [columns count]-([ignoredList count] + 1)) ? YES : NO;
+        BOOL isLastColumn = (i == [columns count]-1) ? YES : NO;
         
         if([ignoredList containsObject:colName]) continue;
         
@@ -109,7 +109,7 @@
     for(int i=0; i < [columns count]; i++)
     {
         
-        BOOL isLastColumn = (i == [columns count]-([ignoredList count] + 1)) ? YES : NO;
+        BOOL isLastColumn = (i == [columns count]-1) ? YES : NO;
         
         NSDictionary *keyval = (NSDictionary *) columns[i];
         
@@ -182,7 +182,7 @@
     
     for(int i=0; i < [columns count]; i++)
     {
-        BOOL isLastColumn = (i == [columns count]-([ignoredList count] + 1)) ? YES : NO;
+        BOOL isLastColumn = (i == [columns count]-1) ? YES : NO;
         
         NSDictionary *keyval = (NSDictionary *) columns[i];
         
