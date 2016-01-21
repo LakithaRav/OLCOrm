@@ -107,7 +107,11 @@
 {
     UserObject *user = (UserObject*)[UserObject find:@1];
     
+//    SELECT b.* FROM UserObject a CROSS JOIN TestObject b ON a.Id = b.userId WHERE a.Id = 1 ORDER BY a.userId
+    
     records = [user hasTests];
+    
+    UserObject *user1 = [[records firstObject] hasUser];
     
     records = [TestObject whereColumn:@"link" byOperator:@"=" forValue:@"http://google.com" accending:YES];
     

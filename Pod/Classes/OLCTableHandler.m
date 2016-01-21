@@ -391,9 +391,9 @@
     [selectQuery appendString:@"SELECT b.* FROM "];
     [selectQuery appendString:[NSString stringWithFormat:@"%@ a ", [data class]]];
     [selectQuery appendString:[NSString stringWithFormat:@"INNER JOIN %@ b ", fmodel]];
-    [selectQuery appendString:[NSString stringWithFormat:@"ON a.%@ = b.%@ ", fkey, pkey]];
-    [selectQuery appendString:[NSString stringWithFormat:@"WHERE a.%@ = %@ ", pkey, Id]];
-    [selectQuery appendString:[NSString stringWithFormat:@"ORDER BY a.%@ ", pkey]];
+    [selectQuery appendString:[NSString stringWithFormat:@"ON a.%@ = b.%@ ", fkey, primaryKey]];
+    [selectQuery appendString:[NSString stringWithFormat:@"WHERE a.%@ = %@ ", primaryKey, Id]];
+    [selectQuery appendString:[NSString stringWithFormat:@"ORDER BY a.%@ ", fkey]];
     [selectQuery appendString:@";"];
     
     if([[OLCOrm getSharedInstance] isDebugEnabled] || [[data class] performSelector:@selector(debug)])
@@ -428,14 +428,16 @@
     [selectQuery appendString:@"SELECT b.* FROM "];
     [selectQuery appendString:[NSString stringWithFormat:@"%@ a ", [data class]]];
     [selectQuery appendString:[NSString stringWithFormat:@"CROSS JOIN %@ b ", fmodel]];
-    [selectQuery appendString:[NSString stringWithFormat:@"ON a.%@ = b.%@ ", pkey, fkey]];
-    [selectQuery appendString:[NSString stringWithFormat:@"WHERE a.%@ = %@ ", pkey, Id]];
-    [selectQuery appendString:[NSString stringWithFormat:@"ORDER BY a.%@ ", pkey]];
+    [selectQuery appendString:[NSString stringWithFormat:@"ON a.%@ = b.%@ ", primaryKey, fkey]];
+    [selectQuery appendString:[NSString stringWithFormat:@"WHERE a.%@ = %@ ", primaryKey, Id]];
+    [selectQuery appendString:[NSString stringWithFormat:@"ORDER BY b.%@ ", fkey]];
     
     [selectQuery appendString:@";"];
     
     if([[OLCOrm getSharedInstance] isDebugEnabled] || [[data class] performSelector:@selector(debug)])
         NSLog(@"[%@]: Query : [%@] %@ \n\n", OLC_LOG, [data class], selectQuery);
+    
+//    SELECT b.* FROM UserObject a CROSS JOIN TestObject b ON a.Id = b.userId WHERE a.Id = 1 ORDER BY a.userId ;
     
     return selectQuery;
 }

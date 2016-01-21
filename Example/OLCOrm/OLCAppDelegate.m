@@ -23,6 +23,8 @@
     
     [Crashlytics startWithAPIKey:@"1f6d052a2d1b10665a77ee75fd6e6d2681450b78"];
     
+    NSLog(@"%@",[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory  inDomains:NSUserDomainMask] lastObject]);
+    
     [self setupTheme];
     [self initDb];
     
