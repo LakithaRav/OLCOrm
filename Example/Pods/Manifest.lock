@@ -4,7 +4,7 @@ PODS:
   - FMDB/common (2.5)
   - FMDB/standard (2.5):
     - FMDB/common
-  - OLCOrm (0.0.9):
+  - OLCOrm (1.0.3):
     - FMDB
 
 DEPENDENCIES:
@@ -13,10 +13,10 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   OLCOrm:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
-  OLCOrm: ad465e31c745301b870807547f8597dae1e1e0a9
+  OLCOrm: 5c730cd9b2374511d73daabc0d6b3cb3d96d3acb
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0
