@@ -26,6 +26,11 @@ it, simply add the following line to your Podfile:
     
 ## What's new ?
 
+2016-02-07
+
+> OneToOne relationship bug fixed.
+> Crashlytics removed.
+
 2015-12-01
 
 > Ignore list related bug fixed.

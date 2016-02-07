@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '9CC1E06943D66010F9B288F4'
+               BlueprintIdentifier = 'E0AB3E19D7008B00103D7AF4'
                BlueprintName = 'OLCOrm'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libOLCOrm.a'>

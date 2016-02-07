@@ -8,7 +8,7 @@
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-#import <Crashlytics/Crashlytics.h>
+
 #import "OLCAppDelegate.h"
 #import "OLCOrm.h"
 #import "TestObject.h"
@@ -21,7 +21,7 @@
 {
     // Override point for customization after application launch.
     
-    [Crashlytics startWithAPIKey:@"1f6d052a2d1b10665a77ee75fd6e6d2681450b78"];
+//    [Crashlytics startWithAPIKey:@"1f6d052a2d1b10665a77ee75fd6e6d2681450b78"];
     
     NSLog(@"%@",[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory  inDomains:NSUserDomainMask] lastObject]);
     

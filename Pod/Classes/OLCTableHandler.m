@@ -372,7 +372,7 @@
     OCLObjectParser *parse = [[OCLObjectParser alloc] init];
     NSArray *columns = [parse parseObject:data];
     
-    NSString *primaryKey    = [[data class] performSelector:@selector(primaryKey)];
+    NSString *primaryKey    = [fmodel performSelector:@selector(primaryKey)];
     
     NSNumber * Id = nil;
     for(int i=0; i < [columns count]; i++)
@@ -392,7 +392,7 @@
     [selectQuery appendString:[NSString stringWithFormat:@"%@ a ", [data class]]];
     [selectQuery appendString:[NSString stringWithFormat:@"INNER JOIN %@ b ", fmodel]];
     [selectQuery appendString:[NSString stringWithFormat:@"ON a.%@ = b.%@ ", fkey, primaryKey]];
-    [selectQuery appendString:[NSString stringWithFormat:@"WHERE a.%@ = %@ ", primaryKey, Id]];
+    [selectQuery appendString:[NSString stringWithFormat:@"WHERE a.%@ = %@ ", fkey, Id]];
     [selectQuery appendString:[NSString stringWithFormat:@"ORDER BY a.%@ ", fkey]];
     [selectQuery appendString:@";"];
     

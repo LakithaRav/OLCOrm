@@ -2,6 +2,12 @@
 #import "FMDatabase.h"
 #import "unistd.h"
 
+#if FMDB_SQLITE_STANDALONE
+#import <sqlite3/sqlite3.h>
+#else
+#import <sqlite3.h>
+#endif
+
 @interface FMDatabase ()
 - (void)resultSetDidClose:(FMResultSet *)resultSet;
 @end
@@ -206,8 +212,7 @@
     return sqlite3_errcode([_parentDB sqliteHandle]) == SQLITE_ROW;
 }
 
-- (int)columnIndexForName:(NSString*) columnName
-{
+- (int)columnIndexForName:(NSString*)columnName {
     columnName = [columnName lowercaseString];
     
     NSNumber *n = [[self columnNameToIndexMap] objectForKey:columnName];
