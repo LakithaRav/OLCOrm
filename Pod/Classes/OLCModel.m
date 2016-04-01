@@ -6,14 +6,18 @@
 //  Copyright (c) 2014 Fidenz. All rights reserved.
 //
 
-#import "OCLModel.h"
-#import "OCLDBHelper.h"
-#import "OCLObjectParser.h"
-#import "OCLDBHelper.h"
+#import "OLCModel.h"
+#import "OLCDBHelper.h"
+#import "OLCObjectParser.h"
+#import "NSObject+KJSerializer.h"
+#import "OLCTableHandler.h"
 
 #define OLC_LOG @"OLCLOG"
 
-@implementation OCLModel
+@implementation OLCModel
+{
+    OLCTableHandler *queryH;
+}
 
 @synthesize Id;
 
@@ -31,7 +35,7 @@
 {
     BOOL isAdded = NO;
     
-    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
     
     FMDatabase * database = [dbH getDb];
     
@@ -63,7 +67,7 @@
 {
     NSNumber *recordId = @-1;
     
-    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
     
     FMDatabase * database = [dbH getDb];
     
@@ -111,7 +115,7 @@
 {
     BOOL isUpdated = NO;
     
-    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
     
     FMDatabase * database = [dbH getDb];
     
@@ -143,7 +147,7 @@
 {
     BOOL isDeleted = NO;
     
-    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
     
     FMDatabase * database = [dbH getDb];
     
@@ -177,7 +181,7 @@
 {
     NSObject * object = nil;
     
-    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
     
     FMDatabase * database = [dbH getDb];
     
@@ -197,7 +201,7 @@
         {
             while([results next])
             {
-                object = [OCLModel makeObject:results forClass:model];
+                object = [OLCModel makeObject:results forClass:model];
             }
         }
     }
@@ -220,7 +224,7 @@
 {
     NSMutableArray *objArry = [[NSMutableArray alloc] init];
     
-    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
     
     FMDatabase * database = [dbH getDb];
     
@@ -240,7 +244,7 @@
         {
             while([results next])
             {
-                NSObject * object = [OCLModel makeObject:results forClass:model];
+                NSObject * object = [OLCModel makeObject:results forClass:model];
                 [objArry addObject:object];
             }
         }
@@ -296,7 +300,7 @@
 {
     NSMutableArray *objArry = [[NSMutableArray alloc] init];
     
-    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
     
     FMDatabase * database = [dbH getDb];
     
@@ -336,7 +340,7 @@
 {
     NSObject * object = nil;
     
-    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
     
     FMDatabase * database = [dbH getDb];
     
@@ -353,7 +357,7 @@
         
         while([results next])
         {
-            object = [OCLModel makeObject:results forClass:[self class]];
+            object = [OLCModel makeObject:results forClass:[self class]];
         }
     }
     @catch (NSException *exception)
@@ -375,7 +379,7 @@
 {
     NSMutableArray *objArry = [[NSMutableArray alloc] init];
     
-    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
     
     FMDatabase * database = [dbH getDb];
     
@@ -392,7 +396,7 @@
                 
         while([results next])
         {
-            NSObject * object = [OCLModel makeObject:results forClass:[self class]];
+            NSObject * object = [OLCModel makeObject:results forClass:[self class]];
             [objArry addObject:object];
         }
     }
@@ -415,7 +419,7 @@
 {
     NSMutableArray *objArry = [[NSMutableArray alloc] init];
     
-    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
     
     FMDatabase * database = [dbH getDb];
     
@@ -432,7 +436,7 @@
         
         while([results next])
         {
-            NSObject * object = [OCLModel makeObject:results forClass:[self class]];
+            NSObject * object = [OLCModel makeObject:results forClass:[self class]];
             [objArry addObject:object];
         }
     }
@@ -455,7 +459,7 @@
 {
     NSMutableArray *objArry = [[NSMutableArray alloc] init];
     
-    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
     
     FMDatabase * database = [dbH getDb];
     
@@ -467,7 +471,7 @@
         
         while([results next])
         {
-            NSObject * object = [OCLModel makeObject:results forClass:[self class]];
+            NSObject * object = [OLCModel makeObject:results forClass:[self class]];
             [objArry addObject:object];
         }
     }
@@ -489,7 +493,7 @@
 {
     BOOL isDeleted = NO;
     
-    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
     
     FMDatabase * database = [dbH getDb];
     
@@ -557,11 +561,11 @@
 {
     NSObject * object = nil;
     
-    OCLObjectParser *parse = [[OCLObjectParser alloc] init];
+    OLCObjectParser *parse = [[OLCObjectParser alloc] init];
     NSArray *columns = [parse scanModel:model];
     
     object = [model new];
-    NSDictionary * dictionary = [object getDictionary];
+    NSDictionary * dictionary = [object getObjDictionary];
     
     NSArray  *ignoredList   = [model performSelector:@selector(ignoredProperties)];
     
@@ -684,7 +688,7 @@
         
     }
     
-    [object setDictionary:dictionary];
+    [object setObjDictionary:dictionary];
     
     return object;
 }

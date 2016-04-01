@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FMDatabase.h"
-#import "FMDatabaseQueue.h"
+#import "FMDB/FMDatabase.h"
+#import "FMDB/FMDatabaseQueue.h"
 #import "OLCMigrator.h"
 
-@interface OCLDBHelper : NSObject
+@interface OLCDBHelper : NSObject
 
 //+(OCLDBHelper *) sharedInstance:(NSString *) database;
 

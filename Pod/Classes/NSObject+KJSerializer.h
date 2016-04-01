@@ -10,7 +10,7 @@
 
 @interface NSObject (KJObjectSerializer)
 
--(NSMutableDictionary *)getDictionary;
--(void)setDictionary:(NSDictionary*)dictionary;
+-(NSMutableDictionary *) getObjDictionary;
+-(void) setObjDictionary:(NSDictionary*)dictionary;
 
 @end

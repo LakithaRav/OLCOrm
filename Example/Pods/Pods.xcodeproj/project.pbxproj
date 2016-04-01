@@ -7,41 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0221483557CFBD80317C5B18C2C670B5 /* OLCMigrator.h in Headers */ = {isa = PBXBuildFile; fileRef = F76C4316C58CF0CCF91254BDD915138D /* OLCMigrator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0EF8E9AA652DBE2745A7D5C8CD2E3BDE /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 400AFB42920EB39709666D3F1A73D6C2 /* FMDatabasePool.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		0F8A8E0D6FAEBF758E0B4D620335F094 /* FMDatabasePool.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AF3AEDDA16DD8E28B59FF0788FDDC03 /* FMDatabasePool.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		16118F6A03226A2307C33293AA503AE3 /* NSObject+KJSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = FDB17773EBAE6A4B7CA469B1C9D1A6F7 /* NSObject+KJSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C372D1B767DA65EDD6068308703BA70 /* OLCOrm-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AEACCA16E16BA6599811F3875AFEFF67 /* OLCOrm-dummy.m */; };
 		282081E035E7A843068E8BCC2E07C217 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C11A8F38580C7A7FF38ACB6A3B412884 /* FMDatabaseQueue.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		2C1E162729AF3790C49C86F8282E50EB /* OCLDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFC0E1FCFF8533FF687ECE708601A38 /* OCLDBHelper.m */; };
-		30795FE346192C37460806D993F2B501 /* OCLModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 107A0D0FFDE4C192BD40A9DF19879097 /* OCLModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2854303ECEA809C90FC13C8CA1996136 /* OLCModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 64C778C7EDDBFA6C689368EBDF1C5C3A /* OLCModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		313531CEDA0294311D87B4F4C3F073F4 /* FMDB.h in Headers */ = {isa = PBXBuildFile; fileRef = 91893D40185E0EFA40FC217BE44A7C0D /* FMDB.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3D0F69C4CA35EB6A1F686BA88B19B4F6 /* FMDB-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D76813CB39ACC402A9EE3DC12B4E682 /* FMDB-dummy.m */; };
-		5447A5818513BAD856497BF4AE4B64D7 /* OLCTableHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A6BC7112DB6828C32895C9F0545064 /* OLCTableHandler.m */; };
+		3D727F9DD7EC83630238FD9E2F37B0DE /* OLCOrmNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A3A47EC91684675C0AE3B81E0A5E40E /* OLCOrmNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4BCE9C3C1E57574473293123EA070DC3 /* OLCObjectParser.h in Headers */ = {isa = PBXBuildFile; fileRef = CA75156F0E876AB92C67F01201A483F9 /* OLCObjectParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		534645187C2EECE75DD754577EB75974 /* OLCModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C8A6CABBD54C6EC7507AD38479363120 /* OLCModel.m */; };
 		587B76A3E381AF7C3EFFDF6754D39288 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		5C603C41948787C29D82259B263926C8 /* OLCMigrator.m in Sources */ = {isa = PBXBuildFile; fileRef = F31277739BF4F329B7C0FF54C1ECBBB6 /* OLCMigrator.m */; };
 		636E88B070B4A9BCE9CEE723BE2A3125 /* Pods-OLCOrm-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B49BC0879A50EFD41AC43E93D194B8 /* Pods-OLCOrm-dummy.m */; };
-		65911E892894DFA712AEF2051F1B184F /* OLCOrm.m in Sources */ = {isa = PBXBuildFile; fileRef = DB244DBF028FAF82D606AABFA84B9973 /* OLCOrm.m */; };
-		79B96ACE0420DE802282FC1C1E996099 /* OLCMigrator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C7589752E69346383BD1064745F74DB /* OLCMigrator.m */; };
-		8809C80C3F23CD6CCC228692F86CC502 /* OCLDBHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = D0ADC5D6797437CCC0E7C7950AFA6673 /* OCLDBHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		97CD84446EFE93809D1BFDC167ABE976 /* OLCOrm.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E81F4340354F5DFB920B7BE23606A33 /* OLCOrm.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7952873293DF14BC981FDF2B7872D3DB /* OLCTableHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A45F373EED3281C2B38294FCAF478DC0 /* OLCTableHandler.m */; };
+		98C104BB75E4517F2BA6FD790C31F5E0 /* OLCDBHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 49F74F38D309E2B67443921EA8007A4A /* OLCDBHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		99FFB1525A6D4A0710BD1C6073DB222F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
 		9A707948292873DE5A4756F5C4DD688C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
 		A350C5704A1F233DAD830E081E00F8C1 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCC0EED53ED8D7C1931178E0E4269B4 /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		ACC8ADEB4326A9EF80204A6FCE25BE13 /* OCLObjectParser.h in Headers */ = {isa = PBXBuildFile; fileRef = CB9C9804EA98A6A3973FEDE23CA0311B /* OCLObjectParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B0841A4C1E3275234EF7CE3217729507 /* OLCTableHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = DAD2CFD4FE994F72D46B3B72340A5384 /* OLCTableHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A36C934CB4BADEAFF7FA364541B0BD16 /* OLCOrm.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A5F1DACA77BB3F8D0D6A08BFC23245 /* OLCOrm.m */; };
+		A461A1723A21129380E06790F067ED00 /* OLCOrmNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = C372EA4079125B90A69B478EA50C8089 /* OLCOrmNotification.m */; };
+		B30A2819BC8D3D1128D06D2052DF426D /* OLCDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4A3162A302F1ABAB29CE1BA806AE53 /* OLCDBHelper.m */; };
 		B418C9BDCF8C6BAC2E3942F157BB6D4C /* FMDatabaseAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D2DD52CB174E1DC79111C38E770F6FC8 /* FMDatabaseAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B933D4733027DE7D8260E902E5C0D176 /* OCLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE8D512DA79B3C53D362C3EB4788BB4 /* OCLModel.m */; };
-		C63198AF26D1C9305B7A6375C6956C6B /* OLCOrmNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 0930B01925F6E4A4F394B03D222767A4 /* OLCOrmNotification.m */; };
+		B49514C5B71CE8F4962388CF46822C8D /* OLCTableHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C98826CBEB8FF17CC4D85CAB33C0A65 /* OLCTableHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B577F70AA2FF0505E047EA70F870D4A3 /* NSObject+KJSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1558FB4CC5D263696177DA9FD3F693 /* NSObject+KJSerializer.m */; };
 		C6C4C560C206F7FA1CDC5A2B8429890B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
-		C831059C3D5CEDC6D0670960FE04930A /* OLCMigrator.h in Headers */ = {isa = PBXBuildFile; fileRef = 928EA0F3AA19874BD2E24F25914177B1 /* OLCMigrator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CA027706DD6805766F1F4EC548E72440 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7C30F9E55829B027C4913D1F19D68C /* FMDatabase.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		D048F3BA3464C63329AF102220496E88 /* NSObject+KJSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0593BFAE7FFC4282BCAB50F69538DC76 /* NSObject+KJSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0C5FF5485EAA2CDA03E9796B407697A /* FMDatabaseQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 33F15B71183AD666DFC49D907F769ACF /* FMDatabaseQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0D5FFE53407F16C9CD3D0ECF43ACE93 /* FMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 638E465E4B27490B0FB423614C3ADD11 /* FMDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D862DA696F676EE9FFD5087EBCEDA7BF /* NSObject+KJSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F8792D581DCE9035A0134950F03BEE /* NSObject+KJSerializer.m */; };
 		DEFA3504695E9DFDE1177DAB22884470 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 71B69D4A7150AC2F65A57B7D04F092D4 /* FMResultSet.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		F4C3780F42C12C433EBF861B752986D6 /* OLCOrmNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B256B94D1AE3BB1FE39F2C2E3545246 /* OLCOrmNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F5C5968EE6132EF1D8B8B5163F90CAEA /* OCLObjectParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3215D60681A9ABFE34C0A9672AF51990 /* OCLObjectParser.m */; };
+		E2B5285D405C4ABE3440C202EBB218F2 /* OLCObjectParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 840EB1B633F9279356769C4C7B8B22E0 /* OLCObjectParser.m */; };
 		F7CE404DB30DD98B6A9459A2D5E002D0 /* Pods-Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E3360C91133FCA12195D12E4264E8051 /* Pods-Tests-dummy.m */; };
+		F92308564575BD0984B9C4BF75512D04 /* OLCOrm.h in Headers */ = {isa = PBXBuildFile; fileRef = D286E01D35B7E1210B0C1A9E7BE290E6 /* OLCOrm.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F977B243321331B58666E9284634101A /* FMResultSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CC8B63F837EA7B053AB8BA07253A25 /* FMResultSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FF7A10BAB5B76B8D991666F8A44D0113 /* OLCOrm-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AEACCA16E16BA6599811F3875AFEFF67 /* OLCOrm-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,58 +84,58 @@
 
 /* Begin PBXFileReference section */
 		034BADE8314946B164D6D07728E70306 /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
-		0593BFAE7FFC4282BCAB50F69538DC76 /* NSObject+KJSerializer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+KJSerializer.h"; sourceTree = "<group>"; };
 		0646A776199C49EFD791618C97D161C2 /* libPods-OLCOrm.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OLCOrm.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0930B01925F6E4A4F394B03D222767A4 /* OLCOrmNotification.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = OLCOrmNotification.m; sourceTree = "<group>"; };
-		107A0D0FFDE4C192BD40A9DF19879097 /* OCLModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = OCLModel.h; sourceTree = "<group>"; };
+		12A5F1DACA77BB3F8D0D6A08BFC23245 /* OLCOrm.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = OLCOrm.m; sourceTree = "<group>"; };
 		16B49BC0879A50EFD41AC43E93D194B8 /* Pods-OLCOrm-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-OLCOrm-dummy.m"; sourceTree = "<group>"; };
 		1AF3AEDDA16DD8E28B59FF0788FDDC03 /* FMDatabasePool.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = src/fmdb/FMDatabasePool.h; sourceTree = "<group>"; };
-		3215D60681A9ABFE34C0A9672AF51990 /* OCLObjectParser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = OCLObjectParser.m; sourceTree = "<group>"; };
+		1D1558FB4CC5D263696177DA9FD3F693 /* NSObject+KJSerializer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KJSerializer.m"; sourceTree = "<group>"; };
 		33F15B71183AD666DFC49D907F769ACF /* FMDatabaseQueue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseQueue.h; path = src/fmdb/FMDatabaseQueue.h; sourceTree = "<group>"; };
 		36E13778676EE008E74A89E71B83BEE5 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		37FE82E5D932B8B6DD7C47A2D6234293 /* Pods-OLCOrm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OLCOrm.debug.xcconfig"; sourceTree = "<group>"; };
-		3B256B94D1AE3BB1FE39F2C2E3545246 /* OLCOrmNotification.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = OLCOrmNotification.h; sourceTree = "<group>"; };
 		3BCC0EED53ED8D7C1931178E0E4269B4 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = src/fmdb/FMDatabaseAdditions.m; sourceTree = "<group>"; };
 		3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		3E81F4340354F5DFB920B7BE23606A33 /* OLCOrm.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = OLCOrm.h; sourceTree = "<group>"; };
 		400AFB42920EB39709666D3F1A73D6C2 /* FMDatabasePool.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = src/fmdb/FMDatabasePool.m; sourceTree = "<group>"; };
 		47B857754C2D93D39520836AE132DCBB /* Pods-Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Tests-frameworks.sh"; sourceTree = "<group>"; };
+		49F74F38D309E2B67443921EA8007A4A /* OLCDBHelper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = OLCDBHelper.h; sourceTree = "<group>"; };
+		4A4A3162A302F1ABAB29CE1BA806AE53 /* OLCDBHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = OLCDBHelper.m; sourceTree = "<group>"; };
 		5A71273D91D82CDA15F1CB269F53C08F /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		5B72971CAE7E30D4F0018460056985D9 /* OLCOrm.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = OLCOrm.xcconfig; sourceTree = "<group>"; };
-		5BE8D512DA79B3C53D362C3EB4788BB4 /* OCLModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = OCLModel.m; sourceTree = "<group>"; };
 		6303B7777415B5B08376707954037C2C /* Pods-Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Tests-resources.sh"; sourceTree = "<group>"; };
 		638E465E4B27490B0FB423614C3ADD11 /* FMDatabase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = src/fmdb/FMDatabase.h; sourceTree = "<group>"; };
+		64C778C7EDDBFA6C689368EBDF1C5C3A /* OLCModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = OLCModel.h; sourceTree = "<group>"; };
 		69CC8B63F837EA7B053AB8BA07253A25 /* FMResultSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = src/fmdb/FMResultSet.h; sourceTree = "<group>"; };
 		6C2368D52BA6EFD0F6FB34884ECF5503 /* libFMDB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFMDB.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D76813CB39ACC402A9EE3DC12B4E682 /* FMDB-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FMDB-dummy.m"; sourceTree = "<group>"; };
-		6DFC0E1FCFF8533FF687ECE708601A38 /* OCLDBHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = OCLDBHelper.m; sourceTree = "<group>"; };
 		719D3EABAAB464BDF22D2B270FCE1BA0 /* Pods-OLCOrm-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-OLCOrm-resources.sh"; sourceTree = "<group>"; };
 		71B69D4A7150AC2F65A57B7D04F092D4 /* FMResultSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = src/fmdb/FMResultSet.m; sourceTree = "<group>"; };
 		760D4FB1F6062EB85CC621EFF4E34150 /* libOLCOrm.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOLCOrm.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		765B50C7D78ACC07CE61E96871EAFB93 /* Pods-OLCOrm-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-OLCOrm-acknowledgements.markdown"; sourceTree = "<group>"; };
+		7C98826CBEB8FF17CC4D85CAB33C0A65 /* OLCTableHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = OLCTableHandler.h; sourceTree = "<group>"; };
+		840EB1B633F9279356769C4C7B8B22E0 /* OLCObjectParser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = OLCObjectParser.m; sourceTree = "<group>"; };
+		8A3A47EC91684675C0AE3B81E0A5E40E /* OLCOrmNotification.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = OLCOrmNotification.h; sourceTree = "<group>"; };
 		91893D40185E0EFA40FC217BE44A7C0D /* FMDB.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = src/fmdb/FMDB.h; sourceTree = "<group>"; };
-		928EA0F3AA19874BD2E24F25914177B1 /* OLCMigrator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = OLCMigrator.h; sourceTree = "<group>"; };
-		9C7589752E69346383BD1064745F74DB /* OLCMigrator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = OLCMigrator.m; sourceTree = "<group>"; };
 		A1448204AE8E2DC37C8C36438BED7AD8 /* FMDB-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FMDB-prefix.pch"; sourceTree = "<group>"; };
 		A3FDDF75647BCF499EF34431C9E34F30 /* Pods-OLCOrm-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-OLCOrm-frameworks.sh"; sourceTree = "<group>"; };
+		A45F373EED3281C2B38294FCAF478DC0 /* OLCTableHandler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = OLCTableHandler.m; sourceTree = "<group>"; };
 		ABDE25699EB8B8FE7D670F8CD6E46E3D /* Pods-Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		AEACCA16E16BA6599811F3875AFEFF67 /* OLCOrm-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "OLCOrm-dummy.m"; sourceTree = "<group>"; };
 		B2AC8D08AB9E95E701EC049C53414AEB /* FMDB.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FMDB.xcconfig; sourceTree = "<group>"; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		C11A8F38580C7A7FF38ACB6A3B412884 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = src/fmdb/FMDatabaseQueue.m; sourceTree = "<group>"; };
 		C223080BB70741AECBA4D0DC853046A4 /* Pods-OLCOrm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OLCOrm.release.xcconfig"; sourceTree = "<group>"; };
-		CB9C9804EA98A6A3973FEDE23CA0311B /* OCLObjectParser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = OCLObjectParser.h; sourceTree = "<group>"; };
+		C372EA4079125B90A69B478EA50C8089 /* OLCOrmNotification.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = OLCOrmNotification.m; sourceTree = "<group>"; };
+		C8A6CABBD54C6EC7507AD38479363120 /* OLCModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = OLCModel.m; sourceTree = "<group>"; };
+		CA75156F0E876AB92C67F01201A483F9 /* OLCObjectParser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = OLCObjectParser.h; sourceTree = "<group>"; };
 		CEF4D4FC5A1582AFA27E84119C4B9A64 /* OLCOrm-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OLCOrm-prefix.pch"; sourceTree = "<group>"; };
-		D0ADC5D6797437CCC0E7C7950AFA6673 /* OCLDBHelper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = OCLDBHelper.h; sourceTree = "<group>"; };
+		D286E01D35B7E1210B0C1A9E7BE290E6 /* OLCOrm.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = OLCOrm.h; sourceTree = "<group>"; };
 		D2DD52CB174E1DC79111C38E770F6FC8 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = src/fmdb/FMDatabaseAdditions.h; sourceTree = "<group>"; };
 		D8642A87902DBF1DD4E0821DF155FEB0 /* Pods-OLCOrm-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OLCOrm-acknowledgements.plist"; sourceTree = "<group>"; };
-		DAD2CFD4FE994F72D46B3B72340A5384 /* OLCTableHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = OLCTableHandler.h; sourceTree = "<group>"; };
-		DB244DBF028FAF82D606AABFA84B9973 /* OLCOrm.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = OLCOrm.m; sourceTree = "<group>"; };
 		DC7C30F9E55829B027C4913D1F19D68C /* FMDatabase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = src/fmdb/FMDatabase.m; sourceTree = "<group>"; };
 		E3360C91133FCA12195D12E4264E8051 /* Pods-Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Tests-dummy.m"; sourceTree = "<group>"; };
 		E85F70ABD6FD6A5E752A5B65102FA775 /* Pods-Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		F0A6BC7112DB6828C32895C9F0545064 /* OLCTableHandler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = OLCTableHandler.m; sourceTree = "<group>"; };
-		F5F8792D581DCE9035A0134950F03BEE /* NSObject+KJSerializer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KJSerializer.m"; sourceTree = "<group>"; };
+		F31277739BF4F329B7C0FF54C1ECBBB6 /* OLCMigrator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = OLCMigrator.m; sourceTree = "<group>"; };
+		F76C4316C58CF0CCF91254BDD915138D /* OLCMigrator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = OLCMigrator.h; sourceTree = "<group>"; };
+		FDB17773EBAE6A4B7CA469B1C9D1A6F7 /* NSObject+KJSerializer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSObject+KJSerializer.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,25 +204,25 @@
 			path = "Target Support Files/Pods-Tests";
 			sourceTree = "<group>";
 		};
-		4E440B288BCCA37356B0F796754324DD /* Classes */ = {
+		3CCC3B820F0EFC71F82EFEE9EE042DBF /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				0593BFAE7FFC4282BCAB50F69538DC76 /* NSObject+KJSerializer.h */,
-				F5F8792D581DCE9035A0134950F03BEE /* NSObject+KJSerializer.m */,
-				D0ADC5D6797437CCC0E7C7950AFA6673 /* OCLDBHelper.h */,
-				6DFC0E1FCFF8533FF687ECE708601A38 /* OCLDBHelper.m */,
-				107A0D0FFDE4C192BD40A9DF19879097 /* OCLModel.h */,
-				5BE8D512DA79B3C53D362C3EB4788BB4 /* OCLModel.m */,
-				CB9C9804EA98A6A3973FEDE23CA0311B /* OCLObjectParser.h */,
-				3215D60681A9ABFE34C0A9672AF51990 /* OCLObjectParser.m */,
-				928EA0F3AA19874BD2E24F25914177B1 /* OLCMigrator.h */,
-				9C7589752E69346383BD1064745F74DB /* OLCMigrator.m */,
-				3E81F4340354F5DFB920B7BE23606A33 /* OLCOrm.h */,
-				DB244DBF028FAF82D606AABFA84B9973 /* OLCOrm.m */,
-				3B256B94D1AE3BB1FE39F2C2E3545246 /* OLCOrmNotification.h */,
-				0930B01925F6E4A4F394B03D222767A4 /* OLCOrmNotification.m */,
-				DAD2CFD4FE994F72D46B3B72340A5384 /* OLCTableHandler.h */,
-				F0A6BC7112DB6828C32895C9F0545064 /* OLCTableHandler.m */,
+				FDB17773EBAE6A4B7CA469B1C9D1A6F7 /* NSObject+KJSerializer.h */,
+				1D1558FB4CC5D263696177DA9FD3F693 /* NSObject+KJSerializer.m */,
+				49F74F38D309E2B67443921EA8007A4A /* OLCDBHelper.h */,
+				4A4A3162A302F1ABAB29CE1BA806AE53 /* OLCDBHelper.m */,
+				F76C4316C58CF0CCF91254BDD915138D /* OLCMigrator.h */,
+				F31277739BF4F329B7C0FF54C1ECBBB6 /* OLCMigrator.m */,
+				64C778C7EDDBFA6C689368EBDF1C5C3A /* OLCModel.h */,
+				C8A6CABBD54C6EC7507AD38479363120 /* OLCModel.m */,
+				CA75156F0E876AB92C67F01201A483F9 /* OLCObjectParser.h */,
+				840EB1B633F9279356769C4C7B8B22E0 /* OLCObjectParser.m */,
+				D286E01D35B7E1210B0C1A9E7BE290E6 /* OLCOrm.h */,
+				12A5F1DACA77BB3F8D0D6A08BFC23245 /* OLCOrm.m */,
+				8A3A47EC91684675C0AE3B81E0A5E40E /* OLCOrmNotification.h */,
+				C372EA4079125B90A69B478EA50C8089 /* OLCOrmNotification.m */,
+				7C98826CBEB8FF17CC4D85CAB33C0A65 /* OLCTableHandler.h */,
+				A45F373EED3281C2B38294FCAF478DC0 /* OLCTableHandler.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -230,7 +230,7 @@
 		58D28E9D371B21EA2CE690A828777C37 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				4E440B288BCCA37356B0F796754324DD /* Classes */,
+				3CCC3B820F0EFC71F82EFEE9EE042DBF /* Classes */,
 			);
 			path = Pod;
 			sourceTree = "<group>";
@@ -374,18 +374,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C1B3A8D6F40CCB3A8C9CC246620F1AFC /* Headers */ = {
+		CCC696D7FEEAA4856EBDB20C80D7187A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D048F3BA3464C63329AF102220496E88 /* NSObject+KJSerializer.h in Headers */,
-				8809C80C3F23CD6CCC228692F86CC502 /* OCLDBHelper.h in Headers */,
-				30795FE346192C37460806D993F2B501 /* OCLModel.h in Headers */,
-				ACC8ADEB4326A9EF80204A6FCE25BE13 /* OCLObjectParser.h in Headers */,
-				C831059C3D5CEDC6D0670960FE04930A /* OLCMigrator.h in Headers */,
-				97CD84446EFE93809D1BFDC167ABE976 /* OLCOrm.h in Headers */,
-				F4C3780F42C12C433EBF861B752986D6 /* OLCOrmNotification.h in Headers */,
-				B0841A4C1E3275234EF7CE3217729507 /* OLCTableHandler.h in Headers */,
+				16118F6A03226A2307C33293AA503AE3 /* NSObject+KJSerializer.h in Headers */,
+				98C104BB75E4517F2BA6FD790C31F5E0 /* OLCDBHelper.h in Headers */,
+				0221483557CFBD80317C5B18C2C670B5 /* OLCMigrator.h in Headers */,
+				2854303ECEA809C90FC13C8CA1996136 /* OLCModel.h in Headers */,
+				4BCE9C3C1E57574473293123EA070DC3 /* OLCObjectParser.h in Headers */,
+				F92308564575BD0984B9C4BF75512D04 /* OLCOrm.h in Headers */,
+				3D727F9DD7EC83630238FD9E2F37B0DE /* OLCOrmNotification.h in Headers */,
+				B49514C5B71CE8F4962388CF46822C8D /* OLCTableHandler.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,9 +396,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 14117AFC06FBEDBB016450FA10244239 /* Build configuration list for PBXNativeTarget "OLCOrm" */;
 			buildPhases = (
-				8CFD4C3E945BD607AAD257AA335170B6 /* Sources */,
+				F02225DA10D1CFF112E42C035A79D7F5 /* Sources */,
 				D3DE937520935A867F727DAA5BA1626A /* Frameworks */,
-				C1B3A8D6F40CCB3A8C9CC246620F1AFC /* Headers */,
+				CCC696D7FEEAA4856EBDB20C80D7187A /* Headers */,
 			);
 			buildRules = (
 			);
@@ -522,19 +522,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8CFD4C3E945BD607AAD257AA335170B6 /* Sources */ = {
+		F02225DA10D1CFF112E42C035A79D7F5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D862DA696F676EE9FFD5087EBCEDA7BF /* NSObject+KJSerializer.m in Sources */,
-				2C1E162729AF3790C49C86F8282E50EB /* OCLDBHelper.m in Sources */,
-				B933D4733027DE7D8260E902E5C0D176 /* OCLModel.m in Sources */,
-				F5C5968EE6132EF1D8B8B5163F90CAEA /* OCLObjectParser.m in Sources */,
-				79B96ACE0420DE802282FC1C1E996099 /* OLCMigrator.m in Sources */,
-				FF7A10BAB5B76B8D991666F8A44D0113 /* OLCOrm-dummy.m in Sources */,
-				65911E892894DFA712AEF2051F1B184F /* OLCOrm.m in Sources */,
-				C63198AF26D1C9305B7A6375C6956C6B /* OLCOrmNotification.m in Sources */,
-				5447A5818513BAD856497BF4AE4B64D7 /* OLCTableHandler.m in Sources */,
+				B577F70AA2FF0505E047EA70F870D4A3 /* NSObject+KJSerializer.m in Sources */,
+				B30A2819BC8D3D1128D06D2052DF426D /* OLCDBHelper.m in Sources */,
+				5C603C41948787C29D82259B263926C8 /* OLCMigrator.m in Sources */,
+				534645187C2EECE75DD754577EB75974 /* OLCModel.m in Sources */,
+				E2B5285D405C4ABE3440C202EBB218F2 /* OLCObjectParser.m in Sources */,
+				1C372D1B767DA65EDD6068308703BA70 /* OLCOrm-dummy.m in Sources */,
+				A36C934CB4BADEAFF7FA364541B0BD16 /* OLCOrm.m in Sources */,
+				A461A1723A21129380E06790F067ED00 /* OLCOrmNotification.m in Sources */,
+				7952873293DF14BC981FDF2B7872D3DB /* OLCTableHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

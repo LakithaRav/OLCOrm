@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 Fidenz. All rights reserved.
 //
 
-#import "OCLDBHelper.h"
+#import "OLCDBHelper.h"
 #import "OLCTableHandler.h"
 
 #define OLC_LOG @"OLCLOG"
 
-@implementation OCLDBHelper
+@implementation OLCDBHelper
 
 //static OCLDBHelper *_sharedInt = nil;
 //

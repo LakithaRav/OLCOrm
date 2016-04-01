@@ -7,9 +7,9 @@
 //
 
 #import "OLCTableHandler.h"
-#import "OCLObjectParser.h"
+#import "OLCObjectParser.h"
 #import "OLCOrm.h"
-#import "OCLModel.h"
+#import "OLCModel.h"
 
 #define OLC_LOG @"OLCLOG"
 
@@ -19,7 +19,7 @@
 
 - (NSString *) createTableQuery:(Class) model
 {
-    OCLObjectParser *parse = [[OCLObjectParser alloc] init];
+    OLCObjectParser *parse = [[OLCObjectParser alloc] init];
     NSArray *columns = [parse parseModel:model];
     
     NSString *className = NSStringFromClass (model);
@@ -90,7 +90,7 @@
 {
     NSMutableDictionary *queryData = [[NSMutableDictionary alloc] init];
     
-    OCLObjectParser *parse = [[OCLObjectParser alloc] init];
+    OLCObjectParser *parse = [[OLCObjectParser alloc] init];
     NSArray *columns = [parse parseObject:data];
     
     NSMutableString *insertQuery = [[NSMutableString alloc] init];
@@ -163,7 +163,7 @@
 {
     NSMutableDictionary *queryData = [[NSMutableDictionary alloc] init];
     
-    OCLObjectParser *parse = [[OCLObjectParser alloc] init];
+    OLCObjectParser *parse = [[OLCObjectParser alloc] init];
     NSArray *columns = [parse parseObject:data];
     
     NSMutableString *updateQuery = [[NSMutableString alloc] init];
@@ -230,7 +230,7 @@
 
 - (NSString *) createDeleteQuery:(NSObject *) data
 {
-    OCLObjectParser *parse = [[OCLObjectParser alloc] init];
+    OLCObjectParser *parse = [[OLCObjectParser alloc] init];
     NSArray *columns = [parse parseObject:data];
     
     NSMutableString *deleteQuery = [[NSMutableString alloc] init];
@@ -279,7 +279,7 @@
 
 - (NSString *) createFindByIdQuery:(Class) model forId:(NSNumber *) Id
 {
-    OCLObjectParser *parse = [[OCLObjectParser alloc] init];
+    OLCObjectParser *parse = [[OLCObjectParser alloc] init];
     NSArray *columns = [parse parseModel:model];
     
     NSMutableString *selectQuery = [[NSMutableString alloc] init];
@@ -369,7 +369,7 @@
 {
     NSMutableString *selectQuery = [[NSMutableString alloc] init];
     
-    OCLObjectParser *parse = [[OCLObjectParser alloc] init];
+    OLCObjectParser *parse = [[OLCObjectParser alloc] init];
     NSArray *columns = [parse parseObject:data];
     
     NSString *primaryKey    = [fmodel performSelector:@selector(primaryKey)];
@@ -406,7 +406,7 @@
 {
     NSMutableString *selectQuery = [[NSMutableString alloc] init];
     
-    OCLObjectParser *parse = [[OCLObjectParser alloc] init];
+    OLCObjectParser *parse = [[OLCObjectParser alloc] init];
     NSArray *columns = [parse parseObject:data];
     
     NSString *primaryKey    = [[data class] performSelector:@selector(primaryKey)];
@@ -454,7 +454,7 @@
     
     NSMutableString *selectQuery = [[NSMutableString alloc] init];
     
-    OCLObjectParser *parse = [[OCLObjectParser alloc] init];
+    OLCObjectParser *parse = [[OLCObjectParser alloc] init];
     NSArray *columns = [parse parseObject:data];
     
     NSString *primaryKey    = [[data class] performSelector:@selector(primaryKey)];

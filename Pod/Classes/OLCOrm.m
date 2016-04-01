@@ -7,6 +7,7 @@
 //
 
 #import "OLCOrm.h"
+#import "OLCModel.h"
 
 #define OLC_LOG @"OLCLOG"
 

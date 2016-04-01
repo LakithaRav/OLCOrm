@@ -7,15 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NSObject+KJSerializer.h"
-#import "OLCTableHandler.h"
-#import "OLCOrm.h"
 #import "OLCOrmNotification.h"
 
-@interface OCLModel : NSObject
-{
-    OLCTableHandler *queryH;
-}
+@interface OLCModel : NSObject
 
 /*!
  * @brief Primary Key property if user haven't specified one.

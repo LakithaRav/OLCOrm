@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "OLCOrm"
-  s.version          = "1.0.4.2"
+  s.version          = "1.0.4.3"
   s.summary          = "OLCOrm is an Object Relational Mapping library for iOS, which uses FMDB Sqlite database library."
   s.description      = <<-DESC
                        We all know the working with Core Data is major pain in the neck. Yet it is in a way bit easy you work with, if you get an hold of how it actually work, working with only model classes to update the database structure on the fly.

@@ -55,7 +55,7 @@ NSString* getPropertyType(objc_property_t property) {
 }
 
 
--(NSMutableDictionary *)getDictionary
+-(NSMutableDictionary *) getObjDictionary
 {
     Class klass = self.class;
     if (klass == NULL) {
@@ -83,7 +83,7 @@ NSString* getPropertyType(objc_property_t property) {
 }
 
 
--(void)setDictionary:(NSDictionary*)dictionary
+-(void) setObjDictionary:(NSDictionary*)dictionary
 {
     Class klass = self.class;
     if (klass == NULL) {

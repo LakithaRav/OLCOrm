@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "OCLModel.h"
+#import "OLCModel.h"
 
 @class UserObject;
 
-@interface TestObject : OCLModel
+@interface TestObject : OLCModel
 
 @property (nonatomic, retain) NSNumber* Id;
 @property (nonatomic, retain) NSString* title;

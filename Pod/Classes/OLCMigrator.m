@@ -7,7 +7,7 @@
 //
 
 #import "OLCMigrator.h"
-#import "OCLDBHelper.h"
+#import "OLCDBHelper.h"
 
 @implementation OLCMigrator
 
@@ -41,7 +41,7 @@ static OLCMigrator *_sharedInt = nil;
 
 - (void) initDb
 {
-    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
     [dbH getDb];
     [self makeMigrationTable];
 }
@@ -54,7 +54,7 @@ static OLCMigrator *_sharedInt = nil;
 {
     BOOL isCreated = NO;
     
-    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
     isCreated = [dbH makeRawTable:[self createTableQuery]];
     
     return isCreated;
@@ -129,7 +129,7 @@ static OLCMigrator *_sharedInt = nil;
         
         if([[record valueForKey:@"db_version"] intValue] < [version intValue])
         {
-            OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+            OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
             isCreated = [dbH makeTable:model];
         }
         else
@@ -139,7 +139,7 @@ static OLCMigrator *_sharedInt = nil;
     }
     else
     {
-        OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+        OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
         isCreated = [dbH makeTable:model];
     }
     
@@ -193,7 +193,7 @@ static OLCMigrator *_sharedInt = nil;
 {
     BOOL isAdded = NO;
     
-    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
     
     FMDatabase * database = [dbH getDb];
     
@@ -228,7 +228,7 @@ static OLCMigrator *_sharedInt = nil;
 {
     BOOL isUpdated = NO;
     
-    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
     
     FMDatabase * database = [dbH getDb];
     
@@ -313,7 +313,7 @@ static OLCMigrator *_sharedInt = nil;
 {
     NSMutableDictionary *record = [[NSMutableDictionary alloc] init];
 
-    OCLDBHelper *dbH = [[OCLDBHelper alloc] init];
+    OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
     
     FMDatabaseQueue * queue = [dbH getQueueDb];
     

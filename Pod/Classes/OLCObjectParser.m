@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Fidenz. All rights reserved.
 //
 
-#import "OCLObjectParser.h"
+#import "OLCObjectParser.h"
 #import <Foundation/NSObjCRuntime.h>
 #import <objc/runtime.h>
 #import "NSObject+KJSerializer.h"
-#import "OCLModel.h"
+#import "OLCModel.h"
 
-@implementation OCLObjectParser
+@implementation OLCObjectParser
 
 - (NSArray *) scanModel:(Class) model
 {

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface OCLObjectParser : NSObject
+@interface OLCObjectParser : NSObject
 
 /*!
  @brief          De-Serialize Mode Class
