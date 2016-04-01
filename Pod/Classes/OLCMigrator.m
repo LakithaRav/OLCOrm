@@ -29,6 +29,8 @@ static OLCMigrator *_sharedInt = nil;
         
     });
     
+    NSLog(@"%@",[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory  inDomains:NSUserDomainMask] lastObject]);
+    
     return _sharedInt;
 }
 

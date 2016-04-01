@@ -19,7 +19,8 @@
     OLCTableHandler *queryH;
 }
 
-@synthesize Id;
+//removed to support Swift 2.0
+//@synthesize Id;
 
 - (id) init
 {

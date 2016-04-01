@@ -31,10 +31,10 @@
     NSMutableString *createQuery = [[NSMutableString alloc] init];
     
     [createQuery appendString:@"DROP TABLE IF EXISTS "];
-    [createQuery appendString:[NSString stringWithFormat:@"%@; ", className]];
+    [createQuery appendString:[NSString stringWithFormat:@"'%@'; ", className]];
     
     [createQuery appendString:@"CREATE TABLE IF NOT EXISTS "];
-    [createQuery appendString:[NSString stringWithFormat:@"%@ ", className]];
+    [createQuery appendString:[NSString stringWithFormat:@"'%@' ", className]];
     [createQuery appendString:@"( "];
     
     for(int i=0; i < [columns count]; i++)
@@ -100,7 +100,7 @@
     NSArray  *ignoredList   = [[data class] performSelector:@selector(ignoredProperties)];
     
     [insertQuery appendString:@"INSERT INTO "];
-    [insertQuery appendString:[NSString stringWithFormat:@"%@ ", [data class]]];
+    [insertQuery appendString:[NSString stringWithFormat:@"'%@' ", [data class]]];
     
     NSMutableString *cols = [[NSMutableString alloc] init];
     NSMutableString *vals = [[NSMutableString alloc] init];
@@ -175,7 +175,7 @@
     NSArray  *ignoredList   = [[data class] performSelector:@selector(ignoredProperties)];
     
     [updateQuery appendString:@"UPDATE "];
-    [updateQuery appendString:[NSString stringWithFormat:@"%@ ", [data class]]];
+    [updateQuery appendString:[NSString stringWithFormat:@"'%@' ", [data class]]];
     [updateQuery appendString:@"SET "];
         
     NSString *where = @"";
@@ -238,7 +238,7 @@
     NSString *primaryKey    = [[data class] performSelector:@selector(primaryKey)];
     
     [deleteQuery appendString:@"DELETE FROM "];
-    [deleteQuery appendString:[NSString stringWithFormat:@"%@ ", [data class]]];
+    [deleteQuery appendString:[NSString stringWithFormat:@"'%@' ", [data class]]];
     
     NSString *where = @"";
     
@@ -268,7 +268,7 @@
     NSMutableString *selectQuery = [[NSMutableString alloc] init];
     
     [selectQuery appendString:@"SELECT * FROM "];
-    [selectQuery appendString:[NSString stringWithFormat:@"%@ ", model]];
+    [selectQuery appendString:[NSString stringWithFormat:@"'%@' ", model]];
     [selectQuery appendString:@";"];
     
     if([[OLCOrm getSharedInstance] isDebugEnabled] || [model performSelector:@selector(debug)])
@@ -287,7 +287,7 @@
     NSString *primaryKey    = [model performSelector:@selector(primaryKey)];
     
     [selectQuery appendString:@"SELECT * FROM "];
-    [selectQuery appendString:[NSString stringWithFormat:@"%@ ", model]];
+    [selectQuery appendString:[NSString stringWithFormat:@"'%@' ", model]];
     
     NSString *where = @"";
     
@@ -320,7 +320,7 @@
     NSMutableString *selectQuery = [[NSMutableString alloc] init];
     
     [selectQuery appendString:@"SELECT * FROM "];
-    [selectQuery appendString:[NSString stringWithFormat:@"%@ ", model]];
+    [selectQuery appendString:[NSString stringWithFormat:@"'%@' ", model]];
     [selectQuery appendString:[NSString stringWithFormat:@"WHERE %@ %@ :%@ ", column, opt, column]];
     [selectQuery appendString:[NSString stringWithFormat:@"ORDER BY %@ ", column]];
     
@@ -348,7 +348,7 @@
     NSMutableString *selectQuery = [[NSMutableString alloc] init];
     
     [selectQuery appendString:@"SELECT * FROM "];
-    [selectQuery appendString:[NSString stringWithFormat:@"%@ ", model]];
+    [selectQuery appendString:[NSString stringWithFormat:@"'%@' ", model]];
     [selectQuery appendString:[NSString stringWithFormat:@"WHERE %@ ", filter]];
     [selectQuery appendString:[NSString stringWithFormat:@"ORDER BY %@ ", column]];
     
@@ -381,7 +381,7 @@
         
         NSString *colName = [keyval valueForKey:@"column"];
         
-        if([colName isEqualToString:primaryKey])
+        if([colName isEqualToString:fkey])
         {
             Id = [keyval valueForKey:@"value"];
             break;
@@ -389,8 +389,8 @@
     }
     
     [selectQuery appendString:@"SELECT b.* FROM "];
-    [selectQuery appendString:[NSString stringWithFormat:@"%@ a ", [data class]]];
-    [selectQuery appendString:[NSString stringWithFormat:@"INNER JOIN %@ b ", fmodel]];
+    [selectQuery appendString:[NSString stringWithFormat:@"'%@' a ", [data class]]];
+    [selectQuery appendString:[NSString stringWithFormat:@"INNER JOIN '%@' b ", fmodel]];
     [selectQuery appendString:[NSString stringWithFormat:@"ON a.%@ = b.%@ ", fkey, primaryKey]];
     [selectQuery appendString:[NSString stringWithFormat:@"WHERE a.%@ = %@ ", fkey, Id]];
     [selectQuery appendString:[NSString stringWithFormat:@"ORDER BY a.%@ ", fkey]];
@@ -426,8 +426,8 @@
     }
     
     [selectQuery appendString:@"SELECT b.* FROM "];
-    [selectQuery appendString:[NSString stringWithFormat:@"%@ a ", [data class]]];
-    [selectQuery appendString:[NSString stringWithFormat:@"CROSS JOIN %@ b ", fmodel]];
+    [selectQuery appendString:[NSString stringWithFormat:@"'%@' a ", [data class]]];
+    [selectQuery appendString:[NSString stringWithFormat:@"CROSS JOIN '%@' b ", fmodel]];
     [selectQuery appendString:[NSString stringWithFormat:@"ON a.%@ = b.%@ ", primaryKey, fkey]];
     [selectQuery appendString:[NSString stringWithFormat:@"WHERE a.%@ = %@ ", primaryKey, Id]];
     [selectQuery appendString:[NSString stringWithFormat:@"ORDER BY b.%@ ", fkey]];
@@ -473,10 +473,10 @@
     }
     
     [selectQuery appendString:@"SELECT c.* FROM "];
-    [selectQuery appendString:[NSString stringWithFormat:@"%@ a ", [data class]]];
-    [selectQuery appendString:[NSString stringWithFormat:@"INNER JOIN %@ b ", mmodel]];
+    [selectQuery appendString:[NSString stringWithFormat:@"'%@' a ", [data class]]];
+    [selectQuery appendString:[NSString stringWithFormat:@"INNER JOIN '%@' b ", mmodel]];
     [selectQuery appendString:[NSString stringWithFormat:@"ON a.Id = b.%@ ", mmkey]];
-    [selectQuery appendString:[NSString stringWithFormat:@"INNER JOIN %@ c ", fmodel]];
+    [selectQuery appendString:[NSString stringWithFormat:@"INNER JOIN '%@' c ", fmodel]];
     [selectQuery appendString:[NSString stringWithFormat:@"ON c.Id = b.%@ ", fmkey]];
     [selectQuery appendString:[NSString stringWithFormat:@"WHERE a.Id = %@ ", Id]];
     [selectQuery appendString:[NSString stringWithFormat:@"ORDER BY %@ ", mmkey]];
@@ -494,7 +494,7 @@
     NSMutableString *truncateQuery = [[NSMutableString alloc] init];
     
     [truncateQuery appendString:@"DELETE FROM "];
-    [truncateQuery appendString:[NSString stringWithFormat:@"%@; ", model]];
+    [truncateQuery appendString:[NSString stringWithFormat:@"'%@'; ", model]];
     [truncateQuery appendString:[NSString stringWithFormat:@"DELETE FROM sqlite_sequence WHERE name='%@';", model] ];
     [truncateQuery appendString:@"VACUUM; "];
     

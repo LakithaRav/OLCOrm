@@ -11,7 +11,7 @@
 
 @implementation UserObject
 
-@dynamic Id;
+//@dynamic Id;
 
 - (NSArray *) hasTests
 {

@@ -14,7 +14,8 @@
 /*!
  * @brief Primary Key property if user haven't specified one.
  */
-@property (nonatomic, retain) NSNumber* Id;
+//removed to support Swift 2.0
+//@property (nonatomic, retain) NSNumber* Id;
 
 // CRUD OPTS.
 

@@ -11,16 +11,11 @@
 
 @implementation TestObject
 
-@dynamic Id;
+//@dynamic Id;
 
 - (UserObject *) hasUser
 {
     return (UserObject*) [self belongTo:[UserObject class] foreignKeyCol:@"userId"];
-}
-
-+ (NSString *) primaryKey
-{
-    return @"Id";
 }
 
 + (NSArray *) ignoredProperties
