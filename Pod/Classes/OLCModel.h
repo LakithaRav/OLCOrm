@@ -174,6 +174,17 @@
 + (NSArray *) where:(NSString *) clause sortBy:(NSString *) column accending:(BOOL) sort;
 
 /*!
+ @brief         Search for records by set of columns, similar to where function but added to support swift
+ @discussion    Use this method to extract specific set of records using more than one column. Method do exact same of 'where' function but has been added to use in Swift due to 'where' function name has already been taken.
+ @code [TestObject where2:@"flag = 1" sortBy:@"title, addAt" accending:NO] @endcode
+ @param         clause Set of condition for the search query
+ @param         column from which column the results should be order by. Could be One or Many
+ @param         sort Sorting order YES for ascending or No for decending
+ @return        <b>NSArray</b> of objects
+ */
++ (NSArray *) where2:(NSString *) clause sortBy:(NSString *) column accending:(BOOL) sort;
+
+/*!
  @brief         Execute RAW query on the database
  @discussion    Use this method to execute RAW queries on the SQLite database. Use this incase OLCOrm dose not support your requirment.
  @code [TestObject query:@"Update TestObject SET status = 1"] @endcode

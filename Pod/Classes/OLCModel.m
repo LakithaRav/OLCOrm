@@ -31,6 +31,19 @@
     return self;
 }
 
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    //Encode properties, other class variables, etc
+//    [encoder encodeObject:self.Id forKey:@"Id"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if((self = [super init])) {
+        //decode properties, other class vars
+//        self.Id = [decoder decodeObjectForKey:@"Id"];
+    }
+    return self;
+}
+
 
 - (BOOL) save
 {
@@ -453,6 +466,11 @@
     }
     
     return  objArry;
+}
+
++ (NSArray *) where2:(NSString *) clause sortBy:(NSString *) column accending:(BOOL) sort
+{
+    return [self where:clause sortBy:column accending:sort];
 }
 
 
