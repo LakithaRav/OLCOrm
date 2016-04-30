@@ -48,7 +48,7 @@
         
         if([ignoredList containsObject:colName]) continue;
         
-        if([colName isEqualToString:primaryKey])
+        if([[colName lowercaseString] isEqualToString:[primaryKey lowercaseString]])
         {
             if(isLastColumn)
             {
@@ -115,7 +115,7 @@
         
         NSString *colName = [keyval valueForKey:@"column"];
         
-        if([colName isEqualToString:primaryKey])
+        if([[colName lowercaseString] isEqualToString:[primaryKey lowercaseString]])
         {
             if(autoIncrement)
                 continue;
@@ -190,7 +190,7 @@
         
         if([ignoredList containsObject:colName]) continue; //ignore the ignored property list
         
-        if([colName isEqualToString:primaryKey]) //update record by primary key reference
+        if([[colName lowercaseString] isEqualToString:[primaryKey lowercaseString]])
         {
             [vals appendString:[NSString stringWithFormat:@":%@", colName]];
             where = [NSString stringWithFormat:@"WHERE %@=:%@", colName, colName];
@@ -248,7 +248,7 @@
         
         NSString *colName = [keyval valueForKey:@"column"];
         
-        if([colName isEqualToString:primaryKey]) //delete record by primary key reference
+        if([[colName lowercaseString] isEqualToString:[primaryKey lowercaseString]])
         {
             where = [NSString stringWithFormat:@"WHERE %@='%@'", [keyval valueForKey:@"column"], [keyval valueForKey:@"value"]];
         }
@@ -297,7 +297,7 @@
         
         NSString *colName = [keyval valueForKey:@"column"];
         
-        if([colName isEqualToString:primaryKey])
+        if([[colName lowercaseString] isEqualToString:[primaryKey lowercaseString]])
         {
             where = [NSString stringWithFormat:@"WHERE %@='%@'", [keyval valueForKey:@"column"], Id];
             break;
@@ -381,7 +381,7 @@
         
         NSString *colName = [keyval valueForKey:@"column"];
         
-        if([colName isEqualToString:fkey])
+        if([[colName lowercaseString] isEqualToString:[fkey lowercaseString]])
         {
             Id = [keyval valueForKey:@"value"];
             break;
@@ -418,7 +418,7 @@
         
         NSString *colName = [keyval valueForKey:@"column"];
         
-        if([colName isEqualToString:primaryKey])
+        if([[colName lowercaseString] isEqualToString:[primaryKey lowercaseString]])
         {
             Id = [keyval valueForKey:@"value"];
             break;
@@ -465,7 +465,8 @@
         NSDictionary *keyval = (NSDictionary *) columns[i];
         
         NSString *colName = [keyval valueForKey:@"column"];
-        if([colName isEqualToString:primaryKey])
+        
+        if([[colName lowercaseString] isEqualToString:[primaryKey lowercaseString]])
         {
             Id = [keyval valueForKey:@"value"];
             break;
