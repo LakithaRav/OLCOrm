@@ -26,6 +26,10 @@ it, simply add the following line to your Podfile:
     
 ## What's new ?
 
+2016-04-30
+
+> Swift support fixed for `where` clause using NS_REFINED_FOR_SWIFT flag
+
 2016-04-01
 
 > Header files updated to support Swift 2.0, still need to test and confirm on that. Spelling mistakes corrected.

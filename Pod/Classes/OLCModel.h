@@ -171,7 +171,7 @@
  @param         sort Sorting order YES for ascending or No for decending
  @return        <b>NSArray</b> of objects
  */
-+ (NSArray *) where:(NSString *) clause sortBy:(NSString *) column accending:(BOOL) sort;
++ (NSArray *) where:(NSString *) clause sortBy:(NSString *) column accending:(BOOL) sort NS_REFINED_FOR_SWIFT;
 
 /*!
  @brief         Search for records by set of columns, similar to where function but added to support swift

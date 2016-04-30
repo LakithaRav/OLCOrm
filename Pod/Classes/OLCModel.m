@@ -429,7 +429,7 @@
 }
 
 
-+ (NSArray *) where:(NSString *) clause sortBy:(NSString *) column accending:(BOOL) sort
++ (NSArray *) where:(NSString *) clause sortBy:(NSString *) column accending:(BOOL) sort NS_REFINED_FOR_SWIFT
 {
     NSMutableArray *objArry = [[NSMutableArray alloc] init];
     
