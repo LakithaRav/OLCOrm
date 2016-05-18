@@ -130,7 +130,7 @@
         
         
         NSString *stringFromMORString =[[NSString alloc] initWithCString:type encoding:NSMacOSRomanStringEncoding];
-        if([stringFromMORString isEqualToString:@"@\"NSSet\""] || [stringFromMORString isEqualToString:@"@\"NSArray\""])
+        if([stringFromMORString isEqualToString:@"@\"NSSet\""] || [stringFromMORString isEqualToString:@"@\"NSArray\""] || [stringFromMORString isEqualToString:@"@\"NSDictionary\""])
         {
             NSData *data            = [NSKeyedArchiver archivedDataWithRootObject:[object valueForKey:propertyName]];
             [column setObject:data forKey:@"value"];

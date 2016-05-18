@@ -671,6 +671,12 @@
                 {
                     [dictionary setValue:[result dataForColumn:colName] forKey:colName];
                 }
+                else if([colType isEqualToString:@"@\"NSDictionary\""])
+                {
+                    NSData *data = [result dataForColumn:colName];
+                    NSDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                    [dictionary setValue:dic forKey:colName];
+                }
                 else if([colType isEqualToString:@"@\"NSSet\""])
                 {
                     NSData *data = [result dataForColumn:colName];

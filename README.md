@@ -26,6 +26,10 @@ it, simply add the following line to your Podfile:
     
 ## What's new ?
 
+2016-05-18
+
+> `NSDictionary` saving issue fixed.
+
 2016-04-30
 
 > Swift support fixed for `where` clause using NS_REFINED_FOR_SWIFT flag
