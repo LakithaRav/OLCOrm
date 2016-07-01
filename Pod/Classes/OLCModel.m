@@ -468,11 +468,6 @@
     return  objArry;
 }
 
-+ (NSArray *) where2:(NSString *) clause sortBy:(NSString *) column accending:(BOOL) sort
-{
-    return [self where:clause sortBy:column accending:sort];
-}
-
 
 + (NSArray *) query:(NSString *) query
 {
@@ -508,7 +503,7 @@
 }
 
 
-+ (BOOL) truncateTable
++ (BOOL) truncate
 {
     BOOL isDeleted = NO;
     
