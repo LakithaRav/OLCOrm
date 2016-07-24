@@ -8,6 +8,9 @@
 
 #import "OLCMigrator.h"
 #import "OLCDBHelper.h"
+#import "OLCModel.m"
+
+#define OLC_LOG @"OLCLOG"
 
 @implementation OLCMigrator
 
@@ -23,13 +26,14 @@ static OLCMigrator *_sharedInt = nil;
     dispatch_once(&oncePredicate, ^{
     
         _sharedInt = [[self alloc] init];
-//        _sharedInt.debugable    = debug;
+        _sharedInt.debugable    = debug;
         _sharedInt.databasePath = database;
         _sharedInt.dbVersion    = version;
         
     });
     
-    NSLog(@"%@",[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory  inDomains:NSUserDomainMask] lastObject]);
+//    if(debug)
+//        NSLog(@"%@",[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory  inDomains:NSUserDomainMask] lastObject]);
     
     return _sharedInt;
 }
@@ -44,8 +48,14 @@ static OLCMigrator *_sharedInt = nil;
 - (void) initDb
 {
     OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
-    [dbH getDb];
+    FMDatabase *database = [dbH getDb];
+    
+    if(self.debugable)
+        NSLog(@"Path %@", database.databasePath);
+    
     [self makeMigrationTable];
+    [self backupDb:database.databasePath];
+    [self insertOrUpdateDatabseVersion];
 }
 
 /*!
@@ -62,49 +72,29 @@ static OLCMigrator *_sharedInt = nil;
     return isCreated;
 }
 
-/*!
- @brief         Update table version in migration table
- @discussion    Calling this will update the table version of a specific model class talbe
- @param         model Class of a specific model
- @param         dbVersion version number of the new or update model class
- @return        <b>BOOL</b> YES if created, NO if failed
- */
-- (BOOL) migrateTable:(Class) model for:(NSNumber *) dbVersion
-{
-    BOOL isAddOrUpdate = NO;
-    
-    NSDictionary *record = [self getMigrationRecordBy:model];
-    
-    if([record valueForKey:@"db_version"] != NULL)
-    {
-        [record setValue:dbVersion forKey:@"db_version"];
-        isAddOrUpdate = [self updateMigrationRecord:record];
-    }
-    else
-    {
-        isAddOrUpdate = [self makeMigrationRecord:model for:dbVersion];
-    }
-    
-    return isAddOrUpdate;
-    
-}
-
-
 - (BOOL) makeTable:(Class) model
 {
     BOOL isCreated = NO;
     
-    isCreated = [self insertOrUpdateMigration:model for:self.dbVersion];
+    isCreated = [self insertOrUpdateMigration:model for:self.dbVersion withMigration:YES];
     
     return isCreated;
 }
 
-
-- (BOOL) makeTable:(Class) model withTableVersion:(NSNumber *) version
+- (BOOL) makeTable:(Class) model withMigration:(BOOL) migrate
 {
     BOOL isCreated = NO;
     
-    isCreated = [self insertOrUpdateMigration:model for:version];
+    isCreated = [self insertOrUpdateMigration:model for:self.dbVersion withMigration:migrate];
+    
+    return isCreated;
+}
+
+- (BOOL) makeTable:(Class) model withTableVersion:(NSNumber *) version withMigration:(BOOL) migrate
+{
+    BOOL isCreated = NO;
+    
+    isCreated = [self insertOrUpdateMigration:model for:version withMigration:migrate];
     
     return isCreated;
 }
@@ -119,7 +109,7 @@ static OLCMigrator *_sharedInt = nil;
  @param         version table verion number
  @return        <b>BOOL</b> YES if created, NO if failed
  */
-- (BOOL) insertOrUpdateMigration:(Class) model for:(NSNumber *) version
+- (BOOL) insertOrUpdateMigration:(Class) model for:(NSNumber *) version withMigration:(BOOL) migrate
 {
     BOOL isCreated = NO;
     
@@ -127,12 +117,14 @@ static OLCMigrator *_sharedInt = nil;
     
     if([record valueForKey:@"db_version"] != NULL)
     {
-//        NSNumber *ver = [record valueForKey:@"db_version"];
-        
         if([[record valueForKey:@"db_version"] intValue] < [version intValue])
         {
             OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
             isCreated = [dbH makeTable:model];
+            
+            //migrate record from old table
+            if(migrate)
+                [self migrateRecords:model];
         }
         else
         {
@@ -159,6 +151,55 @@ static OLCMigrator *_sharedInt = nil;
     }
     
     return isCreated;
+}
+
+- (BOOL) insertOrUpdateDatabseVersion
+{
+    BOOL isCreated = NO;
+    
+    NSDictionary *record = [self getMigrationRecordBy:[self class]];
+    if([record valueForKey:@"db_version"] != NULL)
+    {
+        [record setValue:self.dbVersion forKey:@"db_version"];
+        isCreated = [self updateMigrationRecord:record];
+    }
+    else
+    {
+        isCreated = [self makeMigrationRecord:[self class] for:self.dbVersion];
+    }
+    
+    return isCreated;
+}
+
+- (BOOL) backupDb: (NSString *) databasePath
+{
+    BOOL isBackedUp = NO;
+    
+    NSDictionary *record = [self getMigrationRecordBy:[self class]];
+    if([record valueForKey:@"db_version"] != NULL)
+    {
+        if([[record valueForKey:@"db_version"] intValue] < [self.dbVersion intValue])
+        {
+            //backup the current database
+            if ([[NSFileManager defaultManager] isReadableFileAtPath:databasePath] )
+            {
+                NSString *tmpPath = [NSString stringWithFormat:@"%@.old", databasePath];
+                
+                NSError *error;
+                if ([[NSFileManager defaultManager] isDeletableFileAtPath:tmpPath])
+                {
+                    BOOL success = [[NSFileManager defaultManager] removeItemAtPath:tmpPath error:&error];
+                    if (!success) {
+                        NSLog(@"Error removing file at path: %@", error.localizedDescription);
+                    }
+                }
+                
+                [[NSFileManager defaultManager] copyItemAtPath:databasePath toPath:tmpPath error:nil];
+            }
+        }
+    }
+    
+    return YES;
 }
 
 /*!
@@ -337,7 +378,6 @@ static OLCMigrator *_sharedInt = nil;
             }
             
         }];
-        //        isCreated = [database executeStatements:statment];
     }
     @catch (NSException *exception)
     {
@@ -349,6 +389,68 @@ static OLCMigrator *_sharedInt = nil;
     }
     
     return record;
+}
+
+/*!
+ @brief         Restore data from previous database
+ @discussion    Method used to migrate data from old database to new without any data loss.
+ @remark        Private method
+ @param         model Class of a specific model
+ @return        <b>NSDictionary</b> record values
+ */
+- (void) migrateRecords:(Class) model
+{
+    OLCDBHelper *dbH = [[OLCDBHelper alloc] init];
+    FMDatabase *database = [dbH getDb];
+    FMDatabaseQueue *newQueue = [dbH getQueueDb];
+    OLCTableHandler * queryH = [[OLCTableHandler alloc] init];
+    
+    NSString *previousPath = [NSString stringWithFormat:@"%@.old", database.databasePath];
+    
+    FMDatabaseQueue *oldQueue = [FMDatabaseQueue databaseQueueWithPath:previousPath];
+    
+    NSDate *_start = [NSDate date];
+    @try
+    {
+        [database open];
+        
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM %@", model];
+        
+        NSMutableArray *records = [[NSMutableArray alloc] init];
+        
+        [oldQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+            
+            FMResultSet *results = [db executeQuery:query];
+            
+            while([results next])
+            {
+                NSObject * object = [OLCModel makeObject:results forClass:model];
+                NSDictionary *queryData = [queryH createInsertQuery:object];
+                [records addObject:queryData];
+            }
+        }];
+        
+        [newQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+            
+            for(NSDictionary *dataobj in records)
+            {
+                [db executeUpdate:[dataobj valueForKey:OLC_D_QUERY] withParameterDictionary:[dataobj valueForKey:OLC_D_DATA]];
+            }
+        }];
+    }
+    @catch (NSException *exception)
+    {
+        NSLog(@"DBException: %@ %@", exception.name, exception.reason);
+    }
+    @finally
+    {
+        [oldQueue close];
+        [newQueue close];
+        [database close];
+        
+        double timeelapsed = [_start timeIntervalSinceNow] * -1000.0;
+        NSLog(@"[%@]: %@ - Migration time : %fms", OLC_LOG, model, timeelapsed);
+    }
 }
 
 @end

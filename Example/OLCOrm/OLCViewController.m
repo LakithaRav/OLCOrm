@@ -62,7 +62,7 @@
         user.status = [NSNumber numberWithInt:1];
         
         //if you want to get the Id of inserted record
-        NSNumber *index = [user saveAndGetId];
+        //NSNumber *index = [user saveAndGetId];
         
         [user save];
         

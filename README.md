@@ -1,4 +1,4 @@
-# OLCOrm v1.0.5
+# OLCOrm v1.1.0
 
 [![CI Status](http://img.shields.io/travis/Lakitha Samarasinghe/OLCOrm.svg?style=flat)](https://travis-ci.org/Lakitha Samarasinghe/OLCOrm)
 [![Version](https://img.shields.io/cocoapods/v/OLCOrm.svg?style=flat)](http://cocoadocs.org/docsets/OLCOrm)
@@ -25,6 +25,11 @@ it, simply add the following line to your Podfile:
     pod "OLCOrm"
     
 ## What's new ?
+
+2016-07-24
+
+> Database migration at database update added. Now by default data will be extracted from old database to the new. No data loss. Call `- (BOOL) makeTable:(Class) model withMigration:(BOOL) migrate;` with `NO` if don't want to restore old data.
+> Debug log improved - Extra log records added to check performance.
 
 2016-05-18
 

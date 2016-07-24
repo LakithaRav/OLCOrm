@@ -59,10 +59,14 @@ static OLCOrm *_sharedInt = nil;
     return [dbH makeTable:model];
 }
 
-
-- (BOOL) makeTable:(Class) model withTableVersion:(NSNumber *) version
+- (BOOL) makeTable:(Class) model withMigration:(BOOL) migrate
 {
-    return [dbH makeTable:model withTableVersion:version];
+    return [dbH makeTable:model withMigration:migrate];
+}
+
+- (BOOL) makeTable:(Class) model withTableVersion:(NSNumber *) version withMigration:(BOOL) migrate
+{
+    return [dbH makeTable:model withTableVersion:version withMigration:migrate];
 }
 
 #pragma mark - private
@@ -76,7 +80,7 @@ static OLCOrm *_sharedInt = nil;
  */
 - (void) createDatabase:(NSString *) name withVersion:(NSNumber *) version
 {
-    dbH = [OLCMigrator sharedInstance:name version:version enableDebug:NO];
+    dbH = [OLCMigrator sharedInstance:name version:version enableDebug:self.debugable];
     [dbH initDb];
 }
 

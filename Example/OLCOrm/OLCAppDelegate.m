@@ -23,7 +23,7 @@
     
 //    [Crashlytics startWithAPIKey:@"1f6d052a2d1b10665a77ee75fd6e6d2681450b78"];
     
-    NSLog(@"%@",[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory  inDomains:NSUserDomainMask] lastObject]);
+    //NSLog(@"%@",[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory  inDomains:NSUserDomainMask] lastObject]);
     
     [self setupTheme];
     [self initDb];
@@ -69,10 +69,10 @@
 
 - (void) initDb
 {
-    OLCOrm *dbH = [OLCOrm databaseName:@"olcdemo.sqlite" version:[NSNumber numberWithInt:19] enableDebug:YES];
+    OLCOrm *dbH = [OLCOrm databaseName:@"olcdemo.sqlite" version:[NSNumber numberWithInt:24] enableDebug:NO];
 
     [dbH makeTable:[TestObject class]];
-    [dbH makeTable:[UserObject class]];
+    [dbH makeTable:[UserObject class] withMigration:NO];
 }
 
 @end

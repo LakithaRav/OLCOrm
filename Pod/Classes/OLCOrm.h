@@ -45,7 +45,7 @@
 
 /*!
  @brief         Intermediate method to create table for a specific model class
- @discussion    This method will call the 'OLCMigrator' objects 'makeTable:(Class) model' method
+ @discussion    This method will call the 'OLCMigrator' objects 'makeTable:(Class) model' method. By default Migration set to <b>YES</b>
  @param         model Mode class to create
  @return        <b>BOOL</b> debug status YES if enabled NO if not
  */
@@ -53,11 +53,19 @@
 
 /*!
  @brief         Intermediate method to create table for a specific model class
- @discussion    This method will call the 'OLCMigrator' objects 'makeTable:(Class) model withTableVersion:(NSNumber *) version' method
+ @discussion    This method will call the 'OLCMigrator' objects 'makeTable:(Class) model' method. Similar to '- (BOOL) makeTable:(Class) model' passing 'withMigration' as <b>YES</b> or <b>NO</b> will tell the library whether to migrate data from old database or not.
+ @param         model Mode class to create
+ @return        <b>BOOL</b> debug status YES if enabled NO if not
+ */
+- (BOOL) makeTable:(Class) model withMigration:(BOOL) migrate;
+
+/*!
+ @brief         Intermediate method to create table for a specific model class
+ @discussion    This method will call the 'OLCMigrator' objects 'makeTable:(Class) model withTableVersion:(NSNumber *) version' method. Also set withMigration to <b>YES</b> or <b>NO</b> to migrate records from previous database version.
  @param         model Mode class to create
  @param         version Table version
  @return        <b>BOOL</b> debug status YES if enabled NO if not
  */
-- (BOOL) makeTable:(Class) model withTableVersion:(NSNumber *) dbVersion;
+- (BOOL) makeTable:(Class) model withTableVersion:(NSNumber *) version withMigration:(BOOL) migrate;
 
 @end

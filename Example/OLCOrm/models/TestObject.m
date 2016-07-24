@@ -25,7 +25,7 @@
 
 + (BOOL) debug
 {
-    return NO;
+    return YES;
 }
 
 @end

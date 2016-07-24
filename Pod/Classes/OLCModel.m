@@ -11,6 +11,7 @@
 #import "OLCObjectParser.h"
 #import "NSObject+KJSerializer.h"
 #import "OLCTableHandler.h"
+#import "OLCOrm.h"
 
 #define OLC_LOG @"OLCLOG"
 
@@ -55,6 +56,7 @@
     
     [database open];
     
+    NSDate *_start = [NSDate date];
     @try
     {
         NSDictionary *queryData = [queryH createInsertQuery:self];
@@ -71,6 +73,12 @@
             [self notifyChange:Insert];
         
         [database close];
+        
+        if([self.class debug])
+        {
+            double timeelapsed = [_start timeIntervalSinceNow] * -1000.0;
+            NSLog(@"[%@]: %@ - save : %fms", OLC_LOG, [self class], timeelapsed);
+        }
     }
     
     return isAdded;
@@ -87,6 +95,7 @@
     
     [database open];
     
+    NSDate *_start = [NSDate date];
     @try
     {
         NSDictionary *queryData  = [queryH createInsertQuery:self];
@@ -119,6 +128,12 @@
             [self notifyChange:Insert];
         
         [database close];
+        
+        if([self.class debug])
+        {
+            double timeelapsed = [_start timeIntervalSinceNow] * -1000.0;
+            NSLog(@"[%@]: %@ - saveAndGetId : %fms", OLC_LOG, [self class], timeelapsed);
+        }
     }
     
     return recordId;
@@ -135,6 +150,7 @@
     
     [database open];
     
+    NSDate *_start = [NSDate date];
     @try
     {
         NSDictionary *queryData = [queryH createUpdateQuery:self];
@@ -151,6 +167,12 @@
             [self notifyChange:Update];
         
         [database close];
+        
+        if([self.class debug])
+        {
+            double timeelapsed = [_start timeIntervalSinceNow] * -1000.0;
+            NSLog(@"[%@]: %@ - update : %fms", OLC_LOG, [self class], timeelapsed);
+        }
     }
     
     return isUpdated;
@@ -167,6 +189,7 @@
     
     [database open];
     
+    NSDate *_start = [NSDate date];
     @try
     {
         NSString *query = [queryH createDeleteQuery:self];
@@ -183,6 +206,12 @@
             [self notifyChange:Delete];
         
         [database close];
+        
+        if([self.class debug])
+        {
+            double timeelapsed = [_start timeIntervalSinceNow] * -1000.0;
+            NSLog(@"[%@]: %@ - delete : %fms", OLC_LOG, [self class], timeelapsed);
+        }
     }
     
     return isDeleted;
@@ -203,6 +232,7 @@
     
     [database open];
     
+    NSDate *_start = [NSDate date];
     @try
     {
         qH = [[OLCTableHandler alloc] init];
@@ -228,6 +258,12 @@
     {
         qH = nil;
         [database close];
+        
+        if([self.class debug])
+        {
+            double timeelapsed = [_start timeIntervalSinceNow] * -1000.0;
+            NSLog(@"[%@]: %@ - hasOne : %fms", OLC_LOG, [self class], timeelapsed);
+        }
     }
     
     return object;
@@ -246,6 +282,7 @@
     
     [database open];
     
+    NSDate *_start = [NSDate date];
     @try
     {
         qH = [[OLCTableHandler alloc] init];
@@ -272,6 +309,12 @@
     {
         qH = nil;
         [database close];
+        
+        if([self.class debug])
+        {
+            double timeelapsed = [_start timeIntervalSinceNow] * -1000.0;
+            NSLog(@"[%@]: %@ - hasMany : %fms", OLC_LOG, [self class], timeelapsed);
+        }
     }
     
     return  objArry;
@@ -322,6 +365,7 @@
     
     [database open];
     
+    NSDate *_start = [NSDate date];
     @try
     {
         qH = [[OLCTableHandler alloc] init];
@@ -344,6 +388,12 @@
     {
         qH = nil;
         [database close];
+        
+        if([self debug])
+        {
+            double timeelapsed = [_start timeIntervalSinceNow] * -1000.0;
+            NSLog(@"[%@]: %@ - all : %fms", OLC_LOG, [self class], timeelapsed);
+        }
     }
     
     return objArry;
@@ -362,6 +412,7 @@
     
     [database open];
     
+    NSDate *_start = [NSDate date];
     @try
     {
         qH = [[OLCTableHandler alloc] init];
@@ -383,6 +434,12 @@
     {
         qH = nil;
         [database close];
+        
+        if([self debug])
+        {
+            double timeelapsed = [_start timeIntervalSinceNow] * -1000.0;
+            NSLog(@"[%@]: %@ - find : %fms", OLC_LOG, [self class], timeelapsed);
+        }
     }
     
     return object;
@@ -401,6 +458,7 @@
     
     [database open];
     
+    NSDate *_start = [NSDate date];
     @try
     {
         qH = [[OLCTableHandler alloc] init];
@@ -423,6 +481,12 @@
     {
         qH = nil;
         [database close];
+        
+        if([self debug])
+        {
+            double timeelapsed = [_start timeIntervalSinceNow] * -1000.0;
+            NSLog(@"[%@]: %@ - whereColumn : %fms", OLC_LOG, [self class], timeelapsed);
+        }
     }
     
     return  objArry;
@@ -441,6 +505,7 @@
     
     [database open];
     
+    NSDate *_start = [NSDate date];
     @try
     {
         qH = [[OLCTableHandler alloc] init];
@@ -463,6 +528,12 @@
     {
         qH = nil;
         [database close];
+        
+        if([self debug])
+        {
+            double timeelapsed = [_start timeIntervalSinceNow] * -1000.0;
+            NSLog(@"[%@]: %@ - where : %fms", OLC_LOG, [self class], timeelapsed);
+        }
     }
     
     return  objArry;
@@ -479,6 +550,7 @@
     
     [database open];
     
+    NSDate *_start = [NSDate date];
     @try
     {
         FMResultSet *results = [database executeQuery:query];
@@ -497,6 +569,12 @@
     @finally
     {
         [database close];
+        
+        if([self debug])
+        {
+            double timeelapsed = [_start timeIntervalSinceNow] * -1000.0;
+            NSLog(@"[%@]: %@ - query : %fms", OLC_LOG, [self class], timeelapsed);
+        }
     }
     
     return  objArry;
@@ -515,6 +593,7 @@
     
     [database open];
     
+    NSDate *_start = [NSDate date];
     @try
     {
         qH = [[OLCTableHandler alloc] init];
@@ -530,6 +609,12 @@
     @finally
     {
         [database close];
+        
+        if([self debug])
+        {
+            double timeelapsed = [_start timeIntervalSinceNow] * -1000.0;
+            NSLog(@"[%@]: %@ - truncate : %fms", OLC_LOG, [self class], timeelapsed);
+        }
     }
     
     return isDeleted;
@@ -541,6 +626,50 @@
 //    
 //    return records;
 //}
+
++ (void) printTable
+{
+    NSArray *objects = [self all];
+    
+    OLCObjectParser *parse = [[OLCObjectParser alloc] init];
+    NSArray *columns = [parse scanModel:[self class]];
+    
+    NSMutableString *log = [[NSMutableString alloc] init];
+    
+    [log appendString:@"\n"];
+    
+    for(NSDictionary *header in columns)
+    {
+        [log appendString:[NSString stringWithFormat:@"%@\t ", [header valueForKey:@"column"]]];
+    }
+    
+    [log appendString:@"\n"];
+    
+    for(NSDictionary *record in objects)
+    {
+        for(NSDictionary *header in columns)
+        {
+            if(
+               [[header valueForKey:@"type"] isEqualToString:@"@\"NSData\""] ||
+               [[header valueForKey:@"type"] isEqualToString:@"@\"NSSet\""] ||
+               [[header valueForKey:@"type"] isEqualToString:@"@\"UIImage\""]
+               )
+                [log appendString:[NSString stringWithFormat:@"%@\t ", @"data"]];
+            else
+            {
+                NSString *data = [NSString stringWithFormat:@"%@", [record valueForKey:[header valueForKey:@"column"]]];
+                data = [data stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+                [log appendString:[NSString stringWithFormat:@"%@\t ", data]];
+            }
+        }
+        
+        [log appendString:@"\n"];
+    }
+    
+    [log appendString:@"\n"];
+    
+    NSLog(@"%@", log);
+}
 
 #pragma mark - notifications
 

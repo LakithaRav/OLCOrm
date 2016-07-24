@@ -190,6 +190,12 @@
 + (BOOL) truncate;
 
 /*!
+ @brief         Dump all record to Xcode console
+ @discussion    All the table data will be printed on Xcode console.
+ */
++ (void) printTable;
+
+/*!
  @brief         Will update the subscribed function on database changes
  @discussion    Subscribe to this method in situations where the application need to monitor changes in a specific model table such as insert, update or delete. When an opertion happen on the
  subscribed table this method will fire the passed method block that you want the callback.

@@ -53,11 +53,19 @@
 
 /*!
  @brief         Create the database table
- @discussion    This method will create the database table of the model class. Here when createing the database table, the verioning will consider the database version number to update the table structres
+ @discussion    This method will create the database table of the model class. Here when createing the database table, the verioning will consider the database version number to update the table structres. Migration from previous database is set to <b>YES</b> as Default.
  @param         model Class of a specific model
  @return        <b>BOOL</b> YES if created, NO if failed
  */
 - (BOOL) makeTable:(Class) model;
+
+/*!
+ @brief         Create the database table
+ @discussion    This method will create the database table of the model class. Similar to - (BOOL) makeTable:(Class) model, passing withMigration let library know if to migrate data from previous database version.
+ @param         model Class of a specific model
+ @return        <b>BOOL</b> YES if created, NO if failed
+ */
+- (BOOL) makeTable:(Class) model withMigration:(BOOL) migrate;
 
 /*!
  @brief         Create the database table
@@ -67,6 +75,6 @@
  @param         version table verion number
  @return        <b>BOOL</b> YES if created, NO if failed
  */
-- (BOOL) makeTable:(Class) model withTableVersion:(NSNumber *) dbVersion;
+- (BOOL) makeTable:(Class) model withTableVersion:(NSNumber *) version withMigration:(BOOL) migrate;
 
 @end
