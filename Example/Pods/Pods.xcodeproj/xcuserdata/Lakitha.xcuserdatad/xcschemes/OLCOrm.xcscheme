@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '189C868C7B53435B1A36BCB7'
-               BlueprintName = 'Pods-Tests'
+               BlueprintIdentifier = '0FC3E410E7AD00FA3A6032540BF59DBE'
+               BlueprintName = 'OLCOrm'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libPods-Tests.a'>
+               BuildableName = 'libOLCOrm.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

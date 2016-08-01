@@ -19,11 +19,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-Tests.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -38,11 +33,6 @@
 			<true/>
 		</dict>
 		<key>A57122E801293CFD87C9466C05522A14</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E2A571C2B54185178BD1096CDAEB85ED</key>
 		<dict>
 			<key>primary</key>
 			<true/>
