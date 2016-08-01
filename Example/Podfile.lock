@@ -2,7 +2,7 @@ PODS:
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
-  - OLCOrm (1.0.5):
+  - OLCOrm (1.1.0):
     - FMDB
 
 DEPENDENCIES:
@@ -15,6 +15,6 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
-  OLCOrm: 80dcc539ec5ab9cafe459715dc3e5acdb45b1c2d
+  OLCOrm: 01c39e8ebaf14ee69cdaca4fc2a8fd959b8ca5c6
 
 COCOAPODS: 0.39.0

@@ -173,7 +173,7 @@ static OLCMigrator *_sharedInt = nil;
 
 - (BOOL) backupDb: (NSString *) databasePath
 {
-    BOOL isBackedUp = NO;
+//    BOOL isBackedUp = NO;
     
     NSDictionary *record = [self getMigrationRecordBy:[self class]];
     if([record valueForKey:@"db_version"] != NULL)
