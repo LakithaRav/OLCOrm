@@ -8,7 +8,8 @@
 
 #import "OLCMigrator.h"
 #import "OLCDBHelper.h"
-#import "OLCModel.m"
+#import "OLCTableHandler.h"
+#import "OLCObjectParser.h"
 
 #define OLC_LOG @"OLCLOG"
 
@@ -424,7 +425,7 @@ static OLCMigrator *_sharedInt = nil;
             
             while([results next])
             {
-                NSObject * object = [OLCModel makeObject:results forClass:model];
+                NSObject * object = [OLCObjectParser makeObject:results forClass:model];
                 NSDictionary *queryData = [queryH createInsertQuery:object];
                 [records addObject:queryData];
             }

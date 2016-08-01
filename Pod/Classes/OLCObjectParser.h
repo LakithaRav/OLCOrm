@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class FMResultSet;
+
 @interface OLCObjectParser : NSObject
 
 /*!
@@ -35,5 +37,7 @@
  @return         <b>NSArray</b> array of NSDictionary values
  */
 - (NSArray *) parseObject: (NSObject *) object;
+
++ (NSObject *) makeObject:(FMResultSet *) result forClass:(Class) model;
 
 @end

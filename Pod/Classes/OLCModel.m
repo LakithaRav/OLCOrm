@@ -245,7 +245,7 @@
         {
             while([results next])
             {
-                object = [OLCModel makeObject:results forClass:model];
+                object = [OLCObjectParser makeObject:results forClass:model];
             }
         }
     }
@@ -295,7 +295,7 @@
         {
             while([results next])
             {
-                NSObject * object = [OLCModel makeObject:results forClass:model];
+                NSObject * object = [OLCObjectParser makeObject:results forClass:model];
                 [objArry addObject:object];
             }
         }
@@ -375,7 +375,7 @@
         
         while([results next])
         {
-            NSObject * object = [self makeObject:results forClass:[self class]];
+            NSObject * object = [OLCObjectParser makeObject:results forClass:[self class]];
             [objArry addObject:object];
         }
     }
@@ -422,7 +422,7 @@
         
         while([results next])
         {
-            object = [OLCModel makeObject:results forClass:[self class]];
+            object = [OLCObjectParser makeObject:results forClass:[self class]];
         }
     }
     @catch (NSException *exception)
@@ -468,7 +468,7 @@
                 
         while([results next])
         {
-            NSObject * object = [OLCModel makeObject:results forClass:[self class]];
+            NSObject * object = [OLCObjectParser makeObject:results forClass:[self class]];
             [objArry addObject:object];
         }
     }
@@ -515,7 +515,7 @@
         
         while([results next])
         {
-            NSObject * object = [OLCModel makeObject:results forClass:[self class]];
+            NSObject * object = [OLCObjectParser makeObject:results forClass:[self class]];
             [objArry addObject:object];
         }
     }
@@ -557,7 +557,7 @@
         
         while([results next])
         {
-            NSObject * object = [OLCModel makeObject:results forClass:[self class]];
+            NSObject * object = [OLCObjectParser makeObject:results forClass:[self class]];
             [objArry addObject:object];
         }
     }
@@ -698,148 +698,148 @@
     [[NSNotificationCenter defaultCenter] removeObserver:context name:NSStringFromClass([self class]) object:nil];
 }
 
-#pragma mark - private
-
-+ (NSObject *) makeObject:(FMResultSet *) result forClass:(Class) model
-{
-    NSObject * object = nil;
-    
-    OLCObjectParser *parse = [[OLCObjectParser alloc] init];
-    NSArray *columns = [parse scanModel:model];
-    
-    object = [model new];
-    NSDictionary * dictionary = [object getObjDictionary];
-    
-    NSArray  *ignoredList   = [model performSelector:@selector(ignoredProperties)];
-    
-    for(int i=0; i < [columns count]; i++)
-    {
-        NSDictionary *keyval    = (NSDictionary *) columns[i];
-        NSString *colName       = [keyval valueForKey:@"column"];
-        NSString *colType       = [keyval valueForKey:@"type"];
-        
-        if([ignoredList containsObject:colName]) continue;
-        
-        const char *type = [colType UTF8String];
-        
-        switch (type[0])
-        {
-            case 'i':
-                [dictionary setValue:[NSNumber numberWithInt:[result intForColumn:colName]] forKey:colName];
-                //            NSLog(@"int");
-                break;
-            case 's':
-                [dictionary setValue:[NSNumber numberWithShort:[result intForColumn:colName]] forKey:colName];
-                //            NSLog(@"short");
-                break;
-            case 'l':
-                [dictionary setValue:[NSNumber numberWithLong:[result longForColumn:colName]] forKey:colName];
-                //            NSLog(@"long");
-                break;
-            case 'q':
-                [dictionary setValue:[NSNumber numberWithLongLong:[result longLongIntForColumn:colName]] forKey:colName];
-                //            NSLog(@"long long");
-                break;
-            case 'C':
-                [dictionary setValue:[result stringForColumn:colName] forKey:colName];
-                //            NSLog(@"char");
-                break;
-            case 'c':
-                [dictionary setValue:[result stringForColumn:colName] forKey:colName];
-                //            NSLog(@"char");
-                break;
-            case 'I':
-                [dictionary setValue:[NSNumber numberWithInt:[result intForColumn:colName]] forKey:colName];
-                //            NSLog(@"int");
-                break;
-            case 'S':
-                [dictionary setValue:[result stringForColumn:colName] forKey:colName];
-                //            NSLog(@"short");
-                break;
-            case 'L':
-                [dictionary setValue:[NSNumber numberWithLong:[result longForColumn:colName]] forKey:colName];
-                //            NSLog(@"long");
-                break;
-            case 'Q':
-                [dictionary setValue:[NSNumber numberWithLong:[result longForColumn:colName]] forKey:colName];
-                //            NSLog(@"long");
-                break;
-            case 'f':
-                [dictionary setValue:[NSNumber numberWithFloat:[result doubleForColumn:colName]] forKey:colName];
-                //            NSLog(@"float");
-                break;
-            case 'd':
-                [dictionary setValue:[NSNumber numberWithDouble:[result doubleForColumn:colName]] forKey:colName];
-                //            NSLog(@"double");
-                break;
-            case 'B':
-                [dictionary setValue:[NSNumber numberWithInt:[result intForColumn:colName]] forKey:colName];
-                //            NSLog(@"bool");
-                break;
-            default:
-                
-                if([colType isEqualToString:@"@\"NSNumber\""])
-                {
-                    [dictionary setValue:[result objectForColumnName:colName] forKey:colName];
-                }
-                else if([colType isEqualToString:@"@\"NSString\""])
-                {
-                    [dictionary setValue:[result stringForColumn:colName] forKey:colName];
-                }
-                else if([colType isEqualToString:@"@\"NSDate\""])
-                {
-                    NSDate *date = [result dateForColumn:colName];
-                    [dictionary setValue:date forKey:colName];
-                }
-                else if([colType isEqualToString:@"@\"NSData\""])
-                {
-                    [dictionary setValue:[result dataForColumn:colName] forKey:colName];
-                }
-                else if([colType isEqualToString:@"@\"NSDictionary\""])
-                {
-                    NSData *data = [result dataForColumn:colName];
-                    NSDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-                    [dictionary setValue:dic forKey:colName];
-                }
-                else if([colType isEqualToString:@"@\"NSSet\""])
-                {
-                    NSData *data = [result dataForColumn:colName];
-                    NSSet *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-                    [dictionary setValue:array forKey:colName];
-                }
-                else if([colType isEqualToString:@"@\"NSArray\""])
-                {
-                    NSData *data = [result dataForColumn:colName];
-                    NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-                    
-                    [dictionary setValue:array forKey:colName];
-                }
-                else if([colType isEqualToString:@"@\"NSURL\""])
-                {
-                    [dictionary setValue:[NSURL URLWithString:[result stringForColumn:colName]] forKey:colName];
-                }
-                else if([colType isEqualToString:@"@\"NSInteger\""])
-                {
-                    [dictionary setValue:[NSNumber numberWithInt:[result intForColumn:colName]] forKey:colName];
-                }
-                else if([colType isEqualToString:@"@\"UIImage\""])
-                {
-                    NSData *data = [result dataForColumn:colName];
-                    [dictionary setValue:[UIImage imageWithData:data] forKey:colName];
-                }
-                else
-                {
-                    [dictionary setValue:[result dataForColumn:colName] forKey:colName];
-                }
-                
-                break;
-        }
-        
-    }
-    
-    [object setObjDictionary:dictionary];
-    
-    return object;
-}
+//#pragma mark - private
+//
+//+ (NSObject *) makeObject:(FMResultSet *) result forClass:(Class) model
+//{
+//    NSObject * object = nil;
+//    
+//    OLCObjectParser *parse = [[OLCObjectParser alloc] init];
+//    NSArray *columns = [parse scanModel:model];
+//    
+//    object = [model new];
+//    NSDictionary * dictionary = [object getObjDictionary];
+//    
+//    NSArray  *ignoredList   = [model performSelector:@selector(ignoredProperties)];
+//    
+//    for(int i=0; i < [columns count]; i++)
+//    {
+//        NSDictionary *keyval    = (NSDictionary *) columns[i];
+//        NSString *colName       = [keyval valueForKey:@"column"];
+//        NSString *colType       = [keyval valueForKey:@"type"];
+//        
+//        if([ignoredList containsObject:colName]) continue;
+//        
+//        const char *type = [colType UTF8String];
+//        
+//        switch (type[0])
+//        {
+//            case 'i':
+//                [dictionary setValue:[NSNumber numberWithInt:[result intForColumn:colName]] forKey:colName];
+//                //            NSLog(@"int");
+//                break;
+//            case 's':
+//                [dictionary setValue:[NSNumber numberWithShort:[result intForColumn:colName]] forKey:colName];
+//                //            NSLog(@"short");
+//                break;
+//            case 'l':
+//                [dictionary setValue:[NSNumber numberWithLong:[result longForColumn:colName]] forKey:colName];
+//                //            NSLog(@"long");
+//                break;
+//            case 'q':
+//                [dictionary setValue:[NSNumber numberWithLongLong:[result longLongIntForColumn:colName]] forKey:colName];
+//                //            NSLog(@"long long");
+//                break;
+//            case 'C':
+//                [dictionary setValue:[result stringForColumn:colName] forKey:colName];
+//                //            NSLog(@"char");
+//                break;
+//            case 'c':
+//                [dictionary setValue:[result stringForColumn:colName] forKey:colName];
+//                //            NSLog(@"char");
+//                break;
+//            case 'I':
+//                [dictionary setValue:[NSNumber numberWithInt:[result intForColumn:colName]] forKey:colName];
+//                //            NSLog(@"int");
+//                break;
+//            case 'S':
+//                [dictionary setValue:[result stringForColumn:colName] forKey:colName];
+//                //            NSLog(@"short");
+//                break;
+//            case 'L':
+//                [dictionary setValue:[NSNumber numberWithLong:[result longForColumn:colName]] forKey:colName];
+//                //            NSLog(@"long");
+//                break;
+//            case 'Q':
+//                [dictionary setValue:[NSNumber numberWithLong:[result longForColumn:colName]] forKey:colName];
+//                //            NSLog(@"long");
+//                break;
+//            case 'f':
+//                [dictionary setValue:[NSNumber numberWithFloat:[result doubleForColumn:colName]] forKey:colName];
+//                //            NSLog(@"float");
+//                break;
+//            case 'd':
+//                [dictionary setValue:[NSNumber numberWithDouble:[result doubleForColumn:colName]] forKey:colName];
+//                //            NSLog(@"double");
+//                break;
+//            case 'B':
+//                [dictionary setValue:[NSNumber numberWithInt:[result intForColumn:colName]] forKey:colName];
+//                //            NSLog(@"bool");
+//                break;
+//            default:
+//                
+//                if([colType isEqualToString:@"@\"NSNumber\""])
+//                {
+//                    [dictionary setValue:[result objectForColumnName:colName] forKey:colName];
+//                }
+//                else if([colType isEqualToString:@"@\"NSString\""])
+//                {
+//                    [dictionary setValue:[result stringForColumn:colName] forKey:colName];
+//                }
+//                else if([colType isEqualToString:@"@\"NSDate\""])
+//                {
+//                    NSDate *date = [result dateForColumn:colName];
+//                    [dictionary setValue:date forKey:colName];
+//                }
+//                else if([colType isEqualToString:@"@\"NSData\""])
+//                {
+//                    [dictionary setValue:[result dataForColumn:colName] forKey:colName];
+//                }
+//                else if([colType isEqualToString:@"@\"NSDictionary\""])
+//                {
+//                    NSData *data = [result dataForColumn:colName];
+//                    NSDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+//                    [dictionary setValue:dic forKey:colName];
+//                }
+//                else if([colType isEqualToString:@"@\"NSSet\""])
+//                {
+//                    NSData *data = [result dataForColumn:colName];
+//                    NSSet *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+//                    [dictionary setValue:array forKey:colName];
+//                }
+//                else if([colType isEqualToString:@"@\"NSArray\""])
+//                {
+//                    NSData *data = [result dataForColumn:colName];
+//                    NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+//                    
+//                    [dictionary setValue:array forKey:colName];
+//                }
+//                else if([colType isEqualToString:@"@\"NSURL\""])
+//                {
+//                    [dictionary setValue:[NSURL URLWithString:[result stringForColumn:colName]] forKey:colName];
+//                }
+//                else if([colType isEqualToString:@"@\"NSInteger\""])
+//                {
+//                    [dictionary setValue:[NSNumber numberWithInt:[result intForColumn:colName]] forKey:colName];
+//                }
+//                else if([colType isEqualToString:@"@\"UIImage\""])
+//                {
+//                    NSData *data = [result dataForColumn:colName];
+//                    [dictionary setValue:[UIImage imageWithData:data] forKey:colName];
+//                }
+//                else
+//                {
+//                    [dictionary setValue:[result dataForColumn:colName] forKey:colName];
+//                }
+//                
+//                break;
+//        }
+//        
+//    }
+//    
+//    [object setObjDictionary:dictionary];
+//    
+//    return object;
+//}
 
 @end

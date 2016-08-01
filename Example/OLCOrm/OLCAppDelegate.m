@@ -69,7 +69,7 @@
 
 - (void) initDb
 {
-    OLCOrm *dbH = [OLCOrm databaseName:@"olcdemo.sqlite" version:[NSNumber numberWithInt:24] enableDebug:NO];
+    OLCOrm *dbH = [OLCOrm databaseName:@"olcdemo.sqlite" version:[NSNumber numberWithInt:1] enableDebug:NO];
 
     [dbH makeTable:[TestObject class]];
     [dbH makeTable:[UserObject class] withMigration:NO];
