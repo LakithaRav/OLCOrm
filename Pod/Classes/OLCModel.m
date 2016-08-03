@@ -220,7 +220,7 @@
 #pragma mark - relationships
 
 
-- (NSObject *) hasOne:(Class) model foreignKeyCol:(NSString *) fkey /*primaryKeyCol:(NSString *) pkey*/
+- (NSObject *) hasOne:(Class) model foreignKey:(NSString *) fkey /*primaryKeyCol:(NSString *) pkey*/
 {
     NSObject * object = nil;
     
@@ -270,7 +270,7 @@
 }
 
 
-- (NSArray *) hasMany:(Class) model foreignKeyCol:(NSString *) fkey /*primaryKeyCol:(NSString *) pkey*/
+- (NSArray *) hasMany:(Class) model foreignKey:(NSString *) fkey /*primaryKeyCol:(NSString *) pkey*/
 {
     NSMutableArray *objArry = [[NSMutableArray alloc] init];
     
@@ -321,9 +321,9 @@
 }
 
 
-- (NSObject *) belongTo:(Class) model foreignKeyCol:(NSString *) pkey
+- (NSObject *) belongTo:(Class) model foreignKey:(NSString *) pkey
 {
-    return [self hasOne:model foreignKeyCol:pkey];
+    return [self hasOne:model foreignKey:pkey];
 }
 
 #pragma mark - static
