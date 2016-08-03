@@ -310,6 +310,4 @@ And for those who hate to use Core Data, FMDB is you best choice. But still it l
 
 So I develop this Libaray as an wrapper library to FMDB, that handle the database, table & all other CRUD function that we use daily. To make you life easire.
 
-This libaray is still at it early stages (not even Alpha) so you are always welcome to teak thigs here and there to make this better :).
-
 Happy Coding.
