@@ -15,7 +15,7 @@
 
 - (NSArray *) hasTests
 {
-    return [self hasMany:[TestObject class] foreignKeyCol:@"userId"];
+    return [self hasMany:[TestObject class] foreignKey:@"userId"];
 }
 
 @end

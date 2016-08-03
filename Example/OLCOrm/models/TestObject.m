@@ -15,7 +15,7 @@
 
 - (UserObject *) hasUser
 {
-    return (UserObject*) [self belongTo:[UserObject class] foreignKeyCol:@"userId"];
+    return (UserObject*) [self belongTo:[UserObject class] foreignKey:@"userId"];
 }
 
 + (NSArray *) ignoredProperties

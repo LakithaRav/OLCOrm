@@ -33,6 +33,7 @@
 {
     OLCMigrator *orm = [OLCMigrator getSharedInstance];
     
+    // NSDocumentDirectory should be condider as a security hall that need to be fixed, database should be moved to Library directory.
     NSArray *docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDir = [docPaths objectAtIndex:0];
     NSString *dbPath = [documentsDir   stringByAppendingPathComponent:orm.databasePath];
@@ -46,6 +47,7 @@
 {
     OLCMigrator *orm = [OLCMigrator getSharedInstance];
     
+    // NSDocumentDirectory should be condider as a security hall that need to be fixed, database should be moved to Library directory.
     NSArray *docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDir = [docPaths objectAtIndex:0];
     NSString *dbPath = [documentsDir   stringByAppendingPathComponent:orm.databasePath];

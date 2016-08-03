@@ -63,7 +63,7 @@
  @param          fkey Foreign Key Id of the reference object
  @return         <b>NSObject</b> if not found this will return 'nil'
  */
-- (NSObject *) hasOne:(Class) model foreignKeyCol:(NSString *) fkey /*primaryKeyCol:(NSString *) pkey*/;
+- (NSObject *) hasOne:(Class) model foreignKey:(NSString *) fkey /*primaryKeyCol:(NSString *) pkey*/;
 
 /*!
  @brief         One-to-Many Relationship
@@ -76,7 +76,7 @@
  @param         fkey Foreign Key Id of the reference object
  @return        <b>NSObject</b> if not found this will return 'nil'
  */
-- (NSArray *) hasMany:(Class) model foreignKeyCol:(NSString *) fkey /*primaryKeyCol:(NSString *) pkey*/;
+- (NSArray *) hasMany:(Class) model foreignKey:(NSString *) fkey /*primaryKeyCol:(NSString *) pkey*/;
 
 /*!
  @brief         One-to-One Relationship
@@ -90,7 +90,7 @@
  @return        <b>NSObject</b> if not found this will return 'nil'
  @see           (NSObject *) hasOne:(Class) model foreignKeyCol:(NSString *) fkey
  */
-- (NSObject *) belongTo:(Class) model foreignKeyCol:(NSString *) pkey;
+- (NSObject *) belongTo:(Class) model foreignKey:(NSString *) pkey;
 
 //- (NSArray *) belongToMany:(Class) model inMapping:(Class) mapmodel foreignKeyCol:(NSString *) fkey primaryKeyCOl:(NSString *) pkey;
 
