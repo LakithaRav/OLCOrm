@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1858568219A1BBA300DD3B88 /* UserObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1858568119A1BBA300DD3B88 /* UserObject.m */; };
-		1868B6791D51B02800DA2AAE /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = 1868B6781D51B02800DA2AAE /* CHANGELOG.md */; };
+		1868B67B1D51B71000DA2AAE /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = 1868B67A1D51B71000DA2AAE /* CHANGELOG.md */; };
 		18839617199B856400D17B73 /* TestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 18839616199B856400D17B73 /* TestObject.m */; };
 		188D0ECD19C69FA4007E051C /* PodPublishHelp in Resources */ = {isa = PBXBuildFile; fileRef = 188D0ECC19C69FA4007E051C /* PodPublishHelp */; };
 		18BDAEAC1A84AA170080C858 /* dracula.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BDAEAB1A84AA170080C858 /* dracula.png */; };
@@ -44,7 +44,7 @@
 		1820E98A19A47E5F000D7757 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		1858568019A1BBA300DD3B88 /* UserObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserObject.h; path = models/UserObject.h; sourceTree = "<group>"; };
 		1858568119A1BBA300DD3B88 /* UserObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserObject.m; path = models/UserObject.m; sourceTree = "<group>"; };
-		1868B6781D51B02800DA2AAE /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		1868B67A1D51B71000DA2AAE /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = CHANGELOG.md; path = ../CHANGELOG.md; sourceTree = "<group>"; };
 		18839616199B856400D17B73 /* TestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestObject.m; path = models/TestObject.m; sourceTree = "<group>"; };
 		188D0ECC19C69FA4007E051C /* PodPublishHelp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PodPublishHelp; sourceTree = "<group>"; };
 		18ABDFD61997397600AE5D13 /* TestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestObject.h; path = models/TestObject.h; sourceTree = "<group>"; };
@@ -200,11 +200,11 @@
 		60FF7A9C1954A5C5007DD14C /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
+				1868B67A1D51B71000DA2AAE /* CHANGELOG.md */,
 				D341457EE66E4041A7BF754C /* OLCOrm.podspec */,
 				DB60DB21D0C34FD4B352D84C /* README.md */,
 				9E4FBEAB4ED44D529E291FD6 /* LICENSE */,
 				188D0ECC19C69FA4007E051C /* PodPublishHelp */,
-				1868B6781D51B02800DA2AAE /* CHANGELOG.md */,
 			);
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
@@ -385,7 +385,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* OLCAppDelegate.m in Sources */,
-				1868B6791D51B02800DA2AAE /* CHANGELOG.md in Sources */,
+				1868B67B1D51B71000DA2AAE /* CHANGELOG.md in Sources */,
 				6003F5A7195388D20070C39A /* OLCViewController.m in Sources */,
 				18839617199B856400D17B73 /* TestObject.m in Sources */,
 				1858568219A1BBA300DD3B88 /* UserObject.m in Sources */,
