@@ -205,7 +205,7 @@ Example:
 [test hasOne:[UserObject class] foreignKey:@"userId"]
 ```
 Or
-```
+```objective-c
 [test belongTo:[UserObject class] foreignKey:@"userId"]
 ```
 
