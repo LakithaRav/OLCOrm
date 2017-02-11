@@ -1,4 +1,4 @@
-# OLCOrm v1.1.1
+# OLCOrm v1.1.2
 
 [![CI Status](http://img.shields.io/travis/Lakitha Samarasinghe/OLCOrm.svg?style=flat)](https://travis-ci.org/Lakitha Samarasinghe/OLCOrm)
 [![Version](https://img.shields.io/cocoapods/v/OLCOrm.svg?style=flat)](http://cocoadocs.org/docsets/OLCOrm)
@@ -280,7 +280,7 @@ To Unregistering:
 
 ## Contributing
 
-Everybody is welcome! Please don't mess with my code ;)
+Everybody is welcome!
 
 ## Authors
 
