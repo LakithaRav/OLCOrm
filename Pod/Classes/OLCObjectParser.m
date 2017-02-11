@@ -139,6 +139,10 @@
         else if([stringFromMORString isEqualToString:@"@\"UIImage\""])
         {
             NSData *data            = UIImagePNGRepresentation([object valueForKey:propertyName]);
+            if (!data)
+            {
+                data = [[NSData alloc]init];
+            }
             [column setObject:data forKey:@"value"];
         }
         else
