@@ -46,7 +46,7 @@
     [self makeSampleUser];
     
     [self getAllRecords];
- 
+    
 }
 
 #pragma OLCOrm Functions
@@ -147,6 +147,7 @@
     test.stuffArry = sarry;
     
     test.image = [UIImage imageNamed:@"dracula.png"];
+    //test.image = nil;
     test.data  = UIImagePNGRepresentation(test.image);
 
     BOOL isAdded = [test save];
@@ -294,7 +295,7 @@
     
     cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@", record.Id, record.title];
     cell.imageView.image = [UIImage imageWithData:record.data];
-    
+    NSLog(@"%@",record.image);
     return cell;
 }
 
