@@ -2,10 +2,14 @@
 All notable changes to this project will be documented in this file.
 
 ---
+## [1.1.3](https://github.com/LakithaRav/OLCOrm/releases/tag/1.1.3) (18/04/2017)
+Released on Tuesday, April 18, 2017.
+
+#### Changed
+* Database file moved from Document directory to Library directory to improve security.
 
 ## [1.1.2](https://github.com/LakithaRav/OLCOrm/releases/tag/1.1.2) (11/02/2017)
 Released on Saturday, February 11, 2017.
-
 
 #### Changed
 * Bug Fix `OLCObjectParser.m`, line 142 NULL data check added as a bug fix.
